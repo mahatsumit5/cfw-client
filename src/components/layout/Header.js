@@ -25,18 +25,23 @@ export const Header = () => {
             <Nav className="ms-auto">
               <Link to="/" className="nav-link ">
                 <BiSearchAlt />
+                SEARCH
               </Link>
               <Link to="/" className="nav-link">
                 <BiUser />
+                PROFILE
               </Link>
               <Link to="/" className="nav-link">
                 <BiCartAdd />
+                CART
               </Link>
               <Link to="/signup" className="nav-link">
                 <BiLogOut />
+                LOGOUT
               </Link>
               <Link to="/signin" className="nav-link">
                 <BiLogIn />
+                LOGIN
               </Link>
             </Nav>
           </Navbar.Collapse>

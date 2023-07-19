@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { CustomeInput } from "../customeInput/CustomeInput";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState } from "react";
+import { postUserAction } from "../../action/userAction";
 
 export const SingUpForm = () => {
   const [form, setForm] = useState();
@@ -64,6 +65,7 @@ export const SingUpForm = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(form); // form data here...
+    postUserAction(form);
   };
   return (
     <div className="">
