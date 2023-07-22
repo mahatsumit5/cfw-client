@@ -3,8 +3,13 @@ import { CustomeInput } from "../customeInput/CustomeInput";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { useState } from "react";
 import { postUserAction } from "../../action/userAction";
-
+import { CustomToggleButton } from "../Toggle/ToggleButton";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const SingUpForm = () => {
+  const navigate = useNavigate();
+  const [inputType, setInputType] = useState("password");
+
   const [form, setForm] = useState();
   const inputs = [
     {
@@ -45,7 +50,7 @@ export const SingUpForm = () => {
       name: "password",
       required: true,
       placeholder: "******",
-      type: "password",
+      type: inputType,
       minLength: "6",
     },
     {
@@ -53,7 +58,7 @@ export const SingUpForm = () => {
       name: "confirmPassword",
       required: true,
       placeholder: "******",
-      type: "password",
+      type: inputType,
       minLength: "6",
     },
   ];
@@ -62,14 +67,20 @@ export const SingUpForm = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(form); // form data here...
-    postUserAction(form);
+    const { confirmPassword, ...rest } = form;
+    if (confirmPassword !== form.password)
+      toast.warning("Password Does not Match");
+    const isSuccess = await postUserAction(rest);
+    if (isSuccess) navigate("/");
   };
   return (
-    <div className="">
-      <Form className="m-5 p-5 border shadow-lg" onSubmit={handleOnSubmit}>
+    <div className="container w-80  d-flex m-auto justify-content-center">
+      <Form
+        className="m-5 p-5 border shadow-lg  w-60 rounded-4"
+        onSubmit={handleOnSubmit}
+      >
         <h1>
           <BiSolidUserDetail />
           Create New Account
@@ -77,6 +88,11 @@ export const SingUpForm = () => {
         {inputs.map((item, index) => (
           <CustomeInput key={index} {...item} onChange={handleOnChange} />
         ))}
+        <CustomToggleButton
+          ToggleButton={"toggleButton"}
+          inputType={inputType}
+          setInputType={setInputType}
+        />
         <div className="d-grid">
           <Button type="submit">Submit</Button>
         </div>

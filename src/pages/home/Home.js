@@ -1,10 +1,10 @@
 import React from "react";
-import { Header } from "../../layout/Header";
-import { Footer } from "../../layout/Footer";
-import { CustomeCarousel } from "../../carousel/Carousel";
-import image1 from "../../../assests/image.jpg";
-import image2 from "../../../assests/image2.jpg";
-import image3 from "../../../assests/image3.jpg";
+import { Header } from "../../components/layout/Header";
+import { Footer } from "../../components/layout/Footer";
+import { CustomeCarousel } from "../../components/carousel/Carousel";
+import image1 from "../../assests/image.jpg";
+import image2 from "../../assests/image2.jpg";
+import image3 from "../../assests/image3.jpg";
 export const Home = () => {
   const pictures = [
     {

@@ -2,9 +2,6 @@
   min-height: 100vh;
 }
 
-html {
-  scroll-behavior: smooth;
-}
 :root {
   --ghost-white: #f7f7ff;
   --bright-pink: #ea526e;
@@ -16,7 +13,7 @@ html {
 .header {
   font-family: "Ubuntu", sans-serif;
   letter-spacing: 1px;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 500;
   text-transform: uppercase;
   position: sticky;
@@ -26,13 +23,9 @@ html {
   min-height: 10px;
 }
 .nav-link {
-  margin-right: 20px;
+  margin-right: 5px;
 }
-.dropdown-menu {
-  background: #ffffff0c !important ;
-  border: none !important;
-  backdrop-filter: blur(10px) !important;
-}
+
 /* Singin Form Css */
 .form {
   background-color: #fff;
@@ -100,7 +93,11 @@ html {
 .signup-link a {
   text-decoration: underline;
 }
-
-.footer {
-  color: var(--night);
+.toggleButton {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 133px;
+  width: 50px;
+  left: 250px;
 }

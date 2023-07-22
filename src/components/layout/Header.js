@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import {
   BiLogOut,
   BiUser,
@@ -15,9 +14,9 @@ export const Header = () => {
   return (
     <div className="header">
       {" "}
-      <Navbar expand="sm" className="header">
+      <Navbar expand="md" className="header">
         <Container>
-          <Link top="/" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             cfw
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
