@@ -6,6 +6,9 @@ import { SignUp } from "./pages/signin-singup/SignUp";
 import { Home } from "./pages/home/Home";
 import { ThemeProvider } from "react-bootstrap";
 import { VerifyEmail } from "./pages/verifyEmail/verifyEmail";
+import { Profile } from "./pages/profile/Profile";
+import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
+import { Cart } from "./pages/cart/Cart";
 function App() {
   return (
     // <ThemeProvider
@@ -18,6 +21,22 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
 
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <ToastContainer />

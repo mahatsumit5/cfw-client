@@ -19,16 +19,19 @@ export const postUserAction = async (userData) => {
 
 export const loginAction = (loginDetails) => async (dispatch) => {
   const pending = logInUser(loginDetails);
-  const { status, message, user } = await pending;
+  const { status, message, token } = await pending;
   toast[status](message);
-  dispatch(setUser(user));
-
-  return user;
+  if (status === "success") {
+    localStorage.setItem("refreshJWT", token.refreshJWT);
+    sessionStorage.setItem("accessJWT", token.accessJWT);
+    dispatch(getUserAction());
+  }
+  return true;
 };
 
-export const getUserAction = async (_id) => {
-  const { status, message, user } = await getUser(_id);
-  return user;
+export const getUserAction = () => async (dispatch) => {
+  const { status, user } = await getUser();
+  if (status === "success") dispatch(setUser(user));
 };
 
 export const verifyAccountAction = async (obj) => {

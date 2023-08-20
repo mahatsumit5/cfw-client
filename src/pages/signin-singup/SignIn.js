@@ -6,10 +6,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../action/userAction";
 import { toast } from "react-toastify";
-
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import { Visibility } from "@mui/icons-material";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 export const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const [form, setForm] = useState({});
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +35,9 @@ export const SignIn = () => {
     e.preventDefault();
     if (form?.email && form?.password) {
       const user = await dispatch(loginAction(form));
-      if (user?._id) navigate("/");
+      if (user) {
+        navigate("/");
+      }
 
       return user;
     }
@@ -29,33 +47,64 @@ export const SignIn = () => {
     <div>
       <Header />
       <main className="main ">
-        <Container className="w-80  d-flex m-auto justify-content-center mt-5 align-items-center">
-          <Form className="form" onSubmit={handleOnSubmit}>
+        <Container className="w-100  d-flex m-auto justify-content-center mt-5 align-items-center">
+          <Form
+            className="shadow rounded mt-3 p-3"
+            onSubmit={handleOnSubmit}
+            style={{ width: "350px" }}
+          >
             <p className="form-title">Sign in to your account</p>
-            <div className="d-grid input-container">
-              <input
+            <div className="mt-3">
+              <TextField
+                sx={{ m: 1, width: "35ch" }}
                 name="email"
                 type="email"
-                placeholder="Enter email"
+                variant="outlined"
+                label="Email *"
                 onChange={handleOnChange}
               />
             </div>
-            <div className="d-grid input-container">
-              <input
-                name="password"
-                type="password"
-                placeholder="Enter password"
-                onChange={handleOnChange}
-              />
+
+            <div>
+              <FormControl sx={{ m: 1, width: "35ch" }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  onChange={handleOnChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
             </div>
-            <div className="d-grid">
+
+            <div className="d-grid m-2">
               <Button type="submit">Sign in</Button>
             </div>
 
-            <p className="signup-link">
-              No account?
-              <Link to="/signup">Sign up</Link>
-            </p>
+            <div className="d-flex gap-5 p-2 ">
+              <p className="signup-link">
+                No account?
+                <Link to="/signup">Sign up</Link>
+              </p>
+              <p className="text-end">
+                <Link to="/reset-password">Forgot Password?</Link>
+              </p>
+            </div>
           </Form>
         </Container>
       </main>

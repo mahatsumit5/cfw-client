@@ -1,13 +1,29 @@
 import axios from "axios";
 const rootApi = process.env.REACT_APP_ROOTAPI;
 const userApi = rootApi + "/user";
-
-const axiosProcessor = async ({ method, url, obj }) => {
+const getAccessJWt = () => {
+  return sessionStorage.getItem("accessJWT");
+};
+const getRefreshJWT = () => {
+  return localStorage.getItem("refreshJWT");
+};
+const axiosProcessor = async ({
+  method,
+  url,
+  obj,
+  isPrivate,
+  refreshToken,
+}) => {
+  const token = refreshToken ? getRefreshJWT() : getAccessJWt();
+  const headers = {
+    Authorization: isPrivate ? token : null,
+  };
   try {
     const { data } = await axios({
       method,
       url,
       data: obj,
+      headers,
     });
     return data;
   } catch (error) {
@@ -28,6 +44,18 @@ export const postUser = async (userData) => {
   return axiosProcessor(obj);
 };
 
+export const logOutUser = async (_id) => {
+  const obj = {
+    method: "post",
+    url: userApi + "/logout",
+    obj: {
+      _id,
+      accessJWT: getAccessJWt(),
+      refreshJWT: getRefreshJWT(),
+    },
+  };
+  return axiosProcessor(obj);
+};
 export const logInUser = async (loginDetails) => {
   const obj = {
     method: "post",
@@ -40,8 +68,8 @@ export const logInUser = async (loginDetails) => {
 export const getUser = async (_id) => {
   const obj = {
     method: "get",
-    url: userApi + "/login",
-    obj: _id,
+    url: userApi,
+    isPrivate: true,
   };
   return axiosProcessor(obj);
 };
