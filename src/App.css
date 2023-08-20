@@ -19,8 +19,8 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(10px);
-  min-height: 10px;
+  backdrop-filter: blur(25px);
+  height: 7vh;
 }
 .nav-link {
   margin-right: 5px;
@@ -100,4 +100,8 @@
   bottom: 133px;
   width: 50px;
   left: 250px;
+}
+.navbar-toggler {
+  /* margin-top: 10px; */
+  border: none !important;
 }

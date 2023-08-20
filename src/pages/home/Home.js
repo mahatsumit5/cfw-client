@@ -5,6 +5,7 @@ import { CustomeCarousel } from "../../components/carousel/Carousel";
 import image1 from "../../assests/image.jpg";
 import image2 from "../../assests/image2.jpg";
 import image3 from "../../assests/image3.jpg";
+import { UserLayout } from "../../components/layout/UserLayout";
 export const Home = () => {
   const pictures = [
     {
@@ -24,14 +25,10 @@ export const Home = () => {
     },
   ];
   return (
-    <div>
-      <div className="landingPage">
-        <Header />
+    <div className="landingPage">
+      <UserLayout>
         <CustomeCarousel />
-
-        <main className="main "></main>
-      </div>
-      <Footer />
+      </UserLayout>
     </div>
   );
 };
