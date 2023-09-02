@@ -1,39 +1,5 @@
-import axios from "axios";
-const rootApi = process.env.REACT_APP_ROOTAPI;
+import { axiosProcessor, getAccessJWt, getRefreshJWT, rootApi } from "../const";
 const userApi = rootApi + "/user";
-const getAccessJWt = () => {
-  return sessionStorage.getItem("accessJWT");
-};
-const getRefreshJWT = () => {
-  return localStorage.getItem("refreshJWT");
-};
-const axiosProcessor = async ({
-  method,
-  url,
-  obj,
-  isPrivate,
-  refreshToken,
-}) => {
-  const token = refreshToken ? getRefreshJWT() : getAccessJWt();
-  const headers = {
-    Authorization: isPrivate ? token : null,
-  };
-  try {
-    const { data } = await axios({
-      method,
-      url,
-      data: obj,
-      headers,
-    });
-    return data;
-  } catch (error) {
-    return {
-      status: "error",
-      message: error.response ? error?.response?.data?.message : error.message,
-      error,
-    };
-  }
-};
 
 export const postUser = async (userData) => {
   const obj = {

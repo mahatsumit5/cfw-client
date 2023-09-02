@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Header } from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
 import { Form, Button, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -9,11 +7,14 @@ import { toast } from "react-toastify";
 import {
   FormControl,
   IconButton,
+  Input,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   TextField,
 } from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Visibility } from "@mui/icons-material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { UserLayout } from "../../components/layout/UserLayout";
@@ -48,9 +49,9 @@ export const SignIn = () => {
     <UserLayout>
       <Container className="w-100  d-flex m-auto justify-content-center mt-5 align-items-center">
         <Form
-          className="shadow rounded mt-3 p-3"
+          className="shadow rounded p-4"
           onSubmit={handleOnSubmit}
-          style={{ width: "350px" }}
+          style={{}}
         >
           <p className="form-title">Sign in to your account</p>
           <div className="mt-3">
@@ -58,9 +59,16 @@ export const SignIn = () => {
               sx={{ m: 1, width: "35ch" }}
               name="email"
               type="email"
-              variant="outlined"
-              label="Email *"
+              variant="standard"
+              label="Email"
               onChange={handleOnChange}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             />
           </div>
 
@@ -69,7 +77,7 @@ export const SignIn = () => {
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
-              <OutlinedInput
+              <Input
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -87,6 +95,11 @@ export const SignIn = () => {
                   </InputAdornment>
                 }
                 label="Password"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockOutlinedIcon />
+                  </InputAdornment>
+                }
               />
             </FormControl>
           </div>

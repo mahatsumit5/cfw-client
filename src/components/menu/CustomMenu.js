@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-
+import { useSelector } from "react-redux";
 export const CustomMenu = () => {
-  const [value, setValue] = React.useState(0);
-
+  const [value, setValue] = useState(0);
+  const { catagories } = useSelector((store) => store.catagoryInfo);
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
   };
 
   return (
     <div>
       <Box
         sx={{
-          maxWidth: { xs: 470, sm: 680 },
+          maxWidth: { xs: 470, sm: 580 },
           md: "1000",
           bgcolor: "background.paper",
         }}
@@ -27,13 +26,9 @@ export const CustomMenu = () => {
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-          <Tab label="NEW ITEM" />
-          <Tab label="CLOTHING" />
-          <Tab label="SHOES" />
-          <Tab label="ACCESSORIES" />
-          <Tab label="SPORTS" />
-          <Tab label="BRANDS" />
-          <Tab label="SALE" />
+          {catagories?.map((cat) => (
+            <Tab key={cat._id} label={cat.title} />
+          ))}
         </Tabs>
       </Box>
     </div>

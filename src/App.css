@@ -20,7 +20,7 @@
   top: 0;
   z-index: 10;
   backdrop-filter: blur(25px);
-  height: 7vh;
+  padding: 0 50px;
 }
 .nav-link {
   margin-right: 5px;

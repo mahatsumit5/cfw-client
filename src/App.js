@@ -4,17 +4,23 @@ import { ToastContainer } from "react-toastify";
 import { SignIn } from "./pages/signin-singup/SignIn";
 import { SignUp } from "./pages/signin-singup/SignUp";
 import { Home } from "./pages/home/Home";
-import { ThemeProvider } from "react-bootstrap";
 import { VerifyEmail } from "./pages/verifyEmail/verifyEmail";
 import { Profile } from "./pages/profile/Profile";
 import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
 import { Cart } from "./pages/cart/Cart";
+import { useEffect } from "react";
+import { getCatagoriesAction } from "./action/catagoryAction";
+import { useDispatch } from "react-redux";
+import { getProductsAction } from "./action/productAction";
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCatagoriesAction());
+    dispatch(getProductsAction());
+  }, []);
+
   return (
-    // <ThemeProvider
-    //   breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
-    //   minBreakpoint="xxs"
-    // >
     <div>
       <Routes>
         <Route path="/" element={<Home />} />

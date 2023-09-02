@@ -24,7 +24,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="header d-flex shadow rounded justify-content-between  ">
+    <Box className="  header d-flex shadow rounded justify-content-between  ">
       <div className=" fs-4 fw-bold  m-2">
         <Link to="/" className="navbar-brand">
           <p> CFW</p>
@@ -68,7 +68,7 @@ export const Header = () => {
           </Container>
         </Navbar>
       </div>
-      <div className="   w-50 d-md-block flex-fill ">
+      <div className="   mt-2 w-50 d-md-block flex-fill ">
         <SearchBar />
       </div>
       <div className="m-1">
@@ -95,6 +95,6 @@ export const Header = () => {
         />
         <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
       </div>
-    </div>
+    </Box>
   );
 };
