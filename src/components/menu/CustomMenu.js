@@ -11,26 +11,30 @@ export const CustomMenu = () => {
   };
 
   return (
-    <div>
-      <Box
-        sx={{
-          maxWidth: { xs: 470, sm: 580 },
-          md: "1000",
-          bgcolor: "background.paper",
-        }}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
+    <>
+      {catagories?.length ? (
+        <Box
+          sx={{
+            maxWidth: { xs: 470, sm: 680 },
+            md: "1000",
+            bgcolor: "background.paper",
+          }}
         >
-          {catagories?.map((cat) => (
-            <Tab key={cat._id} label={cat.title} />
-          ))}
-        </Tabs>
-      </Box>
-    </div>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            {catagories?.map((cat) => (
+              <Tab key={cat._id} label={cat.title} />
+            ))}
+          </Tabs>
+        </Box>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };

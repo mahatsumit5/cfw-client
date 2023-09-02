@@ -10,10 +10,10 @@ export const getCatagories = async () => {
   return axiosProcessor(obj);
 };
 
-export const getProducts = async () => {
+export const getProducts = async (_id) => {
   const obj = {
     method: "get",
-    url: productApi,
+    url: _id ? productApi + `/${_id}` : productApi,
   };
   return axiosProcessor(obj);
 };

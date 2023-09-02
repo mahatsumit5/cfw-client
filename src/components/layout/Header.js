@@ -68,7 +68,7 @@ export const Header = () => {
           </Container>
         </Navbar>
       </div>
-      <div className="   mt-2 w-50 d-md-block flex-fill ">
+      <div className="   mt-2 w-25 d-md-block flex-fill ">
         <SearchBar />
       </div>
       <div className="m-1">

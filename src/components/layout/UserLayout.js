@@ -9,8 +9,8 @@ export const UserLayout = ({ children }) => {
     <div>
       <Header />
       <CustomBreadCrumb />
-      <CustomMenu />
-      <main className="main ">{children}</main>
+
+      <main className="main p-5">{children}</main>
       <Footer />
     </div>
   );

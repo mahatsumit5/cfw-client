@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { getCatagoriesAction } from "./action/catagoryAction";
 import { useDispatch } from "react-redux";
 import { getProductsAction } from "./action/productAction";
+import { ProductLandingPage } from "./pages/product/ProductPage";
 function App() {
   const dispatch = useDispatch();
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
+        <Route path={"product/:_id"} element={<ProductLandingPage />} />
 
         <Route
           path="/profile"
@@ -35,14 +37,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/cart"
-          element={
-            <PrivateRoute>
-              <Cart />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <ToastContainer />

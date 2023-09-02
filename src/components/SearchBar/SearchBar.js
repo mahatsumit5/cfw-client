@@ -2,17 +2,12 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { TextField } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export const SearchBar = () => {
-  const top100Films = [
-    { title: "The Shawshank Redemption", year: 1994 },
-    { title: "The Godfather", year: 1972 },
-    { title: "The Godfather: Part II", year: 1974 },
-    { title: "The Dark Knight", year: 2008 },
-    { title: "12 Angry Men", year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: "Pulp Fiction", year: 1994 },
-  ];
+  const { products } = useSelector((store) => store.productInfo);
+  const { catagories } = useSelector((store) => store.catagoryInfo);
+  const data = [...products, ...catagories];
   return (
     <>
       <Stack spacing={1} sx={{}}>
@@ -20,7 +15,7 @@ export const SearchBar = () => {
           freeSolo
           id="free-solo-2-demo"
           disableClearable
-          options={top100Films.map((option) => option.title)}
+          options={data?.map((item) => item.title)}
           renderInput={(params) => (
             <TextField
               {...params}
