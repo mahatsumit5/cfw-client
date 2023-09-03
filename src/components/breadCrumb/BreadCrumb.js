@@ -36,7 +36,7 @@ export default function CustomBreadCrumb() {
   ];
 
   return (
-    <Box sx={{ paddingX: 7, height: 50, paddingTop: 1 }}>
+    <Box sx={{ p: 2 }}>
       {" "}
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}

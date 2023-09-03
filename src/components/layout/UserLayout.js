@@ -10,7 +10,7 @@ export const UserLayout = ({ children }) => {
       <Header />
       <CustomBreadCrumb />
 
-      <main className="main p-5">{children}</main>
+      <main className="main">{children}</main>
       <Footer />
     </div>
   );

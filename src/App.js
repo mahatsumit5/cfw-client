@@ -12,7 +12,8 @@ import { useEffect } from "react";
 import { getCatagoriesAction } from "./action/catagoryAction";
 import { useDispatch } from "react-redux";
 import { getProductsAction } from "./action/productAction";
-import { ProductLandingPage } from "./pages/product/ProductPage";
+import { ProductLandingPage } from "./pages/product/ProductLandingPage";
+import { ProductListing } from "./pages/product/ProductListing";
 function App() {
   const dispatch = useDispatch();
 
@@ -27,7 +28,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
-        <Route path={"product/:_id"} element={<ProductLandingPage />} />
+        <Route path={"product/:slug/:_id"} element={<ProductLandingPage />} />
+        <Route path={"items/:slug/:_id"} element={<ProductListing />} />
 
         <Route
           path="/profile"

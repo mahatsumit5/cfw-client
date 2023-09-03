@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 export const CustomMenu = () => {
   const [value, setValue] = useState(0);
   const { catagories } = useSelector((store) => store.catagoryInfo);
@@ -18,6 +19,7 @@ export const CustomMenu = () => {
             maxWidth: { xs: 470, sm: 680 },
             md: "1000",
             bgcolor: "background.paper",
+            display: { md: "none" },
           }}
         >
           <Tabs
@@ -28,7 +30,9 @@ export const CustomMenu = () => {
             aria-label="scrollable auto tabs example"
           >
             {catagories?.map((cat) => (
-              <Tab key={cat._id} label={cat.title} />
+              <Link to={`items/${cat.slug}/${cat._id}`}>
+                <Tab key={cat._id} label={cat.title} />
+              </Link>
             ))}
           </Tabs>
         </Box>

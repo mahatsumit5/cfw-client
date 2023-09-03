@@ -10,28 +10,38 @@ import ShareIcon from "@mui/icons-material/Share";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import image2 from "../../assests/image3.jpg";
 import { Link } from "react-router-dom";
-// const ExpandMore = styled((props) => {
-//   const { expand, ...other } = props;
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-//   marginLeft: "auto",
-//   color: "grey",
-//   transition: theme.transitions.create("transform", {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
+import {
+  Box,
+  Button,
+  CardHeader,
+  Skeleton,
+  SwipeableDrawer,
+  styled,
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
+
+const StyledBox = styled(Box)(() => ({
+  position: "absolute",
+  right: 0,
+  bottom: 0,
+  backgroundColor: "#fff",
+}));
 
 export default function CustomProductCard({ products }) {
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = () => () => {
+    setOpen(!open);
+  };
   return (
     <>
       {products?.map((item) => {
         return (
           <Card
-            key={item._id}
+            key={item?._id}
             sx={{
-              maxWidth: 250,
-              maxHeight: 350,
+              maxWidth: { xs: 250, sm: 350, md: 350 },
+              maxHeight: 550,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -45,13 +55,12 @@ export default function CustomProductCard({ products }) {
               component="img"
               height="194"
               image={image2}
-              //   image={process.env.REACT_APP_ROOTSERVER + "/" + item.thumbnail}
               alt="Paella dish"
             />
-            <Link to={`product/` + item._id} className="nav-link">
+            <Link to={`/product/${item.slug}/${item._id}`} className="nav-link">
               <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="h5" color="text.primary">
-                  {item.title}
+                  {item?.title}
                 </Typography>
                 <Typography variant="body2" color="text.primary">
                   {item.description?.slice(0, 100)}
@@ -62,16 +71,50 @@ export default function CustomProductCard({ products }) {
               </CardContent>
             </Link>
 
-            <CardActions disableSpacing sx={{}}>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon color="error" />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-              <IconButton>
-                <AddShoppingCartIcon />
-              </IconButton>
+            <CardActions sx={{ position: "relative" }}>
+              <Box sx={{ textAlign: "center", pt: 1 }}>
+                <Button onClick={toggleDrawer()}>Open</Button>
+              </Box>
+              <SwipeableDrawer
+                anchor="bottom"
+                open={open}
+                onClose={toggleDrawer(false)}
+                onOpen={toggleDrawer(true)}
+                swipeAreaWidth={56}
+                disableSwipeToOpen={false}
+                ModalProps={{
+                  keepMounted: true,
+                }}
+              >
+                <StyledBox
+                  sx={{
+                    top: -55,
+                    borderTopLeftRadius: 8,
+                    borderTopRightRadius: 8,
+                    visibility: "visible",
+                  }}
+                >
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon color="error" />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon />
+                  </IconButton>
+                  <IconButton>
+                    <AddShoppingCartIcon />
+                  </IconButton>
+                </StyledBox>
+                <StyledBox
+                  sx={{
+                    px: 2,
+                    pb: 2,
+                    height: "100%",
+                    overflow: "auto",
+                  }}
+                >
+                  <Skeleton variant="rectangular" height="100%" />
+                </StyledBox>
+              </SwipeableDrawer>
             </CardActions>
           </Card>
         );

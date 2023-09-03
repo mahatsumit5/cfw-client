@@ -19,7 +19,7 @@ export const SearchBar = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              variant="standard"
+              variant="outlined"
               label="Search "
               InputProps={{
                 ...params.InputProps,

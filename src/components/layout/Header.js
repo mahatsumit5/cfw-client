@@ -24,15 +24,16 @@ export const Header = () => {
   };
 
   return (
-    <Box className="  header d-flex shadow rounded justify-content-between  ">
-      <div className=" fs-4 fw-bold  m-2">
-        <Link to="/" className="navbar-brand">
-          <p> CFW</p>
-        </Link>
+    <Box
+      sx={{ display: "flex", paddingLeft: 2, paddingY: 1 }}
+      className="header shadow"
+    >
+      <div className=" fs-4 d-none d-sm-flex fw-bold">
+        <p> CFW</p>
       </div>
-      <div className="flex-grow-1 ">
+      <Box sx={{ flexGrow: 1 }}>
         <Navbar expand="lg" className="">
-          <Container fluid>
+          <Container>
             <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
             <Navbar.Offcanvas
               id="offcanvasNavbar-expand-lg"
@@ -67,11 +68,11 @@ export const Header = () => {
             </Navbar.Offcanvas>
           </Container>
         </Navbar>
-      </div>
-      <div className="   mt-2 w-25 d-md-block flex-fill ">
+      </Box>
+      <div className="   mt-2 w-25 d-none d-md-block flex-fill ">
         <SearchBar />
       </div>
-      <div className="m-1">
+      <div className="">
         <Box sx={{ display: { xs: "flex", sm: "none" } }}>
           <IconButton
             aria-label="more"
