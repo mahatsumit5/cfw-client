@@ -1,21 +1,12 @@
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  List,
-  ListItem,
-  Typography,
-} from "@mui/material";
-import React from "react";
+import { Box, Container, Skeleton } from "@mui/material";
+import React, { useEffect } from "react";
 import CustomProductCard from "./ProductCard";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { SideBar } from "../menu/SideBar";
 import { CustomMenu } from "../menu/CustomMenu";
-
 export const HomePageProductListing = () => {
-  const { products } = useSelector((store) => store.productInfo);
+  const { displayData } = useSelector((store) => store.display);
+
   return (
     <Container
       maxWidth="xxl"
@@ -32,15 +23,21 @@ export const HomePageProductListing = () => {
       <Box
         sx={{
           display: "flex",
-          gap: 1,
+          gap: 3,
           flexGrow: 1,
-          // width: "60vw",
-          justifyContent: "space-around",
+          justifyContent: "center",
+          // alignContent: "center",
           flexWrap: "wrap",
           height: "auto",
+          // boxShadow: 2,
+          borderRadius: 3,
         }}
       >
-        <CustomProductCard products={products} />
+        {displayData ? (
+          <CustomProductCard products={displayData} />
+        ) : (
+          <Skeleton variant="rectangular" width={250} height={450} />
+        )}
       </Box>
     </Container>
   );

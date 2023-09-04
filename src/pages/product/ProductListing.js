@@ -4,6 +4,8 @@ import { Box, Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../axios/categoryAndProductAxios";
 import CustomProductCard from "../../components/products/ProductCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setDisplayData } from "../../redux/displayDataSlice";
 
 export const ProductListing = () => {
   const { slug, _id } = useParams();
@@ -29,7 +31,7 @@ export const ProductListing = () => {
           {products?.length ? (
             <CustomProductCard products={products} />
           ) : (
-            <h1>Page not found</h1>
+            <h1>No products found</h1>
           )}
         </Box>
       </Container>

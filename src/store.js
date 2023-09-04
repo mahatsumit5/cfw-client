@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage"; //default localstorage for web
 import userReducer from "./redux/userSlice";
 import catReducer from "./redux/catagorySlice";
 import productReducer from "./redux/productSlice";
+import displayReducer from "./redux/displayDataSlice";
 const userPresistConfig = {
   //this is a configurations
   key: "userInfo",
@@ -18,6 +19,7 @@ const store = configureStore({
     testUser: userReducer, //this data is removed every time browser reloads
     catagoryInfo: catReducer,
     productInfo: productReducer,
+    display: displayReducer,
   },
 });
 const persistor = persistStore(store);

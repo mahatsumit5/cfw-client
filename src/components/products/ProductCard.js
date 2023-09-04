@@ -41,7 +41,7 @@ export default function CustomProductCard({ products }) {
             key={item?._id}
             sx={{
               maxWidth: { xs: 250, sm: 350, md: 350 },
-              maxHeight: 550,
+              maxHeight: 450,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",

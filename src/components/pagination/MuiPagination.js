@@ -3,16 +3,25 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Box, Container } from "@mui/material";
 
-export default function BasicPagination() {
+export default function BasicPagination({
+  pageNumber,
+  numberOfRequiredPagination,
+  setPageNumber,
+}) {
+  const handleChange = (event, value) => {
+    setPageNumber(value);
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
       <Stack spacing={3}>
         <Pagination
-          count={5}
+          count={numberOfRequiredPagination}
           color="primary"
-          defaultPage={2}
+          defaultPage={pageNumber}
           showFirstButton
           showLastButton
+          onChange={handleChange}
         />
       </Stack>
     </Box>

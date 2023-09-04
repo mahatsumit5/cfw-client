@@ -14,7 +14,6 @@ export const CustomMobileMenu = ({
   setMobileAnchorEl,
 }) => {
   const open = Boolean(mobileAnchorEl);
-  console.log(open);
   const handleMenuClose = () => {
     setMobileAnchorEl(null);
   };

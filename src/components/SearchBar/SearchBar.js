@@ -2,12 +2,21 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { TextField } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setDisplayData } from "../../redux/displayDataSlice";
 
 export const SearchBar = () => {
   const { products } = useSelector((store) => store.productInfo);
-  const { catagories } = useSelector((store) => store.catagoryInfo);
-  const data = [...products, ...catagories];
+  const dispatch = useDispatch();
+  const data = [...products];
+  function handleOnChange(e) {
+    const { value } = e.target;
+
+    const filteredItems = products.filter((item) =>
+      item?.title.toLowerCase().includes(value.toLowerCase())
+    );
+    dispatch(setDisplayData(filteredItems));
+  }
   return (
     <>
       <Stack spacing={1} sx={{}}>
@@ -25,6 +34,7 @@ export const SearchBar = () => {
                 ...params.InputProps,
                 type: "search",
               }}
+              onChange={handleOnChange}
             />
           )}
         />

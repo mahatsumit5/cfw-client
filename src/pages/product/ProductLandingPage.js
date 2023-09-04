@@ -7,8 +7,10 @@ import {
   AccordionDetails,
   AccordionSummary,
   Avatar,
+  Backdrop,
   Box,
   Button,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -20,13 +22,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CustomProductCard from "../../components/products/ProductCard";
+
 export const ProductLandingPage = () => {
   const { slug, _id } = useParams();
   const [product, setproduct] = useState({});
   const [similarProduct, setSimilarproduct] = useState([]);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     async function getdata() {
-      const { data } = await getProducts({ slug, _id });
+      const pendingResult = getProducts({ slug, _id });
+      setOpen(true);
+      const { data } = await pendingResult;
       setproduct(data);
       const obj = {
         _id: data.parentCat,
@@ -34,12 +40,19 @@ export const ProductLandingPage = () => {
       };
       const { result } = data?._id && (await getProducts(obj));
       setSimilarproduct(result);
+      setOpen(false);
     }
     getdata();
   }, [slug, _id]);
   return (
     <div>
       <UserLayout>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={open}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         {product?._id ? (
           <Container
             maxWidth="xl"
