@@ -19,13 +19,21 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CustomProductCard from "../../components/products/ProductCard";
 export const ProductLandingPage = () => {
   const { slug, _id } = useParams();
   const [product, setproduct] = useState({});
+  const [similarProduct, setSimilarproduct] = useState([]);
   useEffect(() => {
     async function getdata() {
       const { data } = await getProducts({ slug, _id });
       setproduct(data);
+      const obj = {
+        _id: data.parentCat,
+        slug: data.slug,
+      };
+      const { result } = data?._id && (await getProducts(obj));
+      setSimilarproduct(result);
     }
     getdata();
   }, [slug, _id]);
@@ -52,7 +60,7 @@ export const ProductLandingPage = () => {
                 flexDirection: { xs: "column", md: "row" },
               }}
             >
-              <Box sx={{ flexGrow: 2 }}>
+              <Box sx={{ flexGrow: 1 }}>
                 <Box
                   sx={{
                     width: "100%",
@@ -64,7 +72,17 @@ export const ProductLandingPage = () => {
                     },
                   }}
                 >
-                  Image
+                  <img
+                    src={
+                      process.env.REACT_APP_ROOTSERVER +
+                      "/" +
+                      product.thumbnail?.slice(6)
+                    }
+                    alt={product.title}
+                    width={"100%"}
+                    height={"100%"}
+                    style={{ objectFit: "cover" }}
+                  />
                 </Box>
               </Box>
               <Box
@@ -126,10 +144,20 @@ export const ProductLandingPage = () => {
                 </AccordionDetails>
               </Accordion>
             </Box>
-            <Box>
+            <Box sx={{ display: "flex", gap: 3, flexDirection: "column" }}>
               <Typography variant="h6" style={{ fontWeight: "bolder" }}>
                 You may also like
               </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 3,
+                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <CustomProductCard products={similarProduct} />
+              </Box>
             </Box>
           </Container>
         ) : (

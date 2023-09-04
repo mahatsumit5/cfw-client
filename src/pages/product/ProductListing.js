@@ -18,7 +18,14 @@ export const ProductListing = () => {
   return (
     <UserLayout>
       <Container maxWidth="md">
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}
+        >
           {products?.length ? (
             <CustomProductCard products={products} />
           ) : (

@@ -52,19 +52,29 @@ export default function CustomProductCard({ products }) {
               //   subheader="September 14, 2016"
             /> */}
             <CardMedia
+              sx={{
+                maxWidth: 250,
+                maxHeight: 300,
+                objectFit: "cover",
+                flexGrow: 1,
+              }}
               component="img"
-              height="194"
-              image={image2}
-              alt="Paella dish"
+              image={
+                process.env.REACT_APP_ROOTSERVER +
+                "/" +
+                item.thumbnail?.slice(6)
+              }
+              alt={item.title}
             />
             <Link to={`/product/${item.slug}/${item._id}`} className="nav-link">
               <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="h5" color="text.primary">
                   {item?.title}
                 </Typography>
-                <Typography variant="body2" color="text.primary">
-                  {item.description?.slice(0, 100)}
+                <Typography variant="caption" color="text.primary">
+                  {item.description}
                 </Typography>
+                <hr></hr>
                 <Typography variant="subtitle2 h5" color="text.secondary">
                   {"$" + item.price}
                 </Typography>
@@ -73,9 +83,9 @@ export default function CustomProductCard({ products }) {
 
             <CardActions sx={{ position: "relative" }}>
               <Box sx={{ textAlign: "center", pt: 1 }}>
-                <Button onClick={toggleDrawer()}>Open</Button>
+                {/* <Button onClick={toggleDrawer()}>Open</Button> */}
               </Box>
-              <SwipeableDrawer
+              {/* <SwipeableDrawer
                 anchor="bottom"
                 open={open}
                 onClose={toggleDrawer(false)}
@@ -85,25 +95,25 @@ export default function CustomProductCard({ products }) {
                 ModalProps={{
                   keepMounted: true,
                 }}
-              >
-                <StyledBox
+              > */}
+              {/* <StyledBox
                   sx={{
                     top: -55,
                     borderTopLeftRadius: 8,
                     borderTopRightRadius: 8,
                     visibility: "visible",
                   }}
-                >
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon color="error" />
-                  </IconButton>
-                  <IconButton aria-label="share">
-                    <ShareIcon />
-                  </IconButton>
-                  <IconButton>
-                    <AddShoppingCartIcon />
-                  </IconButton>
-                </StyledBox>
+                > */}
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon color="error" />
+              </IconButton>
+              <IconButton aria-label="share">
+                <ShareIcon />
+              </IconButton>
+              <IconButton>
+                <AddShoppingCartIcon />
+              </IconButton>
+              {/* </StyledBox>
                 <StyledBox
                   sx={{
                     px: 2,
@@ -111,10 +121,10 @@ export default function CustomProductCard({ products }) {
                     height: "100%",
                     overflow: "auto",
                   }}
-                >
-                  <Skeleton variant="rectangular" height="100%" />
+                > */}
+              {/* <Skeleton variant="rectangular" height="100%" />
                 </StyledBox>
-              </SwipeableDrawer>
+              </SwipeableDrawer> */}
             </CardActions>
           </Card>
         );
