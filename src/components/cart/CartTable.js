@@ -26,8 +26,8 @@ export const CartTable = () => {
     setNeworder({ ...item, orderQty: item.orderQty + 1 });
   };
   useEffect(() => {
-    dispatch(setCart([...cart, newOrder]));
-  }, [dispatch, newOrder]);
+    dispatch(setCart(newOrder));
+  }, [newOrder, dispatch]);
   return (
     <>
       {cart?.map((item, index) => (
@@ -68,7 +68,6 @@ export const CartTable = () => {
                 onClick={() => {
                   dispatch(removeItemFromCart(item._id));
                 }}
-                fullWidth={true}
               >
                 Remove
               </Button>
@@ -76,7 +75,9 @@ export const CartTable = () => {
                 variant="contained"
                 color="primary"
                 endIcon={<Favorite />}
-              ></Button>
+              >
+                Fav
+              </Button>
             </Stack>
           </Grid>
           <Grid
@@ -98,7 +99,13 @@ export const CartTable = () => {
                 -
               </Button>
               <Button>
-                <TextField value={item.orderQty}> {item.orderQty}</TextField>
+                <TextField
+                  value={item.orderQty}
+                  style={{ borderStyle: "none" }}
+                >
+                  {" "}
+                  {item.orderQty}
+                </TextField>
               </Button>
               <Button
                 fullWidth={true}

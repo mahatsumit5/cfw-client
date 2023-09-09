@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 import { CardHeader } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../../redux/cartSlice";
-import { ItemAddedModal } from "../modal/ItemAddedModal";
-import { setModal } from "../../redux/modalSlice";
 export default function CustomProductCard({ products }) {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
@@ -82,8 +80,7 @@ export default function CustomProductCard({ products }) {
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    dispatch(setModal(true));
-                    dispatch(setCart([...cart, { ...item, orderQty: 1 }]));
+                    dispatch(setCart({ ...item, orderQty: 1 }));
                   }}
                 >
                   <AddShoppingCartIcon />

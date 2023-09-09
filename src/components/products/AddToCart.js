@@ -12,8 +12,8 @@ export const AddToCart = ({ item }) => {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const handleOnAdd = () => {
-    dispatch(setCart([...cart, item]));
-    // dispatch(setModal(true));
+    dispatch(setCart(item));
+    dispatch(setModal(true));
   };
   return (
     <>
@@ -24,7 +24,7 @@ export const AddToCart = ({ item }) => {
         startIcon={<ShoppingCartCheckoutIcon />}
         onClick={handleOnAdd}
       >
-        Buy
+        Add
       </Button>
     </>
   );

@@ -34,10 +34,15 @@ export const Cart = () => {
               display: "flex",
               gap: 2,
               width: "100%",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: {
+                xs: "column",
+                md: "row",
+                lg: "row",
+                flexWrap: "wrap",
+              },
             }}
           >
-            <Paper sx={{ flexGrow: 2, p: 2 }}>
+            <Paper sx={{ flexGrow: 3, p: 2 }}>
               <span className="d-flex justify-content-between">
                 <Typography variant="h6">Cart</Typography>
                 <Typography variant="h6">{totalItems} items</Typography>
@@ -58,7 +63,7 @@ export const Cart = () => {
                 )}
               </div>
             </Paper>
-            <Paper sx={{ flexGrow: 1, p: 2 }}>SideBar</Paper>
+            <Paper sx={{ flexGrow: 2, p: 2 }}>SideBar</Paper>
           </Box>
         </Container>
       </main>

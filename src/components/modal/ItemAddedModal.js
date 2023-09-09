@@ -24,7 +24,7 @@ export const ItemAddedModal = ({ item }) => {
         <div>
           <Typography variant="subtitle2">{item.title}</Typography>
           <Typography color={"grey"}>${item.price}</Typography>
-          <Typography>qty: 5</Typography>
+          <Typography>Qty: {item.orderQty}</Typography>
         </div>
       </Box>
       <Box sx={{ width: "100%", display: "flex", gap: 2, marginTop: 2 }}>
