@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 export const DesktopMenu = ({ open, handleProfileMenuOpen }) => {
   const { cart } = useSelector((store) => store.cart);
+  let totalItems = 0;
+  cart.map((item) => (totalItems += item?.orderQty));
   const navigate = useNavigate();
   return (
     <Box
@@ -45,7 +47,7 @@ export const DesktopMenu = ({ open, handleProfileMenuOpen }) => {
             navigate("/cart");
           }}
         >
-          <Badge badgeContent={cart?.length} color="error">
+          <Badge badgeContent={totalItems} color="error">
             <ShoppingCartIcon color="secondary" />
           </Badge>
         </IconButton>

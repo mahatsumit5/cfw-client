@@ -83,7 +83,7 @@ export default function CustomProductCard({ products }) {
                 <IconButton
                   onClick={() => {
                     dispatch(setModal(true));
-                    dispatch(setCart([...cart, item]));
+                    dispatch(setCart([...cart, { ...item, orderQty: 1 }]));
                   }}
                 >
                   <AddShoppingCartIcon />
