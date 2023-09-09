@@ -4,6 +4,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisplayData } from "../../redux/displayDataSlice";
+import { Link } from "react-router-dom";
 
 export const SearchBar = () => {
   const { products } = useSelector((store) => store.productInfo);
@@ -24,7 +25,9 @@ export const SearchBar = () => {
           freeSolo
           id="free-solo-2-demo"
           disableClearable
-          options={data?.map((item) => item.title)}
+          options={data?.map((item) => {
+            return item.title;
+          })}
           renderInput={(params) => (
             <TextField
               {...params}

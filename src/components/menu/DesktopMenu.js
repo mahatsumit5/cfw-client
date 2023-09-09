@@ -7,8 +7,12 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Badge, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const DesktopMenu = ({ open, handleProfileMenuOpen }) => {
+  const { cart } = useSelector((store) => store.cart);
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -36,8 +40,12 @@ export const DesktopMenu = ({ open, handleProfileMenuOpen }) => {
         </IconButton>
       </Typography>
       <Typography sx={{ minWidth: 10 }}>
-        <IconButton>
-          <Badge badgeContent={17} color="error">
+        <IconButton
+          onClick={() => {
+            navigate("/cart");
+          }}
+        >
+          <Badge badgeContent={cart?.length} color="error">
             <ShoppingCartIcon color="secondary" />
           </Badge>
         </IconButton>

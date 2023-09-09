@@ -38,11 +38,11 @@ export const SideBar = () => {
         {catagories?.map((cat) => (
           <>
             <Button variant="text" size="large">
-              <Link to={`items/${cat.slug}/${cat._id}`}>
+              <Link to={`items/${cat.slug}/${cat._id}`} className="nav-link">
                 <ListItem>{cat.title}</ListItem>
               </Link>
             </Button>
-            <Divider />
+            <Divider sx={{ border: "black" }} />
           </>
         ))}
       </List>

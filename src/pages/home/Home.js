@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomeCarousel } from "../../components/carousel/Carousel";
+// import { CustomeCarousel } from "../../components/carousel/Carousel";
 
 import { UserLayout } from "../../components/layout/UserLayout";
 import BasicPagination from "../../components/pagination/MuiPagination";
@@ -22,7 +22,7 @@ export const Home = () => {
   return (
     <div className="landingPage">
       <UserLayout>
-        <CustomeCarousel />
+        {/* <CustomeCarousel /> */}
         <HomePageProductListing products={data} />
         <BasicPagination
           numberOfRequiredPagination={numberOfRequiredPagination}

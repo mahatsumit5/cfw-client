@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { SignIn } from "./pages/signin-singup/SignIn";
 import { SignUp } from "./pages/signin-singup/SignUp";
@@ -16,7 +16,6 @@ import { ProductLandingPage } from "./pages/product/ProductLandingPage";
 import { ProductListing } from "./pages/product/ProductListing";
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getCatagoriesAction());
     dispatch(getProductsAction());

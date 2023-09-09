@@ -25,14 +25,20 @@ export default function CustomBreadCrumb() {
       underline="hover"
       key="2"
       color="inherit"
-      href="/material-ui/getting-started/installation/"
+      href="/"
       onClick={handleClick}
     >
-      Men
+      Product
     </Link>,
-    <Typography key="3" color="text.primary">
+    <Link
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/"
+      onClick={handleClick}
+    >
       Shoes
-    </Typography>,
+    </Link>,
   ];
 
   return (

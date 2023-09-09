@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux"; //for redux-toolkot
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-// import { PersistGate } from "redux-persist/integration/react"; //for reduz-persistor  which is for localstorageimport "bootstrap/dist/css/bootstrap.min.css";
 import { persistor, store } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
