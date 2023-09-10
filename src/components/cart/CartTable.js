@@ -15,6 +15,7 @@ export const CartTable = () => {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const [newOrder, setNeworder] = useState({ orderQty: 0 });
+  console.log(newOrder);
   const handleOnReduce = (item) => {
     if (item.orderQty === 1) {
       dispatch(removeItemFromCart(item._id));

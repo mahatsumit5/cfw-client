@@ -11,17 +11,19 @@ const cartSlice = createSlice({
       if (payload._id === undefined) {
         return;
       }
-      const itemExist = state.cart.filter((item) => item.includes(payload._id));
-      console.log(itemExist);
-      if (itemExist) {
+      const itemExist = state.cart.filter((item) => item._id === payload._id);
+      console.log(itemExist.length);
+      if (itemExist.length > 0) {
         console.log("ssame old item");
 
         const indexOfItemTobeRemoved = state.cart.findIndex(
           (item) => item._id === payload._id
         );
 
-        console.log(indexOfItemTobeRemoved);
-        state.cart = state.cart.splice(indexOfItemTobeRemoved, 1);
+        console.log(indexOfItemTobeRemoved, "index to be removed");
+
+        state.cart.splice(indexOfItemTobeRemoved, 1, payload);
+
         // console.log("item removed", state.cart);
         // state.cart = [...state.cart, payload];
         return;
