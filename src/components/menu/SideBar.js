@@ -37,7 +37,7 @@ export const SideBar = () => {
       >
         {catagories?.map((cat) => (
           <>
-            <Button variant="text" size="large">
+            <Button variant="text" size="large" key={cat._id}>
               <Link to={`items/${cat.slug}/${cat._id}`} className="nav-link">
                 <ListItem>{cat.title}</ListItem>
               </Link>

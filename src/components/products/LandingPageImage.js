@@ -1,15 +1,20 @@
 import { Box, Button } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const LandingPageImage = ({ product }) => {
-  const iniitalState = {
+  const [currentImage, setCurrentImge] = useState({
     index: 0,
-    thumnail: process.env.REACT_APP_ROOTSERVER + product.images[0].slice(6),
-  };
-  const [currentImage, setCurrentImge] = useState(iniitalState);
-
+    thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+  });
+  useEffect(() => {
+    setCurrentImge({
+      index: 0,
+      thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+    });
+  }, [product]);
+  console.log(currentImage.thumnail);
   return (
     <Box sx={{ flexGrow: 2 }}>
       <Box

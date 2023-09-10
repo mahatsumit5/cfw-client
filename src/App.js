@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
-        <Route path={"product/:slug/:_id"} element={<ProductLandingPage />} />
+        <Route path={"product/:slug/"} element={<ProductLandingPage />} />
         <Route path={"items/:slug/:_id"} element={<ProductListing />} />
 
         <Route

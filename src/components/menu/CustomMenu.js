@@ -30,8 +30,8 @@ export const CustomMenu = () => {
             aria-label="scrollable auto tabs example"
           >
             {catagories?.map((cat) => (
-              <Link to={`items/${cat.slug}/${cat._id}`}>
-                <Tab key={cat._id} label={cat.title} />
+              <Link to={`items/${cat.slug}`} key={cat._id}>
+                <Tab key={cat._id + 1} label={cat.title} />
               </Link>
             ))}
           </Tabs>

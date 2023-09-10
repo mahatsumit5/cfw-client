@@ -44,8 +44,8 @@ export const CustomMobileMenu = ({
             <Badge badgeContent={5} color="error">
               <NotificationsIcon color="primary" />
             </Badge>
-            <p>Notifications</p>
           </Typography>
+          <p>Notifications</p>
         </IconButton>
       </MenuItem>
       <MenuItem>
@@ -53,8 +53,8 @@ export const CustomMobileMenu = ({
           <IconButton onClick={handleMenuClose}>
             <FavoriteIcon color="primary" />
           </IconButton>
-          <p>Favourite</p>
         </Typography>
+        <p>Favourite</p>
       </MenuItem>
       <MenuItem>
         <Typography sx={{ minWidth: 10, display: "flex", gap: "10px" }}>
@@ -63,8 +63,8 @@ export const CustomMobileMenu = ({
               <ShoppingCartIcon color="secondary" />
             </Badge>
           </IconButton>
-          <p>Cart</p>
         </Typography>
+        <p>Cart</p>
       </MenuItem>
       <MenuItem>
         <Typography
@@ -81,8 +81,8 @@ export const CustomMobileMenu = ({
           >
             <Avatar sx={{ width: 32, height: 32 }}></Avatar>
           </IconButton>
-          <p>Profile</p>
         </Typography>
+        <p>Profile</p>
       </MenuItem>
     </Menu>
   );

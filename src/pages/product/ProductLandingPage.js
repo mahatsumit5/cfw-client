@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { useParams } from "react-router-dom";
-import { getProducts } from "../../axios/categoryAndProductAxios";
+import {
+  getProducts,
+  getProductsByCat,
+} from "../../axios/categoryAndProductAxios";
 import {
   Backdrop,
   Box,
@@ -22,7 +25,7 @@ import { YouMayLike } from "../../components/products/YouMayLike";
 import { LandingPageImage } from "../../components/products/LandingPageImage";
 
 export const ProductLandingPage = () => {
-  const { slug, _id } = useParams();
+  const { slug } = useParams();
   const [product, setproduct] = useState({});
   const [similarProduct, setSimilarproduct] = useState([]);
   const [open, setOpen] = useState(false);
@@ -34,25 +37,29 @@ export const ProductLandingPage = () => {
   };
   useEffect(() => {
     async function getdata() {
-      const pendingResult = getProducts({ slug, _id });
+      const pendingResult = getProducts({ slug });
       setOpen(true);
       const { data } = await pendingResult;
       setSelectedItem({ ...data, orderQty });
 
       setproduct(data);
       const obj = {
-        _id: data.parentCat,
+        _id: data?.parentCat,
         slug: data.slug,
       };
-      const { result } = data?._id && (await getProducts(obj));
-      setSimilarproduct(result);
+      const { result } = data?._id && (await getProductsByCat(obj));
+      if (result) {
+        setSimilarproduct(result);
+        // location.reload();
+      }
       setOpen(false);
     }
     getdata();
-  }, [slug, _id]);
+  }, [slug]);
   useEffect(() => {
     setSelectedItem({ ...product, orderQty });
   }, [orderQty]);
+
   return (
     <div>
       <UserLayout>

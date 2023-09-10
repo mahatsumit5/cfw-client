@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  Divider,
   Grid,
   Paper,
   Stack,
@@ -15,7 +17,6 @@ export const CartTable = () => {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const [newOrder, setNeworder] = useState({ orderQty: 0 });
-  console.log(newOrder);
   const handleOnReduce = (item) => {
     if (item.orderQty === 1) {
       dispatch(removeItemFromCart(item._id));
@@ -31,95 +32,105 @@ export const CartTable = () => {
   }, [newOrder, dispatch]);
   return (
     <>
-      {cart?.map((item, index) => (
-        <Grid container spacing={2} key={item._id} sx={{ p: 1 }}>
-          <Grid item xs>
-            <img
-              src={
-                process.env.REACT_APP_ROOTSERVER +
-                "/" +
-                item.thumbnail?.slice(6)
-              }
-              alt=""
-              style={{
-                width: "200px",
-                height: "200px",
-                objectFit: "cover",
-                borderRadius: "12px",
+      {cart?.map((item) => (
+        <React.Fragment key={item._id}>
+          <Grid container spacing={2} sx={{ p: 1, flexWrap: "wrap" }}>
+            <Grid item xs sx={{ minWidth: "100px" }}>
+              <img
+                src={
+                  process.env.REACT_APP_ROOTSERVER +
+                  "/" +
+                  item.thumbnail?.slice(6)
+                }
+                alt=""
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "12px",
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={8}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={6}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>{item.title?.toUpperCase()}</Typography>
-            <Typography>{item.slug}</Typography>
-            <Typography></Typography>
-            <Stack spacing={2} direction={"row"}>
-              <Button
-                variant="outlined"
-                color="error"
-                startIcon={<DeleteIcon />}
-                onClick={() => {
-                  dispatch(removeItemFromCart(item._id));
-                }}
-              >
-                Remove
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                endIcon={<Favorite />}
-              >
-                Fav
-              </Button>
-            </Stack>
-          </Grid>
-          <Grid
-            item
-            xs
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "column",
-            }}
-          >
-            <Paper elevation={0} sx={{ display: "flex" }}>
-              <Button
-                fullWidth={true}
-                onClick={() => {
-                  handleOnReduce(item);
-                }}
-              >
-                -
-              </Button>
-              <Button>
-                <TextField
-                  value={item.orderQty}
-                  style={{ borderStyle: "none" }}
+            >
+              <Typography>{item.title?.toUpperCase()}</Typography>
+              <Typography>{item.slug}</Typography>
+              <Typography></Typography>
+              <Stack spacing={2} direction={"row"}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => {
+                    dispatch(removeItemFromCart(item._id));
+                  }}
                 >
-                  {" "}
+                  Remove
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<Favorite />}
+                >
+                  Fav
+                </Button>
+              </Stack>
+            </Grid>
+            <Grid
+              item
+              xs
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: { sm: "row", md: "column" },
+                minWidth: "200px",
+              }}
+            >
+              <Box sx={{ display: "flex" }}>
+                <Button
+                  variant="filled"
+                  onClick={() => {
+                    handleOnReduce(item);
+                  }}
+                >
+                  -
+                </Button>
+                <TextField
+                  size="small"
+                  value={item.orderQty}
+                  sx={{
+                    backgroundColor: "#fafafa",
+                    borderRadius: "12px",
+
+                    width: "50px",
+                  }}
+                >
                   {item.orderQty}
                 </TextField>
-              </Button>
-              <Button
-                fullWidth={true}
-                onClick={() => {
-                  handleOnAdd(item);
-                }}
-              >
-                +
-              </Button>
-            </Paper>
-            <Typography variant="h6">${item.price}</Typography> <br />
+
+                <Button
+                  variant="oulined"
+                  onClick={() => {
+                    handleOnAdd(item);
+                  }}
+                >
+                  +
+                </Button>
+              </Box>
+              <Typography variant="subtitle2" align="right" minWidth={100}>
+                Total :${item.orderQty * item.price}
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
+          <Divider />
+        </React.Fragment>
       ))}
     </>
   );

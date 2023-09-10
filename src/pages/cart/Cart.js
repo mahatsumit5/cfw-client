@@ -2,10 +2,20 @@ import React from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { removeItemFromCart } from "../../redux/cartSlice";
+import LockIcon from "@mui/icons-material/Lock";
 import { CartTable } from "../../components/cart/CartTable";
-
+import SendIcon from "@mui/icons-material/Send";
+import { OrderSummary } from "../../components/cart/OrderSummary";
 export const Cart = () => {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
@@ -38,11 +48,10 @@ export const Cart = () => {
                 xs: "column",
                 md: "row",
                 lg: "row",
-                flexWrap: "wrap",
               },
             }}
           >
-            <Paper sx={{ flexGrow: 3, p: 2 }}>
+            <Paper sx={{ flexGrow: 1, p: 2 }}>
               <span className="d-flex justify-content-between">
                 <Typography variant="h6">Cart</Typography>
                 <Typography variant="h6">{totalItems} items</Typography>
@@ -63,7 +72,7 @@ export const Cart = () => {
                 )}
               </div>
             </Paper>
-            <Paper sx={{ flexGrow: 2, p: 2 }}>SideBar</Paper>
+            <OrderSummary totalItems={totalItems} />
           </Box>
         </Container>
       </main>

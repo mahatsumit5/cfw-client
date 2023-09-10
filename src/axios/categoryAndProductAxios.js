@@ -13,16 +13,14 @@ export const getCatagories = async () => {
 export const getProducts = async (object) => {
   const obj = {
     method: "get",
-    url: !object
-      ? productApi
-      : productApi + `/${object?.slug}` + `/${object?._id}`,
+    url: !object ? productApi : productApi + `/${object?.slug}`,
   };
   return axiosProcessor(obj);
 };
-// export const getProductsByCat = async (object) => {
-//   const obj = {
-//     method: "get",
-//     url: productApi + `/item-catagory` + `/${object?._id}`,
-//   };
-//   return axiosProcessor(obj);
-// };
+export const getProductsByCat = async (object) => {
+  const obj = {
+    method: "get",
+    url: productApi + `/catagories` + `/${object?._id}`,
+  };
+  return axiosProcessor(obj);
+};

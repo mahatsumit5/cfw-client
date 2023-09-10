@@ -18,78 +18,74 @@ export default function CustomProductCard({ products }) {
 
   return (
     <>
-      {products?.map((item) => {
-        return (
-          <>
-            <Card
-              key={item?._id}
-              sx={{
-                maxWidth: { xs: 250, sm: 350, md: 350 },
-                maxHeight: 450,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+      {products?.map((item) => (
+        <Card
+          key={item._id}
+          sx={{
+            maxWidth: { xs: 250, sm: 350, md: 350 },
+            maxHeight: 450,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Link
+            to={`/product/${item.slug}`}
+            className="nav-link"
+            key={item._id}
+          >
+            <CardHeader
+              title={item.title}
+              //   subheader="September 14, 2016"
+            />
+
+            <div style={{ width: "280px", height: "180px" }}>
+              <CardMedia
+                sx={{
+                  width: 280,
+                  height: 180,
+                  objectFit: "cover",
+                }}
+                component="img"
+                image={
+                  process.env.REACT_APP_ROOTSERVER +
+                  "/" +
+                  item.thumbnail?.slice(6)
+                }
+                alt={item.title}
+              />
+            </div>
+
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" color="text.primary">
+                {item.slug}
+              </Typography>
+              <Typography variant="caption" color="text.primary">
+                {item.sku}
+              </Typography>
+              <br></br>
+              <Typography variant="subtitle2 h5" color="text.secondary">
+                {"$" + item.price}
+              </Typography>
+            </CardContent>
+          </Link>
+          <CardActions sx={{ position: "relative" }}>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon color="error" />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                dispatch(setCart({ ...item, orderQty: 1 }));
               }}
             >
-              <CardHeader
-                title={item.title}
-                //   subheader="September 14, 2016"
-              />
-
-              <div style={{ width: "280px", height: "180px" }}>
-                <CardMedia
-                  sx={{
-                    width: 280,
-                    height: 180,
-                    objectFit: "cover",
-                  }}
-                  component="img"
-                  image={
-                    process.env.REACT_APP_ROOTSERVER +
-                    "/" +
-                    item.thumbnail?.slice(6)
-                  }
-                  alt={item.title}
-                />
-              </div>
-
-              <Link
-                to={`/product/${item.slug}/${item._id}`}
-                className="nav-link"
-              >
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h5" color="text.primary">
-                    {item?.title}
-                  </Typography>
-                  <Typography variant="caption" color="text.primary">
-                    {item.description.slice(0, 10)}
-                  </Typography>
-                  <br></br>
-                  <Typography variant="subtitle2 h5" color="text.secondary">
-                    {"$" + item.price}
-                  </Typography>
-                </CardContent>
-              </Link>
-
-              <CardActions sx={{ position: "relative" }}>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon color="error" />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    dispatch(setCart({ ...item, orderQty: 1 }));
-                  }}
-                >
-                  <AddShoppingCartIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          </>
-        );
-      })}
+              <AddShoppingCartIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      ))}
     </>
   );
 }
