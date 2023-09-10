@@ -11,30 +11,23 @@ const cartSlice = createSlice({
       if (payload._id === undefined) {
         return;
       }
-      const isThisANewItem = state.cart.find(
-        (item) => item._id === payload._id
-      ); //checking if item is available in cart
-      // returns emptys arraylist if not found whihc means false value converting to boolean with !
-      console.log("is it a new item", !isThisANewItem);
-      if (isThisANewItem) {
+      const itemExist = state.cart.filter((item) => item.includes(payload._id));
+      console.log(itemExist);
+      if (itemExist) {
         console.log("ssame old item");
-        const itemWithNewQty = state.cart.some(
-          (item) =>
-            item._id === payload._id && item.orderQty !== payload.orderQty
+
+        const indexOfItemTobeRemoved = state.cart.findIndex(
+          (item) => item._id === payload._id
         );
-        console.log(itemWithNewQty);
-        if (itemWithNewQty) {
-          console.log(state.cart);
-          state.cart = state.cart.slice(0, state.cart.length - 1);
-          state.cart = [...state.cart, payload];
-          return;
-        }
+
+        console.log(indexOfItemTobeRemoved);
+        state.cart = state.cart.splice(indexOfItemTobeRemoved, 1);
+        // console.log("item removed", state.cart);
+        // state.cart = [...state.cart, payload];
+        return;
       }
 
-      // }
-      if (!isThisANewItem) {
-        state.cart = [...state.cart, payload];
-      }
+      state.cart = [...state.cart, payload];
     },
     removeItemFromCart: (state, { payload }) => {
       state.cart = state.cart.filter((item) => item._id !== payload);
