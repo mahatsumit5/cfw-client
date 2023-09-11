@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; //default localstorage for web
 import userReducer from "./redux/userSlice";
 import catReducer from "./redux/catagorySlice";
+import mainCatalogueReducer from "./redux/mainCatalogueSlice";
 import productReducer from "./redux/productSlice";
 import displayReducer from "./redux/displayDataSlice";
 import cartReducer from "./redux/cartSlice";
@@ -29,6 +30,7 @@ const store = configureStore({
     display: displayReducer,
     cart: presistedCartReducer,
     modalInfo: modalReducer,
+    mainCatalogueInfo: mainCatalogueReducer,
   },
 });
 const persistor = persistStore(store);

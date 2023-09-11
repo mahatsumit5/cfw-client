@@ -26,7 +26,7 @@ export const Header = () => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        flexDirection: { xs: "row-reverse", sm: "column", md: "column" },
+        flexDirection: { md: "row-reverse", xs: "row-reverse", lg: "column" },
         alignItems: "center",
       }}
       className="header shadow"
@@ -44,7 +44,7 @@ export const Header = () => {
           sx={{
             flexGrow: 3,
             textAlign: "left",
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "none", md: "none", lg: "block" },
           }}
         >
           <Link className="nav-link" to="/">
