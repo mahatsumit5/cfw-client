@@ -39,21 +39,29 @@ export const CartDrawer = ({ toggleDrawer, totalItems, isOpen }) => {
           gap: 2,
         }}
       >
-        <Link to="/cart">
-          <Button
-            fullWidth
-            variant="contained"
-            startIcon={<ShoppingCartIcon />}
-            endIcon={totalItems}
-            color="primary"
-          >
-            Go to Cart
+        {totalItems > 0 ? (
+          <>
+            <Link to="/cart">
+              <Button
+                fullWidth
+                variant="contained"
+                startIcon={<ShoppingCartIcon />}
+                endIcon={totalItems}
+                color="primary"
+              >
+                View Cart
+              </Button>
+            </Link>
+            <Paper>
+              <CartTable />
+            </Paper>
+            <OrderSummary />{" "}
+          </>
+        ) : (
+          <Button variant="contained" color="info">
+            Come Back later
           </Button>
-        </Link>
-        <Paper>
-          <CartTable />
-        </Paper>
-        <OrderSummary />
+        )}
       </Box>
     </Drawer>
   );

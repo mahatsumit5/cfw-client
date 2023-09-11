@@ -72,7 +72,7 @@ export const Cart = () => {
                 )}
               </div>
             </Paper>
-            <OrderSummary totalItems={totalItems} />
+            <OrderSummary />
           </Box>
         </Container>
       </main>

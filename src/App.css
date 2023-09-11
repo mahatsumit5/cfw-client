@@ -19,7 +19,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(50px);
+  backdrop-filter: blur(100px);
 }
 /* .nav-link {
   margin-right: 5px;
@@ -104,6 +104,6 @@
   border: none !important;
 }
 
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+/* .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
   border: none !important ;
-}
+} */

@@ -94,7 +94,6 @@ export const ProductLandingPage = () => {
                   gap: 5,
                   display: "flex",
                   flexDirection: "column",
-                  flexGrow: 1,
                 }}
               >
                 <Stack direction="column" gap={1}>

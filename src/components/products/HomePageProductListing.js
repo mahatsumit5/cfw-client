@@ -15,6 +15,7 @@ export const HomePageProductListing = () => {
         gap: 1,
         justifyContent: "flex-start",
         flexDirection: { md: "row", xs: "column" },
+        marginTop: 5,
       }}
     >
       <CustomMenu />

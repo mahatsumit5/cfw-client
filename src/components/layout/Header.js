@@ -1,21 +1,19 @@
 import React, { useState } from "react";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-import Offcanvas from "react-bootstrap/Offcanvas";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Container } from "react-bootstrap";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { CustomMobileMenu } from "../menu/MobileMenu";
 import { ProfileMenu } from "../menu/ProfileMenu";
 import { DesktopMenu } from "../menu/DesktopMenu";
+import { Typography } from "@mui/material";
+import { BootStrapNavBar } from "../menu/BootStrapNavBar";
 export const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  const [searchBar, setSearchBar] = useState(false);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,77 +23,74 @@ export const Header = () => {
 
   return (
     <Box
-      sx={{ display: "flex", paddingLeft: 2, paddingY: 1 }}
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        flexDirection: { xs: "row-reverse", sm: "column", md: "column" },
+        alignItems: "center",
+      }}
       className="header shadow"
     >
-      <div className=" fs-4 d-none d-sm-flex fw-bold">
-        <p> CFW</p>
-      </div>
-      <Box sx={{ flexGrow: 1 }}>
-        <Navbar expand="lg" className="">
-          <Container>
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
-            <Navbar.Offcanvas
-              id="offcanvasNavbar-expand-lg"
-              aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
-              placement="start"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                  THE CFW
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Nav className="flex-grow-1 pe-3">
-                  <Link to="/" className="fs-6 nav-link fs-6 fw-medium ">
-                    Men
-                  </Link>
-                  <Link to="/" className="nav-link fs-6 fw-medium ">
-                    Women
-                  </Link>
-                  <Link to="/" className="nav-link fs-6 fw-medium ">
-                    Kids
-                  </Link>
+      <Box
+        sx={{
+          display: "flex",
 
-                  <Link to="/" className="nav-link fs-6 fw-medium ">
-                    Women
-                  </Link>
-                </Nav>
-                <div className=" d-md-none flex-grow-1 ">
-                  <SearchBar />
-                </div>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-      </Box>
-      <div className="   mt-2 w-25 d-none d-md-block flex-fill ">
-        <SearchBar />
-      </div>
-      <div className="">
-        <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "long-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleMobileMenuOpen}
-          >
-            <MoreVertIcon />
-          </IconButton>
+          p: 1,
+          justifyContent: "space-between",
+          width: { sm: "100%", md: "80%" },
+        }}
+      >
+        <Box
+          sx={{
+            flexGrow: 3,
+            textAlign: "left",
+            display: { xs: "none", sm: "block" },
+          }}
+        >
+          <Link className="nav-link" to="/">
+            <Typography variant="h5" mt={1}>
+              Classic Fashion Wears
+            </Typography>
+          </Link>
         </Box>
-        <DesktopMenu
-          open={open}
-          handleProfileMenuOpen={handleProfileMenuOpen}
-        />
-        <CustomMobileMenu
-          handleProfileMenuOpen={handleProfileMenuOpen}
-          mobileAnchorEl={mobileAnchorEl}
-          setMobileAnchorEl={setMobileAnchorEl}
-        />
-        <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
-      </div>
+        <Box
+          sx={{
+            flexGrow: 2,
+
+            display: "flex",
+            justifyContent: "end",
+          }}
+        >
+          {searchBar && <SearchBar />}
+          <Box sx={{ display: { xs: "flex", sm: "none" } }}>
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "long-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </Box>
+          <DesktopMenu
+            open={open}
+            handleProfileMenuOpen={handleProfileMenuOpen}
+            searchBar={searchBar}
+            setSearchBar={setSearchBar}
+          />
+          <CustomMobileMenu
+            handleProfileMenuOpen={handleProfileMenuOpen}
+            mobileAnchorEl={mobileAnchorEl}
+            setMobileAnchorEl={setMobileAnchorEl}
+          />
+          <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+        </Box>
+      </Box>
+      <Box>
+        <BootStrapNavBar />
+      </Box>
     </Box>
   );
 };

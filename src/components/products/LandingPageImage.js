@@ -14,16 +14,16 @@ export const LandingPageImage = ({ product }) => {
       thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
     });
   }, [product]);
-  console.log(currentImage.thumnail);
   return (
     <Box sx={{ flexGrow: 2 }}>
       <Box
         sx={{
+          // border: 1,
           width: "100%",
-          height: 500,
-          backgroundColor: "primary.dark",
+          height: 400,
+          // backgroundColor: "primary.dark",
           "&:hover": {
-            backgroundColor: "primary.main",
+            // backgroundColor: "primary.main",
             opacity: [0.9, 0.8, 0.7],
           },
         }}
@@ -33,7 +33,7 @@ export const LandingPageImage = ({ product }) => {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            objectFit: "contain",
           }}
         />
       </Box>

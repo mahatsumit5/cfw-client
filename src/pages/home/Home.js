@@ -1,11 +1,12 @@
 import React from "react";
-// import { CustomeCarousel } from "../../components/carousel/Carousel";
+import { CustomeCarousel } from "../../components/carousel/Carousel";
 
 import { UserLayout } from "../../components/layout/UserLayout";
 import BasicPagination from "../../components/pagination/MuiPagination";
 import { HomePageProductListing } from "../../components/products/HomePageProductListing";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisplayData } from "../../redux/displayDataSlice";
+import { Container } from "@mui/material";
 export const Home = () => {
   const { products } = useSelector((store) => store.productInfo);
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const Home = () => {
   return (
     <div className="landingPage">
       <UserLayout>
-        {/* <CustomeCarousel /> */}
+        <CustomeCarousel />
         <HomePageProductListing products={data} />
         <BasicPagination
           numberOfRequiredPagination={numberOfRequiredPagination}

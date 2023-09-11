@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Box,
@@ -10,7 +10,16 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import SendIcon from "@mui/icons-material/Send";
+import { useSelector } from "react-redux";
 export const OrderSummary = () => {
+  const { cart } = useSelector((store) => store.cart);
+  const [shippingCost, setShippingCost] = useState(9.99);
+  const [discount, setDiscount] = useState(19.99);
+
+  const totalAmount = cart.reduce((acc, curr) => {
+    return acc + curr.orderQty * curr.price;
+  }, 0);
+
   return (
     <Paper
       sx={{
@@ -39,7 +48,7 @@ export const OrderSummary = () => {
           Shipping cost
         </Typography>
         <Typography variant="body2" color={"grey"}>
-          $9.99
+          ${shippingCost}
         </Typography>
       </span>
       <span className="d-flex justify-content-between">
@@ -47,7 +56,7 @@ export const OrderSummary = () => {
           Discount
         </Typography>{" "}
         <Typography variant="body2" color={"grey"}>
-          $20.00
+          ${discount}
         </Typography>
       </span>
       <span className="d-flex justify-content-between">
@@ -59,7 +68,7 @@ export const OrderSummary = () => {
           Estimated Total
         </Typography>
         <Typography variant="body2" sx={{ fontSize: 16, fontWeight: "medium" }}>
-          $199.99
+          ${totalAmount}
         </Typography>
       </span>
       <Button
