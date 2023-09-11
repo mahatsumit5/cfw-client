@@ -42,10 +42,10 @@ export default function CustomBreadCrumb() {
   ];
 
   return (
-    <Box sx={{ p: 2 }}>
+    <Box sx={{ width: "80%", p: 2 }}>
       {" "}
       <Breadcrumbs
-        separator={<NavigateNextIcon fontSize="small" />}
+        separator={<NavigateNextIcon fontSize="medium" />}
         aria-label="breadcrumb"
       >
         {breadcrumbs}

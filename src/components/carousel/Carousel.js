@@ -22,8 +22,12 @@ const images = [
 export const CustomeCarousel = () => {
   return (
     <Container
-      maxWidth="xl"
-      sx={{ display: "flex", justifyContent: "center", height: "80vh" }}
+      maxWidth="lg"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        // minHeight: "20vh",
+      }}
     >
       <Carousel>
         {images.map((image) => (
@@ -32,7 +36,7 @@ export const CustomeCarousel = () => {
               src={image.imgPath}
               height={"100%"}
               width={"100%"}
-              style={{ objectFit: "fill" }}
+              style={{ objectFit: "cover" }}
             />
           </CarouselItem>
         ))}

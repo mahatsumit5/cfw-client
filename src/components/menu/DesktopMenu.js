@@ -29,7 +29,7 @@ export const DesktopMenu = ({
   return (
     <Box
       sx={{
-        display: { xs: "none", sm: "flex" },
+        display: "flex",
         alignItems: "center",
         textAlign: "center",
       }}
@@ -48,6 +48,7 @@ export const DesktopMenu = ({
         onClick={() => {
           setSearchBar(!searchBar);
         }}
+        sx={{ display: { xs: "none", sm: "block" } }}
       >
         <Typography sx={{ minWidth: 10 }}>
           <SearchIcon color="primary" />

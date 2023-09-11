@@ -62,29 +62,18 @@ export const Header = () => {
           }}
         >
           {searchBar && <SearchBar />}
-          <Box sx={{ display: { xs: "flex", sm: "none" } }}>
-            <IconButton
-              aria-label="more"
-              id="long-button"
-              aria-controls={open ? "long-menu" : undefined}
-              aria-expanded={open ? "true" : undefined}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </Box>
+
           <DesktopMenu
             open={open}
             handleProfileMenuOpen={handleProfileMenuOpen}
             searchBar={searchBar}
             setSearchBar={setSearchBar}
           />
-          <CustomMobileMenu
+          {/* <CustomMobileMenu
             handleProfileMenuOpen={handleProfileMenuOpen}
             mobileAnchorEl={mobileAnchorEl}
             setMobileAnchorEl={setMobileAnchorEl}
-          />
+          /> */}
           <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </Box>
       </Box>
