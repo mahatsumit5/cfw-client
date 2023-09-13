@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { CardHeader } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../../redux/cartSlice";
+import { addTofavAction } from "../../action/userAction";
 export default function CustomProductCard({ products }) {
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
@@ -70,7 +71,15 @@ export default function CustomProductCard({ products }) {
             </CardContent>
           </Link>
           <CardActions sx={{ position: "relative" }}>
-            <IconButton aria-label="add to favorites">
+            <IconButton
+              aria-label="add to favorites"
+              onClick={() => {
+                addTofavAction({
+                  _id: "64bbe3de9c067a11daf1a947",
+                  fav: item._id,
+                });
+              }}
+            >
               <FavoriteIcon color="error" />
             </IconButton>
             <IconButton aria-label="share">

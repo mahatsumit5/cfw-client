@@ -48,3 +48,12 @@ export const verifyAccount = async (object) => {
   };
   return axiosProcessor(obj);
 };
+
+export const addToFav = async (object) => {
+  const obj = {
+    method: "POST",
+    url: `${userApi}/addFav`,
+    obj: object,
+  };
+  return axiosProcessor(obj);
+};

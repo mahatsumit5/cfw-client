@@ -1,4 +1,5 @@
 import {
+  addToFav,
   getUser,
   logInUser,
   postUser,
@@ -42,4 +43,9 @@ export const verifyAccountAction = async (obj) => {
   if (status === "success") {
     return true;
   }
+};
+
+export const addTofavAction = async (obj) => {
+  const { status, message } = await addToFav(obj);
+  toast[status](message);
 };
