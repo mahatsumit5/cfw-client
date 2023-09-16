@@ -10,16 +10,19 @@ import {
 } from "@mui/material";
 import LockIcon from "@mui/icons-material/Lock";
 import SendIcon from "@mui/icons-material/Send";
+import LoginIcon from "@mui/icons-material/Login";
 import { useSelector } from "react-redux";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 export const OrderSummary = () => {
+  const location = useLocation();
   const { cart } = useSelector((store) => store.cart);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
-
+  const { user } = useSelector((store) => store.userInfo);
   const totalAmount = cart.reduce((acc, curr) => {
-    return acc + curr.orderQty * curr.price;
+    return acc + curr.orderQty * curr.price + shippingCost - discount;
   }, 0);
-
+  const navigate = useNavigate();
   return (
     <Paper
       sx={{
@@ -71,14 +74,28 @@ export const OrderSummary = () => {
           ${totalAmount}
         </Typography>
       </span>
-      <Button
-        fullWidth
-        variant="contained"
-        color="success"
-        startIcon={<LockIcon />}
-      >
-        Checkout
-      </Button>
+      {user?._id ? (
+        <Button
+          fullWidth
+          variant="contained"
+          color="success"
+          startIcon={<LockIcon />}
+        >
+          Checkout
+        </Button>
+      ) : (
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          endIcon={<LoginIcon />}
+          onClick={() => {
+            navigate("/signin");
+          }}
+        >
+          Log in
+        </Button>
+      )}
     </Paper>
   );
 };

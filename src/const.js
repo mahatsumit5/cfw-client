@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getNewAccessJWt } from "./axios/userAxios";
+import { toast } from "react-toastify";
 export const rootApi = process.env.REACT_APP_ROOTAPI;
 export const getAccessJWt = () => {
   return sessionStorage.getItem("accessJWT");
@@ -26,8 +28,22 @@ export const axiosProcessor = async ({
     });
     return data;
   } catch (error) {
-    if (error.message === "Your token has expired. Please login Again") {
-      console.log("log in first");
+    if (
+      error?.response?.status === 403 &&
+      error?.response?.data?.message ===
+        "Your token has expired. Please login Again"
+    ) {
+      const { status, accessJWT, message } = await getNewAccessJWt();
+      if (status === "success") {
+        sessionStorage.setItem("accessJWT", accessJWT);
+        return axiosProcessor({ method, url, obj, isPrivate, refreshToken });
+      }
+      if (message === "jwt expired") {
+        console.log("refresh jwt expired");
+        // sessionStorage.removeItem("accessJWT");
+        // localStorage.removeItem("refreshJWT");
+        // await logOutUser();
+      }
     }
     return {
       status: "error",

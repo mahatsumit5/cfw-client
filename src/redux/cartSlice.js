@@ -12,15 +12,15 @@ const cartSlice = createSlice({
         return;
       }
       const itemExist = state.cart.filter((item) => item._id === payload._id);
-      console.log(itemExist.length);
+      // console.log(itemExist.length);
       if (itemExist.length > 0) {
-        console.log("ssame old item");
+        // console.log("ssame old item");
 
         const indexOfItemTobeRemoved = state.cart.findIndex(
           (item) => item._id === payload._id
         );
 
-        console.log(indexOfItemTobeRemoved, "index to be removed");
+        // console.log(indexOfItemTobeRemoved, "index to be removed");
 
         state.cart.splice(indexOfItemTobeRemoved, 1, payload);
 

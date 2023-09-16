@@ -58,3 +58,12 @@ export const addToFav = async (object) => {
   };
   return axiosProcessor(obj);
 };
+export const getNewAccessJWt = async () => {
+  const obj = {
+    method: "get",
+    url: userApi + "/get-accessjwt",
+    isPrivate: true,
+    refreshToken: true,
+  };
+  return axiosProcessor(obj);
+};

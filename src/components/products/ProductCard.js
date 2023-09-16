@@ -9,21 +9,51 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Delete from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
-import { CardHeader } from "@mui/material";
+import { Alert, CardHeader, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setCart } from "../../redux/cartSlice";
+import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import { addTofavAction } from "../../action/userAction";
+import { motion } from "framer-motion";
 export default function CustomProductCard({ products }) {
   const { user } = useSelector((store) => store.userInfo);
-  // const dispatch = useDispatch();
+  const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const favIcons = {
     redHeart: <FavoriteIcon color="error" />,
     borderHeart: <FavoriteBorderIcon />,
   };
+  const [snackbar, setSnackbar] = React.useState({
+    open: false,
+    severity: "",
+    message: "",
+  });
+  const handleOnAddToFav = async (item) => {
+    const { status, message } = await dispatch(
+      addTofavAction({
+        _id: user?._id,
+        fav: item._id,
+      })
+    );
+    setSnackbar({
+      open: true,
+      severity: status,
+      message: message.toUpperCase(),
+    });
+  };
   return (
     <>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={2000}
+        onClose={() => {
+          setSnackbar({ open: false });
+        }}
+        width={"100%"}
+      >
+        <Alert severity={setSnackbar.severity}>{snackbar.message}</Alert>
+      </Snackbar>
       {products?.map((item) => (
         <Card
           key={item._id}
@@ -79,12 +109,7 @@ export default function CustomProductCard({ products }) {
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                dispatch(
-                  addTofavAction({
-                    _id: user?._id,
-                    fav: item._id,
-                  })
-                );
+                handleOnAddToFav(item);
               }}
             >
               {user?.favouriteItem?.includes(item._id)
@@ -94,13 +119,36 @@ export default function CustomProductCard({ products }) {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
-            <IconButton
-              onClick={() => {
-                dispatch(setCart({ ...item, orderQty: 1 }));
-              }}
-            >
-              <AddShoppingCartIcon />
-            </IconButton>
+            {cart.some((cartObj) => cartObj._id === item._id) ? (
+              <motion.div
+                initial={{ x: 20 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 0.65 }}
+              >
+                <IconButton
+                  onClick={() => {
+                    dispatch(removeItemFromCart(item._id));
+                  }}
+                >
+                  <Delete color="error" />
+                </IconButton>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ x: 20 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 0.65 }}
+              >
+                <IconButton
+                  onClick={() => {
+                    dispatch(setCart({ ...item, orderQty: 1 }));
+                  }}
+                >
+                  <AddShoppingCartIcon />
+                </IconButton>
+              </motion.div>
+            )}
+            <></>
           </CardActions>
         </Card>
       ))}

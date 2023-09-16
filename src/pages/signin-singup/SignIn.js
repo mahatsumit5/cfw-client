@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginAction } from "../../action/userAction";
 import { toast } from "react-toastify";
@@ -10,7 +10,6 @@ import {
   Input,
   InputAdornment,
   InputLabel,
-  OutlinedInput,
   TextField,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -19,6 +18,8 @@ import { Visibility } from "@mui/icons-material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { UserLayout } from "../../components/layout/UserLayout";
 export const SignIn = () => {
+  const location = useLocation();
+  console.log(location);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);

@@ -21,7 +21,6 @@ export const postUserAction = async (userData) => {
 export const loginAction = (loginDetails) => async (dispatch) => {
   const pending = logInUser(loginDetails);
   const { status, message, token } = await pending;
-  toast[status](message);
   if (status === "success") {
     localStorage.setItem("refreshJWT", token.refreshJWT);
     sessionStorage.setItem("accessJWT", token.accessJWT);
@@ -46,8 +45,9 @@ export const verifyAccountAction = async (obj) => {
 };
 
 export const addTofavAction = (obj) => async (dispatch) => {
-  const { status } = await addToFav(obj);
-  if (status === "success") {
+  const result = await addToFav(obj);
+  if (result.status === "success") {
     dispatch(getUserAction());
   }
+  return result;
 };
