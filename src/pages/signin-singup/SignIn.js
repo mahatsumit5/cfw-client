@@ -17,18 +17,15 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Visibility } from "@mui/icons-material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { UserLayout } from "../../components/layout/UserLayout";
-export const SignIn = () => {
+export const SignIn = ({ lastLocation }) => {
   const location = useLocation();
-  console.log(location);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   const [form, setForm] = useState({});
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +36,7 @@ export const SignIn = () => {
     if (form?.email && form?.password) {
       const user = await dispatch(loginAction(form));
       if (user) {
-        navigate("/");
+        navigate(lastLocation);
       }
 
       return user;

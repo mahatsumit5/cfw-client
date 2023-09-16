@@ -15,6 +15,7 @@ import { getProductsAction } from "./action/productAction";
 import { ProductLandingPage } from "./pages/product/ProductLandingPage";
 import { ProductListing } from "./pages/product/ProductListing";
 import { AutoRedirect } from "./components/autoRedirect/AutoRedirect";
+import { Checkout } from "./pages/checkout/Checkout";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -26,7 +27,14 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <AutoRedirect>
+              <Home />
+            </AutoRedirect>
+          }
+        />
         <Route
           path="/signin"
           element={
@@ -36,14 +44,36 @@ function App() {
           }
         />
         <Route path="/user-verification" element={<VerifyEmail />} />
-        <Route path={"product/:slug/"} element={<ProductLandingPage />} />
-        <Route path={"items/:slug/:_id"} element={<ProductListing />} />
+        <Route
+          path={"product/:slug/"}
+          element={
+            <AutoRedirect>
+              <ProductLandingPage />
+            </AutoRedirect>
+          }
+        />
+        <Route
+          path={"items/:slug/:_id"}
+          element={
+            <AutoRedirect>
+              <ProductListing />
+            </AutoRedirect>
+          }
+        />
 
         <Route
           path="/profile"
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
             </PrivateRoute>
           }
         />

@@ -12,7 +12,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import SendIcon from "@mui/icons-material/Send";
 import LoginIcon from "@mui/icons-material/Login";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 export const OrderSummary = () => {
   const location = useLocation();
   const { cart } = useSelector((store) => store.cart);
@@ -75,14 +75,16 @@ export const OrderSummary = () => {
         </Typography>
       </span>
       {user?._id ? (
-        <Button
-          fullWidth
-          variant="contained"
-          color="success"
-          startIcon={<LockIcon />}
-        >
-          Checkout
-        </Button>
+        <Link to="/checkout">
+          <Button
+            fullWidth
+            variant="contained"
+            color="success"
+            startIcon={<LockIcon />}
+          >
+            Checkout
+          </Button>
+        </Link>
       ) : (
         <Button
           fullWidth
