@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -14,9 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../../redux/cartSlice";
 import { addTofavAction } from "../../action/userAction";
 export default function CustomProductCard({ products }) {
-  const { cart } = useSelector((store) => store.cart);
+  const { user } = useSelector((store) => store.userInfo);
+  // const dispatch = useDispatch();
   const dispatch = useDispatch();
-
+  const favIcons = {
+    redHeart: <FavoriteIcon color="error" />,
+    borderHeart: <FavoriteBorderIcon />,
+  };
   return (
     <>
       {products?.map((item) => (
@@ -74,13 +79,17 @@ export default function CustomProductCard({ products }) {
             <IconButton
               aria-label="add to favorites"
               onClick={() => {
-                addTofavAction({
-                  _id: "64bbe3de9c067a11daf1a947",
-                  fav: item._id,
-                });
+                dispatch(
+                  addTofavAction({
+                    _id: user?._id,
+                    fav: item._id,
+                  })
+                );
               }}
             >
-              <FavoriteIcon color="error" />
+              {user?.favouriteItem?.includes(item._id)
+                ? favIcons["redHeart"]
+                : favIcons["borderHeart"]}
             </IconButton>
             <IconButton aria-label="share">
               <ShareIcon />

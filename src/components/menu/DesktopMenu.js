@@ -19,6 +19,7 @@ export const DesktopMenu = ({
   setSearchBar,
 }) => {
   const { cart } = useSelector((store) => store.cart);
+  const { user } = useSelector((store) => store.userInfo);
   let totalItems = 0;
   cart.map((item) => (totalItems += item?.orderQty));
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ export const DesktopMenu = ({
       </IconButton>
       <Typography sx={{ minWidth: 10 }}>
         <IconButton>
-          <FavoriteIcon color="error" />
+          <Badge badgeContent={user?.favouriteItem?.length} color="info">
+            <FavoriteIcon color="error" />
+          </Badge>
         </IconButton>
       </Typography>
       <Typography sx={{ minWidth: 10 }}>

@@ -45,7 +45,9 @@ export const verifyAccountAction = async (obj) => {
   }
 };
 
-export const addTofavAction = async (obj) => {
-  const { status, message } = await addToFav(obj);
-  toast[status](message);
+export const addTofavAction = (obj) => async (dispatch) => {
+  const { status } = await addToFav(obj);
+  if (status === "success") {
+    dispatch(getUserAction());
+  }
 };

@@ -26,6 +26,9 @@ export const axiosProcessor = async ({
     });
     return data;
   } catch (error) {
+    if (error.message === "Your token has expired. Please login Again") {
+      console.log("log in first");
+    }
     return {
       status: "error",
       message: error.response ? error?.response?.data?.message : error.message,

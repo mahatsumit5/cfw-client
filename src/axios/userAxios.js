@@ -54,6 +54,7 @@ export const addToFav = async (object) => {
     method: "POST",
     url: `${userApi}/addFav`,
     obj: object,
+    isPrivate: true,
   };
   return axiosProcessor(obj);
 };

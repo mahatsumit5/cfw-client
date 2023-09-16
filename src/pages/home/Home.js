@@ -7,6 +7,7 @@ import { HomePageProductListing } from "../../components/products/HomePageProduc
 import { useDispatch, useSelector } from "react-redux";
 import { setDisplayData } from "../../redux/displayDataSlice";
 import { Container } from "@mui/material";
+import { Hero } from "../../components/layout/Hero";
 export const Home = () => {
   const { products } = useSelector((store) => store.productInfo);
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export const Home = () => {
     <div className="landingPage">
       <UserLayout>
         <CustomeCarousel />
+        <Hero />
         <HomePageProductListing products={data} />
         <BasicPagination
           numberOfRequiredPagination={numberOfRequiredPagination}
