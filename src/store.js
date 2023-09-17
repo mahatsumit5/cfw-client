@@ -9,6 +9,7 @@ import productReducer from "./redux/productSlice";
 import displayReducer from "./redux/displayDataSlice";
 import cartReducer from "./redux/cartSlice";
 import modalReducer from "./redux/modalSlice";
+import paymentReducer from "./redux/paymentSlice";
 const userPresistConfig = {
   //this is a configurations
   key: "userInfo",
@@ -27,6 +28,7 @@ const store = configureStore({
     testUser: userReducer, //this data is removed every time browser reloads
     catagoryInfo: catReducer,
     productInfo: productReducer,
+    paymentInfo: paymentReducer,
     display: displayReducer,
     cart: presistedCartReducer,
     modalInfo: modalReducer,

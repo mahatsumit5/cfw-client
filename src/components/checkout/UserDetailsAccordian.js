@@ -3,6 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -15,16 +16,24 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
-export const UserDetailsAccordian = ({ activeStep, setactiveStep }) => {
-  const { user } = useSelector((store) => store.userInfo);
-  const [userForm, setUserForm] = useState({});
-  useEffect(() => {
-    setUserForm(user);
-  }, [user]);
-
+export const UserDetailsAccordian = ({
+  activeStep,
+  setactiveStep,
+  setUserForm,
+  userForm,
+}) => {
   const handleOnUserChange = (e) => {
     const { name, value } = e.target;
     setUserForm({ ...userForm, [name]: value });
+  };
+  const handleOnSubmit = () => {
+    // userForm.verificationCode = undefined;
+    // userForm.token = undefined;
+    // userForm.status = undefined;
+    // userForm.favouriteItem = undefined;
+    // userForm.createdAt = undefined;
+    setactiveStep(2);
+    console.log(userForm);
   };
 
   return (
@@ -34,21 +43,111 @@ export const UserDetailsAccordian = ({ activeStep, setactiveStep }) => {
       </AccordionSummary>
       <AccordionDetails>
         <div>
-          <FormControl>
-            <OutlinedInput
-              fullWidth
-              value={userForm.fName}
-              name="fName"
-              onChange={handleOnUserChange}
-            />
+          <FormControl sx={{ width: "100%" }}>
+            <Box
+              sx={{
+                display: "flex",
+
+                justifyContent: "space-between",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
+              <TextField
+                label="First name*"
+                value={userForm.fName}
+                onChange={handleOnUserChange}
+                name="fName"
+                type="text"
+                margin="normal"
+              />
+              <TextField
+                label="Last name*"
+                value={userForm.lName}
+                onChange={handleOnUserChange}
+                name="lName"
+                margin="normal"
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 1,
+                justifyContent: "space-between",
+                mt: 2,
+                minWidth: "100%",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
+              <TextField
+                label="Contact*"
+                value={userForm.phone}
+                onChange={handleOnUserChange}
+                name="phone"
+                margin="normal"
+              />
+              <TextField
+                fullWidth
+                label="Email*"
+                value={userForm.email}
+                onChange={handleOnUserChange}
+                name="email"
+                margin="normal"
+                type="email"
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 5,
+                justifyContent: "space-between",
+                mt: 2,
+                minWidth: "100%",
+              }}
+            >
+              <TextField
+                fullWidth
+                label="Address*"
+                value={userForm.address}
+                onChange={handleOnUserChange}
+                name="address"
+                margin="normal"
+              />
+              {/* <TextField
+                label="City*"
+                value={userForm.phone}
+                onChange={handleOnUserChange}
+                name="contact"
+                margin="normal"
+              /> */}
+            </Box>
+            {/* <Box
+              sx={{
+                display: "flex",
+                gap: 5,
+                justifyContent: "space-between",
+                mt: 2,
+                minWidth: "100%",
+              }}
+            >
+              <TextField
+                label="State*"
+                value={userForm.email}
+                onChange={handleOnUserChange}
+                name="email"
+                margin="normal"
+              />
+              <TextField
+                label="Country*"
+                value={userForm.address}
+                onChange={handleOnUserChange}
+                name="country"
+                margin="normal"
+              />
+            </Box> */}
           </FormControl>
         </div>
         <div>
-          <Button
-            onClick={() => {
-              setactiveStep(2);
-            }}
-          >
+          <Button fullWidth variant="contained" onClick={handleOnSubmit}>
             Confirm
           </Button>
         </div>
