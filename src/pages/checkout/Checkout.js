@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
 import { Box } from "@mui/system";
-import { Divider, Paper, Typography } from "@mui/material";
+import { Accordion, Divider, Paper, Typography } from "@mui/material";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { useSelector } from "react-redux";
+import { CustomStepper } from "../../components/stepper/stepper";
+import { OrderDetailsAccordian } from "../../components/checkout/OrderDetailsAccordian";
+import { UserDetailsAccordian } from "../../components/checkout/UserDetailsAccordian";
+import { PaymentAccordian } from "../../components/checkout/PaymentAccordian";
 
 export const Checkout = () => {
   const { cart } = useSelector((store) => store.cart);
+  const [cartData, setCartData] = useState([]);
+  const [activeStep, setactiveStep] = useState(0);
+
   return (
     <UserLayout>
       <Box
@@ -21,13 +28,25 @@ export const Checkout = () => {
       >
         <Box
           sx={{
-            p: 5,
+            p: 2,
             flexGrow: 4,
             backgroundColor: "white",
             borderRadius: "12px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
           }}
         >
-          1
+          <CustomStepper activeStep={activeStep} />
+          <OrderDetailsAccordian setactiveStep={setactiveStep} />
+          <UserDetailsAccordian
+            activeStep={activeStep}
+            setactiveStep={setactiveStep}
+          />
+          <PaymentAccordian
+            activeStep={activeStep}
+            setactiveStep={setactiveStep}
+          />
         </Box>
         <Box
           sx={{

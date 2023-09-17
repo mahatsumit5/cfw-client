@@ -9,6 +9,7 @@ export const AutoRedirect = ({ children }) => {
     }
     setLastLocation(location.pathname);
   }, [location]);
+
   const childrenWithLastLocation = React.Children.map(children, (child) => {
     return React.cloneElement(child, { lastLocation });
   });

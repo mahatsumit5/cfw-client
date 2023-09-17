@@ -13,7 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Favorite from "@mui/icons-material/Favorite";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
 export const CartTable = () => {
+  const navigate = useNavigate();
   const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
   const [newOrder, setNeworder] = useState({ orderQty: 0 });
@@ -77,9 +80,12 @@ export const CartTable = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  endIcon={<Favorite />}
+                  endIcon={<EditIcon />}
+                  onClick={() => {
+                    navigate(`/product/${item.slug}`);
+                  }}
                 >
-                  Fav
+                  Edit
                 </Button>
               </Stack>
             </Grid>
