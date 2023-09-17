@@ -115,3 +115,7 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+
+.css-1elwnq4-MuiPaper-root-MuiAccordion-root {
+  box-shadow: none !important;
+}

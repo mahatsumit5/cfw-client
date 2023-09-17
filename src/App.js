@@ -17,6 +17,7 @@ import { ProductListing } from "./pages/product/ProductListing";
 import { AutoRedirect } from "./components/autoRedirect/AutoRedirect";
 import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
+import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -68,6 +69,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cart/order"
+          element={
+            <PrivateRoute>
+              <OrderConfirmationPage />
             </PrivateRoute>
           }
         />

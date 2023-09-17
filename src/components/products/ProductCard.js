@@ -33,7 +33,7 @@ export default function CustomProductCard({ products }) {
     const { status, message } = await dispatch(
       addTofavAction({
         _id: user?._id,
-        fav: item._id,
+        fav: item,
       })
     );
     setSnackbar({
@@ -112,7 +112,7 @@ export default function CustomProductCard({ products }) {
                 handleOnAddToFav(item);
               }}
             >
-              {user?.favouriteItem?.includes(item._id)
+              {user?.favouriteItem?.some((i) => i.sku === item.sku)
                 ? favIcons["redHeart"]
                 : favIcons["borderHeart"]}
             </IconButton>

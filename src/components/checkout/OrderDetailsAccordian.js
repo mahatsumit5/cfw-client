@@ -6,22 +6,31 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import React from "react";
+import React, { useState } from "react";
 import { CartTable } from "../cart/CartTable";
 
 export const OrderDetailsAccordian = ({ setactiveStep }) => {
+  const [open, setOpen] = useState(true);
   return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion expanded={open}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
         <Typography variant="h5">1.Order Details</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <CartTable />
         <Button
-          variant="outlined"
+          fullWidth
+          variant="contained"
           onClick={() => {
             setactiveStep(1);
+            setOpen(false);
           }}
+          sx={{ mt: 2 }}
         >
           Confirm
         </Button>

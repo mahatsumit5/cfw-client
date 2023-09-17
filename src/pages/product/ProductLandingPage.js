@@ -23,6 +23,7 @@ import { AddToCart } from "../../components/products/AddToCart";
 import { AddToFav } from "../../components/products/AddToFav";
 import { YouMayLike } from "../../components/products/YouMayLike";
 import { LandingPageImage } from "../../components/products/LandingPageImage";
+import { CustomBackDrop } from "../../components/backDrop/BackDrop";
 
 export const ProductLandingPage = () => {
   const { slug } = useParams();
@@ -63,12 +64,7 @@ export const ProductLandingPage = () => {
   return (
     <div>
       <UserLayout>
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        <CustomBackDrop open={open} />
         {product?._id ? (
           <Container
             maxWidth="xl"

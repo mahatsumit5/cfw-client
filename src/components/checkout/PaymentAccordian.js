@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -17,13 +17,24 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 export const PaymentAccordian = ({ activeStep, payment, setPayment }) => {
   const { paymentMethods } = useSelector((store) => store.paymentInfo);
+  const [open, setOpen] = useState(false);
   const handleChange = (e) => {
     const { value } = e.target;
     setPayment({ method: value });
   };
+  useEffect(() => {
+    if (activeStep === 2) {
+      setOpen(!open);
+    }
+  }, [activeStep]);
   return (
-    <Accordion disabled={activeStep < 2}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion expanded={open} disabled={activeStep < 2}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
         <Typography variant="h5">3.Payment details</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -48,7 +59,15 @@ export const PaymentAccordian = ({ activeStep, payment, setPayment }) => {
           ))}
         </FormControl>
 
-        <Button fullWidth variant="contained" sx={{ mt: 2 }}>
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={() => {
+            setOpen(false);
+          }}
+          disabled={payment.method === ""}
+        >
           Continue
         </Button>
       </AccordionDetails>

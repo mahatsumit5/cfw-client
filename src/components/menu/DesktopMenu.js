@@ -10,8 +10,9 @@ import { Badge, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import jacket from "../../assests/jacket.avif";
 import { CartDrawer } from "../cart/CartDrawer";
+import { FavouriteDrawer } from "../favourite/FavouriteDrawer";
 export const DesktopMenu = ({
   open,
   handleProfileMenuOpen,
@@ -24,8 +25,12 @@ export const DesktopMenu = ({
   cart.map((item) => (totalItems += item?.orderQty));
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDrawer = (event, open) => {
-    setIsOpen(open);
+  const [favDrawer, setFavDrawer] = useState(false);
+  const toggleDrawer = (b) => {
+    setIsOpen(b);
+  };
+  const hanldeFavDrawer = (b) => {
+    setFavDrawer(b);
   };
   return (
     <Box
@@ -37,6 +42,7 @@ export const DesktopMenu = ({
       open={open}
       className=""
     >
+      <FavouriteDrawer favDrawer={favDrawer} setFavDrawer={setFavDrawer} />
       <CartDrawer
         isOpen={isOpen}
         toggleDrawer={toggleDrawer}
@@ -63,7 +69,11 @@ export const DesktopMenu = ({
         </Typography>
       </IconButton>
       <Typography sx={{ minWidth: 10 }}>
-        <IconButton>
+        <IconButton
+          onClick={() => {
+            setFavDrawer(true);
+          }}
+        >
           <Badge badgeContent={user?.favouriteItem?.length} color="info">
             <FavoriteIcon color="error" />
           </Badge>
@@ -72,7 +82,7 @@ export const DesktopMenu = ({
       <Typography sx={{ minWidth: 10 }}>
         <IconButton
           onClick={(e) => {
-            toggleDrawer(e, true); // navigate("/cart");
+            toggleDrawer(true); // navigate("/cart");
           }}
         >
           <Badge badgeContent={totalItems} color="error">
@@ -80,7 +90,7 @@ export const DesktopMenu = ({
           </Badge>
         </IconButton>
       </Typography>
-      <Tooltip title="Account settings" sx={{ minWidth: 10 }}>
+      <Tooltip title="profile" sx={{ minWidth: 10 }}>
         <IconButton
           onClick={handleProfileMenuOpen}
           size="small"
@@ -89,7 +99,11 @@ export const DesktopMenu = ({
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+          <Avatar
+            sx={{ width: 32, height: 32 }}
+            alt="image"
+            src={jacket}
+          ></Avatar>
         </IconButton>
       </Tooltip>{" "}
     </Box>

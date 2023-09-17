@@ -8,6 +8,6 @@ export const PrivateRoute = ({ children }) => {
   return user?._id ? (
     children
   ) : (
-    <Navigate to="/" state={{ from: { location } }} />
+    <Navigate to="/signin" state={{ from: { location } }} />
   );
 };

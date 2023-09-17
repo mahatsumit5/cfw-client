@@ -26,19 +26,27 @@ export const UserDetailsAccordian = ({
     const { name, value } = e.target;
     setUserForm({ ...userForm, [name]: value });
   };
+
+  const [open, setOpen] = useState(false);
+
   const handleOnSubmit = () => {
-    // userForm.verificationCode = undefined;
-    // userForm.token = undefined;
-    // userForm.status = undefined;
-    // userForm.favouriteItem = undefined;
-    // userForm.createdAt = undefined;
     setactiveStep(2);
-    console.log(userForm);
+    setOpen(!open);
   };
+  useEffect(() => {
+    if (activeStep === 1) {
+      setOpen(!open);
+    }
+  }, [activeStep]);
 
   return (
-    <Accordion disabled={activeStep === 0}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <Accordion expanded={open} disabled={activeStep === 0}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        onClick={() => {
+          setOpen(!open);
+        }}
+      >
         <Typography variant="h5">2.User details</Typography>
       </AccordionSummary>
       <AccordionDetails>

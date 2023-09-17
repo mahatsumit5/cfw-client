@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -9,16 +9,20 @@ import { ProfileMenu } from "../menu/ProfileMenu";
 import { DesktopMenu } from "../menu/DesktopMenu";
 import { Typography } from "@mui/material";
 import { BootStrapNavBar } from "../menu/BootStrapNavBar";
+import { useSelector } from "react-redux";
 export const Header = () => {
+  const { user } = useSelector((store) => store.userInfo);
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [searchBar, setSearchBar] = useState(false);
   const handleProfileMenuOpen = (event) => {
+    if (!user._id) {
+      navigate("/signin");
+      return;
+    }
     setAnchorEl(event.currentTarget);
-  };
-  const handleMobileMenuOpen = (event) => {
-    setMobileAnchorEl(event.currentTarget);
   };
 
   return (
@@ -69,11 +73,7 @@ export const Header = () => {
             searchBar={searchBar}
             setSearchBar={setSearchBar}
           />
-          {/* <CustomMobileMenu
-            handleProfileMenuOpen={handleProfileMenuOpen}
-            mobileAnchorEl={mobileAnchorEl}
-            setMobileAnchorEl={setMobileAnchorEl}
-          /> */}
+
           <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </Box>
       </Box>

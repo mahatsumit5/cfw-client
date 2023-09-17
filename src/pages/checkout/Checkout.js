@@ -2,7 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
 import { Box } from "@mui/system";
-import { Accordion, Button, Divider, Paper, Typography } from "@mui/material";
+import {
+  Accordion,
+  Backdrop,
+  Button,
+  CircularProgress,
+  Divider,
+  LinearProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { CustomStepper } from "../../components/stepper/stepper";
@@ -11,8 +20,11 @@ import { UserDetailsAccordian } from "../../components/checkout/UserDetailsAccor
 import { PaymentAccordian } from "../../components/checkout/PaymentAccordian";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { postOrderAction } from "../../action/orderAction";
+import { useNavigate } from "react-router-dom";
+import { resetCart } from "../../redux/cartSlice";
 export const Checkout = () => {
   const { cart } = useSelector((store) => store.cart);
+  const navigate = useNavigate();
 
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
@@ -26,14 +38,14 @@ export const Checkout = () => {
   const [userForm, setUserForm] = useState({});
   const [orderData, setOrderData] = useState({});
   useEffect(() => {
-    user.verificationCode = undefined;
-    user.token = undefined;
-    user.status = undefined;
-    user.favouriteItem = undefined;
-    user.createdAt = undefined;
-    user.updatedAt = undefined;
-    user.isVerified = undefined;
-    user.__v = undefined;
+    // user.verificationCode = undefined;
+    // user.token = undefined;
+    // user.status = undefined;
+    // user.favouriteItem = undefined;
+    // user.createdAt = undefined;
+    // user.updatedAt = undefined;
+    // user.isVerified = undefined;
+    // user.__v = undefined;
     setUserForm({ ...user });
   }, [user]);
 
@@ -42,14 +54,26 @@ export const Checkout = () => {
     setOrderData({ orderItems: cart, user: userForm, payment });
   }, [userForm, cart, payment]);
   const dispatch = useDispatch();
+  const [open, setopen] = useState(false);
   const handleOnSubmitOrder = async () => {
-    const isSuccessfull = await dispatch(postOrderAction(orderData));
+    const pending = dispatch(postOrderAction(orderData));
+    setopen(true);
+    const isSuccessfull = await pending;
     if (isSuccessfull) {
-      // navigate to other pages
+      navigate("/cart/order");
+      dispatch(resetCart());
     }
+    setopen(false);
   };
   return (
     <UserLayout>
+      <Backdrop open={open} />
+      {open && (
+        <CircularProgress
+          sx={{ position: "fixed", top: "50vh", left: "50vw", zIndex: 1 }}
+          color="primary"
+        />
+      )}
       <Box
         sx={{
           p: 5,
@@ -62,7 +86,8 @@ export const Checkout = () => {
         <Box
           sx={{
             p: 2,
-            flexGrow: 3,
+            width: { xs: "100%", md: "75%" },
+            flexGrow: 1,
             backgroundColor: "white",
             borderRadius: "12px",
             display: "flex",
@@ -97,6 +122,7 @@ export const Checkout = () => {
           <Divider sx={{ mt: 3 }} />
           {cart.map((item) => (
             <Paper
+              key={item._id}
               elevation={1}
               sx={{
                 display: "flex",
@@ -145,9 +171,11 @@ export const Checkout = () => {
             sx={{ mt: 2 }}
             color="success"
             onClick={handleOnSubmitOrder}
-            // disabled={
-            //   cart.length === 0 || user?._id === undefined || payment.
-            // }
+            disabled={
+              cart.length === 0 ||
+              user?._id === undefined ||
+              payment.method === ""
+            }
           >
             Place order
           </Button>

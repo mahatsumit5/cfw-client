@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
-import PersonAdd from "@mui/icons-material/PersonAdd";
+import PersonIcon from "@mui/icons-material/Person";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
 import { logOutUser } from "../../axios/userAxios";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Avatar, Divider } from "@mui/material";
+import jacket from "../../assests/jacket.avif";
 
 export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
   const { user } = useSelector((store) => store.userInfo);
@@ -62,17 +63,18 @@ export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <MenuItem onClick={handleClose}>
-        <Avatar /> Profile
-      </MenuItem>
-      <MenuItem onClick={handleClose}>
-        <Avatar /> My account
+        <ListItemIcon>
+          <Avatar fontSize="small" alt="profile" src={jacket} />
+        </ListItemIcon>
+        {user?.fName?.toUpperCase()}
       </MenuItem>
       <Divider />
+
       <MenuItem onClick={handleClose}>
         <ListItemIcon>
-          <PersonAdd fontSize="small" />
+          <FavoriteIcon fontSize="small" color="error" />
         </ListItemIcon>
-        Add another account
+        Wishlist
       </MenuItem>
       <MenuItem onClick={handleClose}>
         <ListItemIcon>
@@ -80,27 +82,17 @@ export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
         </ListItemIcon>
         Settings
       </MenuItem>
-      {user?._id ? (
-        <MenuItem
-          onClick={() => {
-            handleOnLogout(user._id);
-          }}
-        >
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      ) : (
-        <Link to="/signin" className="navbar-brand">
-          <MenuItem>
-            <ListItemIcon>
-              <LoginIcon fontSize="small" />
-            </ListItemIcon>
-            Login
-          </MenuItem>
-        </Link>
-      )}
+
+      <MenuItem
+        onClick={() => {
+          handleOnLogout(user._id);
+        }}
+      >
+        <ListItemIcon>
+          <Logout fontSize="small" />
+        </ListItemIcon>
+        Logout
+      </MenuItem>
     </Menu>
   );
 

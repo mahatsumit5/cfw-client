@@ -46,11 +46,7 @@ export const SignIn = ({ lastLocation }) => {
   return (
     <UserLayout>
       <Container className="w-100  d-flex m-auto justify-content-center mt-5 align-items-center">
-        <Form
-          className="shadow rounded p-4"
-          onSubmit={handleOnSubmit}
-          style={{}}
-        >
+        <Form className="shadow rounded p-4" onSubmit={handleOnSubmit}>
           <p className="form-title">Sign in to your account</p>
           <div className="mt-3">
             <TextField
