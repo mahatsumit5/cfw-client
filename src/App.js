@@ -18,6 +18,7 @@ import { AutoRedirect } from "./components/autoRedirect/AutoRedirect";
 import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
+import { ResetPassword } from "./pages/signin-singup/ResetPassword";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function App() {
             </AutoRedirect>
           }
         />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
         <Route
           path={"product/:slug/"}

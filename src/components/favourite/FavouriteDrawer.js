@@ -19,9 +19,11 @@ export const FavouriteDrawer = ({ favDrawer, setFavDrawer }) => {
           minHeight: 200,
           height: "auto",
           display: "flex",
+          width: "100vw",
           gap: 2,
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
+          overflowX: "auto",
         }}
       >
         {user?._id ? (

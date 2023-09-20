@@ -67,3 +67,21 @@ export const getNewAccessJWt = async () => {
   };
   return axiosProcessor(obj);
 };
+
+export const getResetPassLink = async (email) => {
+  const obj = {
+    method: "post",
+    url: userApi + "/get-reset-pass-link",
+    obj: email,
+  };
+  return axiosProcessor(obj);
+};
+export const resetPassword = async ({ email, code, password }) => {
+  console.log(email, code, password);
+  const obj = {
+    method: "put",
+    url: userApi + `/reset-password/${email}/${code}`,
+    obj: { password },
+  };
+  return axiosProcessor(obj);
+};
