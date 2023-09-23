@@ -1,10 +1,13 @@
 import { toast } from "react-toastify";
 import { postOrder } from "../axios/orderAxios";
+import { resetCart } from "../redux/cartSlice";
+import { Navigate } from "react-router-dom";
 
 export const postOrderAction = (object) => async (dispatch) => {
-  const { status, message } = await postOrder(object);
+  const { status, message, orderNumber } = await postOrder(object);
   toast[status](message);
   if (status === "success") {
-    return true;
+    dispatch(resetCart());
+    return orderNumber;
   }
 };

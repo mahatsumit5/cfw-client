@@ -22,6 +22,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { postOrderAction } from "../../action/orderAction";
 import { useNavigate } from "react-router-dom";
 import { resetCart } from "../../redux/cartSlice";
+import { payWithCard } from "../../axios/orderAxios";
 export const Checkout = () => {
   const { cart } = useSelector((store) => store.cart);
   const navigate = useNavigate();
@@ -37,15 +38,8 @@ export const Checkout = () => {
   const [payment, setPayment] = useState({ method: "" });
   const [userForm, setUserForm] = useState({});
   const [orderData, setOrderData] = useState({});
+
   useEffect(() => {
-    // user.verificationCode = undefined;
-    // user.token = undefined;
-    // user.status = undefined;
-    // user.favouriteItem = undefined;
-    // user.createdAt = undefined;
-    // user.updatedAt = undefined;
-    // user.isVerified = undefined;
-    // user.__v = undefined;
     setUserForm({ ...user });
   }, [user]);
 
@@ -56,13 +50,19 @@ export const Checkout = () => {
   const dispatch = useDispatch();
   const [open, setopen] = useState(false);
   const handleOnSubmitOrder = async () => {
+    if (payment.method === "Pay with credit card") {
+      payWithCard(orderData).then(({ url, session }) => {
+        window.open(url);
+        dispatch(postOrderAction(orderData));
+      });
+      return;
+    }
     const pending = dispatch(postOrderAction(orderData));
     setopen(true);
-    const isSuccessfull = await pending;
-    if (isSuccessfull) {
-      navigate("/cart/order");
-      dispatch(resetCart());
-    }
+    const orderNumber = await pending;
+    console.log(orderNumber);
+    navigate(`/cart/order/${orderNumber}`);
+
     setopen(false);
   };
   return (
@@ -108,6 +108,7 @@ export const Checkout = () => {
             setactiveStep={setactiveStep}
             payment={payment}
             setPayment={setPayment}
+            cart={cart}
           />
         </Box>
         <Box
