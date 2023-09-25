@@ -42,6 +42,7 @@ export default function CustomProductCard({ products }) {
       message: message.toUpperCase(),
     });
   };
+
   return (
     <>
       <Snackbar
