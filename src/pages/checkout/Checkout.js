@@ -135,11 +135,7 @@ export const Checkout = () => {
             >
               <div style={{ height: "auto", width: "80px" }}>
                 <img
-                  src={
-                    process.env.REACT_APP_ROOTSERVER +
-                    "/" +
-                    item.thumbnail?.slice(6)
-                  }
+                  src={item.thumbnail}
                   alt=""
                   style={{
                     width: "100%",

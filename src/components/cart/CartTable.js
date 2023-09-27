@@ -40,11 +40,7 @@ export const CartTable = () => {
           <Grid container spacing={2} sx={{ p: 1, flexWrap: "wrap" }}>
             <Grid item xs sx={{ minWidth: "100px" }}>
               <img
-                src={
-                  process.env.REACT_APP_ROOTSERVER +
-                  "/" +
-                  item.thumbnail?.slice(6)
-                }
+                src={item.thumbnail}
                 alt=""
                 style={{
                   width: "100%",

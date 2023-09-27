@@ -84,13 +84,16 @@ export default function CustomProductCard({ products }) {
                   objectFit: "cover",
                 }}
                 component="img"
-                image={
+                image={item.thumbnail}
+                alt={item.title}
+              />
+              {/* image={
                   process.env.REACT_APP_ROOTSERVER +
                   "/" +
                   item.thumbnail?.slice(6)
                 }
                 alt={item.title}
-              />
+              /> */}
             </div>
 
             <CardContent sx={{ flexGrow: 1 }}>

@@ -17,7 +17,7 @@ export const ItemAddedModal = ({ item }) => {
       <Box sx={{ display: "flex", gap: 2 }}>
         <div style={{ width: "100px", height: "100px" }}>
           <img
-            src={process.env.REACT_APP_ROOTSERVER + item.thumbnail?.slice(6)}
+            src={item.thumbnail}
             style={{ width: "100%", height: "100%", objectFit: "contain" }}
           />
         </div>

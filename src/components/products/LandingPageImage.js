@@ -7,11 +7,13 @@ export const LandingPageImage = ({ product }) => {
   const [currentImage, setCurrentImge] = useState({
     index: 0,
     thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+    // thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
   });
   useEffect(() => {
     setCurrentImge({
       index: 0,
-      thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+      thumnail: product.thumbnail,
+      // thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
     });
   }, [product]);
   return (
