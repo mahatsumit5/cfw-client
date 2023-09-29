@@ -8,6 +8,7 @@ import {
 import {
   Backdrop,
   Box,
+  Button,
   CircularProgress,
   Container,
   FormControl,
@@ -24,6 +25,7 @@ import { AddToFav } from "../../components/products/AddToFav";
 import { YouMayLike } from "../../components/products/YouMayLike";
 import { LandingPageImage } from "../../components/products/LandingPageImage";
 import { CustomBackDrop } from "../../components/backDrop/BackDrop";
+import { AddReview } from "../../components/products/AddReview";
 
 export const ProductLandingPage = () => {
   const { slug } = useParams();
@@ -174,7 +176,7 @@ export const ProductLandingPage = () => {
                   <Typography variant="subtitle1" color={"grey"}>
                     Qty
                   </Typography>
-                  <Box sx={{ minWidth: 80 }}>
+                  <Box sx={{ minWidth: 80, display: "flex", gap: 2 }}>
                     <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">Qty</InputLabel>
                       <Select
@@ -189,6 +191,7 @@ export const ProductLandingPage = () => {
                         <MenuItem value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
+                    <AddReview slug={slug} />
                   </Box>
                 </Stack>
                 <span className="d-flex gap-5">

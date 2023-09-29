@@ -8,18 +8,17 @@ import { setModal } from "../../redux/modalSlice";
 import { ItemAddedModal } from "../modal/ItemAddedModal";
 
 export const AddToCart = ({ item }) => {
-  // console.log(item);
-  const { cart } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
+  const { modalName } = useSelector((store) => store.modalInfo);
   const handleOnAdd = () => {
     dispatch(setCart(item));
-    dispatch(setModal(true));
+    dispatch(setModal({ isModalOpen: true, modalName: "addedTocart" }));
   };
   return (
     <>
-      <ItemAddedModal item={item} />
+      {modalName === "addedTocart" && <ItemAddedModal item={item} />}
       <Button
-        variant="outlined"
+        variant="contained"
         className="flex-grow-1"
         startIcon={<ShoppingCartCheckoutIcon />}
         onClick={handleOnAdd}

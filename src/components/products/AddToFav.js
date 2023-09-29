@@ -4,9 +4,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 export const AddToFav = () => {
   return (
     <Button
-      variant="error"
+      variant="outlined"
       className="flex-grow-3"
+      sx={{ marginLeft: 2 }}
       endIcon={<FavoriteIcon color="error" />}
-    ></Button>
+    >
+      Add to Favourite
+    </Button>
   );
 };

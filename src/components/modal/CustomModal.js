@@ -17,22 +17,20 @@ const style = {
   p: 3,
 };
 export const CustomModal = ({ children }) => {
-  const { isModalOpen } = useSelector((store) => store.modalInfo);
+  const { isModalOpen, modalName } = useSelector((store) => store.modalInfo);
   const dispatch = useDispatch();
   const handleClose = () => {
     dispatch(setModal(false));
   };
 
   return (
-    <div>
-      <Modal
-        open={isModalOpen}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>{children}</Box>
-      </Modal>
-    </div>
+    <Modal
+      open={isModalOpen}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>{children}</Box>
+    </Modal>
   );
 };
