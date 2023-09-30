@@ -19,6 +19,7 @@ import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
 import { ResetPassword } from "./pages/signin-singup/ResetPassword";
+import { StripeCheckout } from "./pages/checkout/StripeCheckout";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -71,6 +72,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/stripe-checkout"
+          element={
+            <PrivateRoute>
+              <StripeCheckout />
             </PrivateRoute>
           }
         />

@@ -51,20 +51,26 @@ export const Checkout = () => {
   const [open, setopen] = useState(false);
   const handleOnSubmitOrder = async () => {
     if (payment.method === "Pay with credit card") {
-      payWithCard(orderData).then(({ url, session }) => {
-        window.open(url);
-        dispatch(postOrderAction(orderData));
-      });
+      navigate("/stripe-checkout");
       return;
     }
-    const pending = dispatch(postOrderAction(orderData));
-    setopen(true);
-    const orderNumber = await pending;
-    console.log(orderNumber);
-    navigate(`/cart/order/${orderNumber}`);
-
-    setopen(false);
   };
+  // const handleOnSubmitOrder = async () => {
+  //   if (payment.method === "Pay with credit card") {
+  //     payWithCard(orderData).then(({ url, session }) => {
+  //       window.open(url);
+  //       dispatch(postOrderAction(orderData));
+  //     });
+  //     return;
+  //   }
+  //   const pending = dispatch(postOrderAction(orderData));
+  //   setopen(true);
+  //   const orderNumber = await pending;
+  //   console.log(orderNumber);
+  //   navigate(`/cart/order/${orderNumber}`);
+
+  //   setopen(false);
+  // };
   return (
     <UserLayout>
       <Backdrop open={open} />
