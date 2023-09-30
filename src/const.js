@@ -3,7 +3,7 @@ import { getNewAccessJWt } from "./axios/userAxios";
 export const rootApi =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8010/api/v1"
-    : "/api/v1";
+    : `${process.env.REACT_APP_ROOTSERVER}/api/v1`;
 
 export const getAccessJWt = () => {
   return sessionStorage.getItem("accessJWT");
