@@ -1,18 +1,20 @@
-import { Button, FormControl, TextField } from "@mui/material";
+import { Button, FormControl, Rating, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { CustomModal } from "../modal/CustomModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
-import { postReviewActoin } from "../../action/productAction";
+import { postReviewActoin } from "../../action/reviewAction";
 
-export const AddReview = ({ slug }) => {
+export const AddReview = ({ product }) => {
   const { user } = useSelector((store) => store.userInfo);
   const dispatch = useDispatch();
   const handleOnReview = () => {
     dispatch(setModal({ isModalOpen: true, modalName: "review" }));
   };
   const [reviews, setReview] = useState({
-    user: user._id,
+    product,
+    rating: 1,
+    user,
     title: "",
     description: "",
   });
@@ -20,6 +22,11 @@ export const AddReview = ({ slug }) => {
     const { name, value } = e.target;
     setReview({ ...reviews, [name]: value });
   };
+  function handleOnSubmit() {
+    dispatch(postReviewActoin(reviews));
+    // dispatch(setModal(false));
+    // window.location.reload(true);
+  }
   return (
     <>
       <Button
@@ -31,12 +38,14 @@ export const AddReview = ({ slug }) => {
       </Button>
       <CustomModal>
         <FormControl>
+          <Rating
+            name="rating"
+            value={reviews.rating}
+            onChange={handleOnChange}
+          />
           <TextField name="title" onChange={handleOnChange} />
           <TextField name="description" onChange={handleOnChange} />
-          <Button
-            variant="contained"
-            onClick={() => dispatch(postReviewActoin(slug, reviews))}
-          >
+          <Button variant="contained" onClick={handleOnSubmit}>
             Submit
           </Button>
         </FormControl>

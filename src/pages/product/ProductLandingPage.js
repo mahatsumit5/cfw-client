@@ -30,6 +30,7 @@ import { AddReview } from "../../components/products/AddReview";
 export const ProductLandingPage = () => {
   const { slug } = useParams();
   const [product, setproduct] = useState({});
+  const [reviews, setReview] = useState([]);
   const [similarProduct, setSimilarproduct] = useState([]);
   const [open, setOpen] = useState(false);
   const [orderQty, setOrderQty] = useState(1);
@@ -46,6 +47,7 @@ export const ProductLandingPage = () => {
       setSelectedItem({ ...data, orderQty });
 
       setproduct(data);
+      setReview(data.reviews);
       const obj = {
         _id: data?.parentCat,
         slug: data.slug,
@@ -62,7 +64,13 @@ export const ProductLandingPage = () => {
   useEffect(() => {
     setSelectedItem({ ...product, orderQty });
   }, [orderQty]);
+  let numberOfStars = 0;
+  reviews?.map((item) => {
+    console.log(item);
+    return (numberOfStars += item?.rating / 5);
+  });
 
+  console.log(numberOfStars);
   return (
     <div>
       <UserLayout>
@@ -99,9 +107,9 @@ export const ProductLandingPage = () => {
                     {product.title.toUpperCase()}
                   </Typography>
                   <span style={{ display: "flex", gap: 5 }}>
-                    <Rating name="read-only" value={4} readOnly />
+                    <Rating name="read-only" value={numberOfStars} readOnly />
                     <Typography variant="subtitle1" color={"grey"}>
-                      4 reviews
+                      {product.reviews.length} reviews
                     </Typography>
                   </span>
                 </Stack>
@@ -191,7 +199,7 @@ export const ProductLandingPage = () => {
                         <MenuItem value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
-                    <AddReview slug={slug} />
+                    <AddReview slug={slug} product={product._id} />
                   </Box>
                 </Stack>
                 <span className="d-flex gap-5">
