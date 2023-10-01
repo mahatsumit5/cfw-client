@@ -21,83 +21,57 @@ import { StripeCheckout } from "./StripeCheckout";
 import { setModal } from "../../redux/modalSlice";
 import { postPaymentIntent } from "../../axios/stripeAxios";
 export const Checkout = () => {
-  const { cart } = useSelector((store) => store.cart);
-  const { user } = useSelector((store) => store.userInfo);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const { cart } = useSelector((store) => store.cart);
+  const { payment, user, orderItems } = useSelector((store) => store.orderInfo);
   const stripeStatus = new URLSearchParams(window.location.search).get(
     "redirect_status"
   );
+  const [open, setopen] = useState(false);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
+  const [activeStep, setactiveStep] = useState(0);
+  const [clientSecret, setClientSecret] = useState("");
+
   const totalAmount = cart.reduce((acc, curr) => {
     return acc + curr.orderQty * curr.price + shippingCost - discount;
   }, 0);
-
-  const [activeStep, setactiveStep] = useState(0);
-  const [payment, setPayment] = useState({
-    method: "",
-    totalAmount,
-    isPaid: false,
-  });
-  const [userForm, setUserForm] = useState({});
-  const [orderData, setOrderData] = useState({});
-  const [clientSecret, setClientSecret] = useState("");
-  useEffect(() => {
-    setOrderData({ orderItems: cart, user: userForm, payment });
-  }, []);
-  useEffect(() => {
-    setUserForm({ ...user });
-  }, [user]);
-
-  // call stripe api to request client secret
-  useEffect(() => {
-    if (payment.method === "Cash on Delivery") {
-      return;
+  async function getClientSecret() {
+    const result = await postPaymentIntent({
+      customer: user._id,
+      payment: payment.method,
+      totalAmount,
+    });
+    setClientSecret(result.clientSecret);
+    if (result.clientSecret) {
+      dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
     }
-    async function getClientSecret() {
-      const result = await postPaymentIntent({
-        customer: user._id,
-        payment: payment.method,
-        totalAmount,
-      });
-      setClientSecret(result.clientSecret);
-    }
-    getClientSecret();
-    dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
-  }, [payment]);
+  }
 
-  useEffect(() => {
-    setOrderData({ orderItems: cart, user: userForm, payment });
-  }, [userForm, cart, payment, stripeStatus]);
-
-  const [open, setopen] = useState(false);
-
-  const handleOnSubmitOrder = async () => {
-    const obj =
-      orderData.user && orderData.payment && orderData.orderItems
-        ? orderData
-        : { orderItems: cart, user, payment: { ...payment, method: "card" } };
-
-    if (stripeStatus === "succeeded") {
-      setPayment({ ...payment, isPaid: true, method: "card" });
-    }
-    const pending = dispatch(postOrderAction(obj));
+  async function postOrder() {
+    const pending = dispatch(postOrderAction({ payment, user, orderItems }));
     setopen(true);
     const orderNumber = await pending;
     if (orderNumber) {
       navigate(`/cart/order/${orderNumber}`);
     }
     setopen(false);
+  }
+  const handleOnSubmitOrder = async () => {
+    if (payment.method === "Cash on Delivery") {
+      console.log("inside cash on delivery");
+      postOrder();
+    }
+    getClientSecret();
   };
-
+  // call stripe api to request client secret
   useEffect(() => {
-    if (stripeStatus === "succeeded") {
-      handleOnSubmitOrder();
+    if (stripeStatus) {
+      postOrder();
     }
   }, [stripeStatus]);
+
   return (
     <UserLayout>
       <Backdrop open={open} />
@@ -129,19 +103,15 @@ export const Checkout = () => {
           }}
         >
           <CustomStepper activeStep={activeStep} />
-          <OrderDetailsAccordian setactiveStep={setactiveStep} />
+          <OrderDetailsAccordian setactiveStep={setactiveStep} cart={cart} />
           <UserDetailsAccordian
             activeStep={activeStep}
             setactiveStep={setactiveStep}
-            userForm={userForm}
-            setUserForm={setUserForm}
           />
           <PaymentAccordian
             activeStep={activeStep}
             setactiveStep={setactiveStep}
-            payment={payment}
-            setPayment={setPayment}
-            cart={cart}
+            totalAmount={totalAmount}
           />
         </Box>
         <Box
@@ -202,9 +172,9 @@ export const Checkout = () => {
             color="success"
             onClick={handleOnSubmitOrder}
             disabled={
-              cart.length === 0 ||
+              orderItems.length === 0 ||
               user?._id === undefined ||
-              payment.method === ""
+              payment.method === undefined
             }
           >
             Place order

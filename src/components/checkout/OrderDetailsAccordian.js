@@ -8,9 +8,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React, { useState } from "react";
 import { CartTable } from "../cart/CartTable";
+import { setOrder } from "../../redux/orderSlice";
+import { useDispatch } from "react-redux";
 
-export const OrderDetailsAccordian = ({ setactiveStep }) => {
+export const OrderDetailsAccordian = ({ setactiveStep, cart }) => {
   const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
   return (
     <Accordion expanded={open}>
       <AccordionSummary
@@ -29,6 +32,7 @@ export const OrderDetailsAccordian = ({ setactiveStep }) => {
           onClick={() => {
             setactiveStep(1);
             setOpen(false);
+            dispatch(setOrder({ cart, name: "cart" }));
           }}
           sx={{ mt: 2 }}
         >
