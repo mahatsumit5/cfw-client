@@ -75,14 +75,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/stripe-checkout"
-          element={
-            <PrivateRoute>
-              <StripeCheckout />
-            </PrivateRoute>
-          }
-        />
+
         <Route
           path={"/cart/order/:_id"}
           element={

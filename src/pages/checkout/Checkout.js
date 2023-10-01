@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../../components/layout/Header";
-import { Footer } from "../../components/layout/Footer";
-import { Box } from "@mui/system";
 import {
-  Accordion,
   Backdrop,
+  Box,
   Button,
   CircularProgress,
   Divider,
-  LinearProgress,
   Paper,
   Typography,
 } from "@mui/material";
@@ -21,12 +17,19 @@ import { PaymentAccordian } from "../../components/checkout/PaymentAccordian";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { postOrderAction } from "../../action/orderAction";
 import { useNavigate } from "react-router-dom";
-import { resetCart } from "../../redux/cartSlice";
-import { payWithCard } from "../../axios/orderAxios";
+import { StripeCheckout } from "./StripeCheckout";
+import { setModal } from "../../redux/modalSlice";
+import { postPaymentIntent } from "../../axios/stripeAxios";
 export const Checkout = () => {
   const { cart } = useSelector((store) => store.cart);
-  const navigate = useNavigate();
+  const { user } = useSelector((store) => store.userInfo);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const stripeStatus = new URLSearchParams(window.location.search).get(
+    "redirect_status"
+  );
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
   const totalAmount = cart.reduce((acc, curr) => {
@@ -34,43 +37,67 @@ export const Checkout = () => {
   }, 0);
 
   const [activeStep, setactiveStep] = useState(0);
-  const { user } = useSelector((store) => store.userInfo);
-  const [payment, setPayment] = useState({ method: "" });
+  const [payment, setPayment] = useState({
+    method: "",
+    totalAmount,
+    isPaid: false,
+  });
   const [userForm, setUserForm] = useState({});
   const [orderData, setOrderData] = useState({});
-
+  const [clientSecret, setClientSecret] = useState("");
+  useEffect(() => {
+    setOrderData({ orderItems: cart, user: userForm, payment });
+  }, []);
   useEffect(() => {
     setUserForm({ ...user });
   }, [user]);
 
+  // call stripe api to request client secret
   useEffect(() => {
-    setPayment({ ...payment, totalAmount, isPaid: false });
-    setOrderData({ orderItems: cart, user: userForm, payment });
-  }, [userForm, cart, payment]);
-  const dispatch = useDispatch();
-  const [open, setopen] = useState(false);
-  const handleOnSubmitOrder = async () => {
-    if (payment.method === "Pay with credit card") {
-      navigate("/stripe-checkout");
+    if (payment.method === "Cash on Delivery") {
       return;
     }
-  };
-  // const handleOnSubmitOrder = async () => {
-  //   if (payment.method === "Pay with credit card") {
-  //     payWithCard(orderData).then(({ url, session }) => {
-  //       window.open(url);
-  //       dispatch(postOrderAction(orderData));
-  //     });
-  //     return;
-  //   }
-  //   const pending = dispatch(postOrderAction(orderData));
-  //   setopen(true);
-  //   const orderNumber = await pending;
-  //   console.log(orderNumber);
-  //   navigate(`/cart/order/${orderNumber}`);
+    async function getClientSecret() {
+      const result = await postPaymentIntent({
+        customer: user._id,
+        payment: payment.method,
+        totalAmount,
+      });
+      setClientSecret(result.clientSecret);
+    }
+    getClientSecret();
+    dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
+  }, [payment]);
 
-  //   setopen(false);
-  // };
+  useEffect(() => {
+    setOrderData({ orderItems: cart, user: userForm, payment });
+  }, [userForm, cart, payment, stripeStatus]);
+
+  const [open, setopen] = useState(false);
+
+  const handleOnSubmitOrder = async () => {
+    const obj =
+      orderData.user && orderData.payment && orderData.orderItems
+        ? orderData
+        : { orderItems: cart, user, payment: { ...payment, method: "card" } };
+
+    if (stripeStatus === "succeeded") {
+      setPayment({ ...payment, isPaid: true, method: "card" });
+    }
+    const pending = dispatch(postOrderAction(obj));
+    setopen(true);
+    const orderNumber = await pending;
+    if (orderNumber) {
+      navigate(`/cart/order/${orderNumber}`);
+    }
+    setopen(false);
+  };
+
+  useEffect(() => {
+    if (stripeStatus === "succeeded") {
+      handleOnSubmitOrder();
+    }
+  }, [stripeStatus]);
   return (
     <UserLayout>
       <Backdrop open={open} />
@@ -184,6 +211,7 @@ export const Checkout = () => {
           </Button>
         </Box>
       </Box>
+      {clientSecret && <StripeCheckout clientSecret={clientSecret} />}
     </UserLayout>
   );
 };

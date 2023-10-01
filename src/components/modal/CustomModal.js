@@ -1,20 +1,23 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
+import CloseIcon from "@mui/icons-material/Close";
+import { Button, Paper } from "@mui/material";
 const style = {
+  display: "flex",
+  flexWrap: "wrap",
+  flexDirection: "column",
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: { xs: 350, md: 450 },
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 3,
+  borderRadius: "10px",
+  padding: "20px",
 };
 export const CustomModal = ({ children }) => {
   const { isModalOpen, modalName } = useSelector((store) => store.modalInfo);
@@ -26,11 +29,21 @@ export const CustomModal = ({ children }) => {
   return (
     <Modal
       open={isModalOpen}
-      onClose={handleClose}
+      // onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>{children}</Box>
+      <Box sx={style}>
+        <Paper
+          elevation={0}
+          sx={{ display: "flex", justifyContent: "flex-end" }}
+        >
+          <Button variant="text" color="error" onClick={handleClose}>
+            <CloseIcon />
+          </Button>
+        </Paper>
+        {children}
+      </Box>
     </Modal>
   );
 };

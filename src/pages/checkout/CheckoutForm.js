@@ -1,62 +1,54 @@
-import { Box, Button, TextField } from "@mui/material";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  AddressElement,
+  CardElement,
+  ExpressCheckoutElement,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { postPaymentIntent } from "../../axios/stripeAxios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setModal } from "../../redux/modalSlice";
 const CheckoutForm = () => {
-  const { user } = useSelector((store) => store.userInfo);
+  const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-
-  const [form, setForm] = useState({});
   const handleOnSubmit = async (e) => {
-    const obj = { ...form, customer: user._id };
     e.preventDefault();
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
-    const { clientSecret } = await postPaymentIntent(obj);
-    if (clientSecret) {
-      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: form,
-        },
-      });
-      console.log(paymentIntent);
+    const { paymentIntent, error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: "http://localhost:3000/checkout",
+      },
+    });
+    if (paymentIntent.status === "succeeded") {
+      dispatch(setModal({ isModalOpen: false, modalName: "stripe" }));
     }
   };
   return (
-    <Box sx={{ margin: "auto", p: 5 }}>
+    <Box sx={{ margin: "auto" }}>
       <form style={{ width: "400px", margin: "auto" }}>
-        <TextField
-          label="name"
-          name="name"
-          type="text"
-          onChange={(e) => {
-            const { name, value } = e.target;
-            setForm({ ...form, [name]: value });
-          }}
-        />
-        <TextField
-          label="Email"
-          name="email"
-          onChange={(e) => {
-            const { name, value } = e.target;
-            setForm({ ...form, [name]: value });
-          }}
-        />
-        <CardElement />
-        {/* <AfterpayClearpayMessageElement /> */}
-        {/* <CardCvcElement />
-        <CardExpiryElement />
-        <CardNumberElement /> */}
-        {/* <ExpressCheckoutElement /> */}
-        <Button variant="contained" color="success" onClick={handleOnSubmit}>
-          Submit
+        <h1>Billing Details</h1>
+        <AddressElement options={{ mode: "billing" }} />
+        <PaymentElement options={{ layout: "tabs" }} />
+        <Button
+          variant="contained"
+          color="success"
+          onClick={handleOnSubmit}
+          fullWidth
+          sx={{ mt: 2 }}
+        >
+          Pay Now
         </Button>
+        <Typography variant="body" color={"error"}>
+          Error
+        </Typography>
       </form>
     </Box>
   );
