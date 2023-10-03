@@ -8,11 +8,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import SearchIcon from "@mui/icons-material/Search";
 import { Badge, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import jacket from "../../assests/jacket.avif";
 import { CartDrawer } from "../cart/CartDrawer";
 import { FavouriteDrawer } from "../favourite/FavouriteDrawer";
+import { setSnackbar } from "../../redux/snackbarSlice";
 export const DesktopMenu = ({
   open,
   handleProfileMenuOpen,
@@ -21,17 +21,15 @@ export const DesktopMenu = ({
 }) => {
   const { cart } = useSelector((store) => store.cart);
   const { user } = useSelector((store) => store.userInfo);
+  const dispatch = useDispatch();
   let totalItems = 0;
   cart.map((item) => (totalItems += item?.orderQty));
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [favDrawer, setFavDrawer] = useState(false);
   const toggleDrawer = (b) => {
     setIsOpen(b);
   };
-  const hanldeFavDrawer = (b) => {
-    setFavDrawer(b);
-  };
+
   return (
     <Box
       sx={{
@@ -82,7 +80,8 @@ export const DesktopMenu = ({
       <Typography sx={{ minWidth: 10 }}>
         <IconButton
           onClick={(e) => {
-            toggleDrawer(true); // navigate("/cart");
+            if (user._id) return toggleDrawer(true);
+            dispatch(setSnackbar({ open: true }));
           }}
         >
           <Badge badgeContent={totalItems} color="error">

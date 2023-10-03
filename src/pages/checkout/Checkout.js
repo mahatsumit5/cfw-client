@@ -60,7 +60,6 @@ export const Checkout = () => {
   }
   const handleOnSubmitOrder = async () => {
     if (payment.method === "Cash on Delivery") {
-      console.log("inside cash on delivery");
       postOrder();
     }
     getClientSecret();

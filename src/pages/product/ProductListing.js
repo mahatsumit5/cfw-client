@@ -6,7 +6,8 @@ import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 import CustomProductCard from "../../components/products/ProductCard";
 
 export const ProductListing = () => {
-  const { _id } = useParams();
+  const { _id, slug } = useParams();
+  console.log(_id, slug);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getdata() {

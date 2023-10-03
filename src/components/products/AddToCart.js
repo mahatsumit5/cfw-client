@@ -17,13 +17,8 @@ export const AddToCart = ({ item }) => {
   return (
     <>
       {modalName === "addedTocart" && <ItemAddedModal item={item} />}
-      <Button
-        variant="contained"
-        className="flex-grow-1"
-        startIcon={<ShoppingCartCheckoutIcon />}
-        onClick={handleOnAdd}
-      >
-        Add
+      <Button variant="contained" className="flex-grow-1" onClick={handleOnAdd}>
+        <ShoppingCartCheckoutIcon />
       </Button>
     </>
   );

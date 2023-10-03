@@ -12,6 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { getOrder } from "../../axios/orderAxios";
+import { wrap } from "framer-motion";
 
 export const OrderConfirmationPage = () => {
   const { _id } = useParams();
@@ -26,7 +27,15 @@ export const OrderConfirmationPage = () => {
   }, [_id]);
   return (
     <UserLayout>
-      <Container sx={{ display: "flex", gap: 1 }}>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column-reverse", sm: "row" },
+          justifyContent: "center",
+          gap: 1,
+          flexWrap: wrap,
+        }}
+      >
         <Box sx={{ display: "grid", gap: 2 }} width={"60%"}>
           <Typography variant="h5">Thank you for your purchase!</Typography>
           <Typography variant="body2">

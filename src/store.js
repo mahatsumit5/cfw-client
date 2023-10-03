@@ -11,6 +11,7 @@ import cartReducer from "./redux/cartSlice";
 import modalReducer from "./redux/modalSlice";
 import paymentReducer from "./redux/paymentSlice";
 import orderReducer from "./redux/orderSlice";
+import snackbarReducer from "./redux/snackbarSlice";
 const userPresistConfig = {
   //this is a configurations
   key: "userInfo",
@@ -40,6 +41,7 @@ const store = configureStore({
     modalInfo: modalReducer,
     mainCatalogueInfo: mainCatalogueReducer,
     orderInfo: presistedOrderReducer,
+    snackBar: snackbarReducer,
   },
 });
 const persistor = persistStore(store);

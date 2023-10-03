@@ -16,19 +16,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import { addTofavAction } from "../../action/userAction";
 import { motion } from "framer-motion";
+import { store } from "../../store";
+import { setSnackbar } from "../../redux/snackbarSlice";
 export default function CustomProductCard({ products }) {
   const { user } = useSelector((store) => store.userInfo);
   const { cart } = useSelector((store) => store.cart);
+  const { open, severity, message } = useSelector((store) => store.snackBar);
   const dispatch = useDispatch();
   const favIcons = {
     redHeart: <FavoriteIcon color="error" />,
     borderHeart: <FavoriteBorderIcon />,
   };
-  const [snackbar, setSnackbar] = React.useState({
-    open: false,
-    severity: "",
-    message: "",
-  });
+
   const handleOnAddToFav = async (item) => {
     const { status, message } = await dispatch(
       addTofavAction({
@@ -36,29 +35,32 @@ export default function CustomProductCard({ products }) {
         fav: item,
       })
     );
-    setSnackbar({
-      open: true,
-      severity: status,
-      message: message.toUpperCase(),
-    });
+    dispatch(
+      setSnackbar({
+        open: true,
+        severity: status,
+        message: message.toUpperCase(),
+      })
+    );
   };
 
   return (
     <>
       <Snackbar
-        open={snackbar.open}
+        open={open}
         autoHideDuration={2000}
         onClose={() => {
-          setSnackbar({ open: false });
+          dispatch(setSnackbar({ open: false }));
         }}
         width={"100%"}
       >
-        <Alert severity={setSnackbar.severity}>{snackbar.message}</Alert>
+        <Alert severity={severity}>{message}</Alert>
       </Snackbar>
       {products?.map((item) => (
         <Card
           key={item._id}
           sx={{
+            width: 250,
             maxWidth: { xs: 250, sm: 350, md: 350 },
             maxHeight: 450,
             display: "flex",
@@ -87,13 +89,6 @@ export default function CustomProductCard({ products }) {
                 image={item.thumbnail}
                 alt={item.title}
               />
-              {/* image={
-                  process.env.REACT_APP_ROOTSERVER +
-                  "/" +
-                  item.thumbnail?.slice(6)
-                }
-                alt={item.title}
-              /> */}
             </div>
 
             <CardContent sx={{ flexGrow: 1 }}>

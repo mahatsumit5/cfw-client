@@ -14,7 +14,6 @@ export const Header = () => {
   const { user } = useSelector((store) => store.userInfo);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileAnchorEl, setMobileAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [searchBar, setSearchBar] = useState(false);
   const handleProfileMenuOpen = (event) => {

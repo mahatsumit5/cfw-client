@@ -64,24 +64,23 @@ export const CartTable = () => {
               <Typography></Typography>
               <Stack spacing={2} direction={"row"}>
                 <Button
-                  variant="outlined"
+                  fullWidth
+                  variant="contained"
                   color="error"
-                  startIcon={<DeleteIcon />}
                   onClick={() => {
                     dispatch(removeItemFromCart(item._id));
                   }}
                 >
-                  Remove
+                  <DeleteIcon />
                 </Button>
                 <Button
                   variant="contained"
                   color="primary"
-                  endIcon={<EditIcon />}
                   onClick={() => {
                     navigate(`/product/${item.slug}`);
                   }}
                 >
-                  Edit
+                  <EditIcon />
                 </Button>
               </Stack>
             </Grid>
@@ -97,7 +96,7 @@ export const CartTable = () => {
             >
               <Box sx={{ display: "flex" }}>
                 <Button
-                  variant="filled"
+                  variant="outlined"
                   onClick={() => {
                     handleOnReduce(item);
                   }}
@@ -118,7 +117,7 @@ export const CartTable = () => {
                 </TextField>
 
                 <Button
-                  variant="oulined"
+                  variant="outlined"
                   onClick={() => {
                     handleOnAdd(item);
                   }}

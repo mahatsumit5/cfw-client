@@ -109,7 +109,7 @@ export const ProductLandingPage = () => {
                   <span style={{ display: "flex", gap: 5 }}>
                     <Rating name="read-only" value={numberOfStars} readOnly />
                     <Typography variant="subtitle1" color={"grey"}>
-                      {product.reviews.length} reviews
+                      {product.reviews?.length} reviews
                     </Typography>
                   </span>
                 </Stack>
@@ -202,9 +202,9 @@ export const ProductLandingPage = () => {
                     <AddReview slug={slug} product={product._id} />
                   </Box>
                 </Stack>
-                <span className="d-flex gap-5">
+                <span className="d-flex gap-2">
                   <Typography variant="h6">${product.price}</Typography>
-                  <div>
+                  <div className="d-flex">
                     <AddToCart item={selectedItem} />
                     <AddToFav item={product} />
                   </div>
