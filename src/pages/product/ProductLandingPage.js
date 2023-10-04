@@ -70,7 +70,6 @@ export const ProductLandingPage = () => {
     return (numberOfStars += item?.rating / 5);
   });
 
-  console.log(numberOfStars);
   return (
     <div>
       <UserLayout>
@@ -184,7 +183,14 @@ export const ProductLandingPage = () => {
                   <Typography variant="subtitle1" color={"grey"}>
                     Qty
                   </Typography>
-                  <Box sx={{ minWidth: 80, display: "flex", gap: 2 }}>
+                  <Box
+                    sx={{
+                      minWidth: 80,
+                      display: "flex",
+                      gap: 2,
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">Qty</InputLabel>
                       <Select
@@ -212,20 +218,6 @@ export const ProductLandingPage = () => {
               </Box>
             </Box>
 
-            {/* <Box>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography sx={{ p: 1, textAlign: "center" }}>
-                    Product Details
-                  </Typography>{" "}
-                </AccordionSummary>
-                <AccordionDetails></AccordionDetails>
-              </Accordion>
-            </Box> */}
             <YouMayLike similarProduct={similarProduct} />
           </Container>
         ) : (

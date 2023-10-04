@@ -3,18 +3,24 @@ import React, { useState } from "react";
 import { CustomModal } from "../modal/CustomModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
-import { postReviewActoin } from "../../action/reviewAction";
+import { getReviewAction, postReviewActoin } from "../../action/reviewAction";
+import { useNavigate } from "react-router-dom";
 
-export const AddReview = ({ product }) => {
+export const AddReview = ({ slug, product }) => {
   const { user } = useSelector((store) => store.userInfo);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOnReview = () => {
+    if (!user._id) {
+      navigate("/signin");
+      return;
+    }
     dispatch(setModal({ isModalOpen: true, modalName: "review" }));
   };
   const [reviews, setReview] = useState({
-    product,
+    slug,
     rating: 1,
-    user,
+    user: user._id,
     title: "",
     description: "",
   });
@@ -24,17 +30,14 @@ export const AddReview = ({ product }) => {
   };
   function handleOnSubmit() {
     dispatch(postReviewActoin(reviews));
-    // dispatch(setModal(false));
+    dispatch(setModal({ isModalOpen: false, modalName: "review" }));
     // window.location.reload(true);
+    dispatch(getReviewAction({ slug }));
   }
   return (
     <>
-      <Button
-        sx={{ width: "100%" }}
-        variant="outlined"
-        onClick={handleOnReview}
-      >
-        Review
+      <Button fullWidth variant="contained" onClick={handleOnReview}>
+        {user._id ? "Review" : "Login to review"}
       </Button>
       <CustomModal>
         <FormControl>

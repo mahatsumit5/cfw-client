@@ -28,6 +28,9 @@ export const Checkout = () => {
   const stripeStatus = new URLSearchParams(window.location.search).get(
     "redirect_status"
   );
+  const payment_intent_client_secret = new URLSearchParams(
+    window.location.search
+  ).get("payment_intent_client_secret");
   const [open, setopen] = useState(false);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
@@ -69,7 +72,7 @@ export const Checkout = () => {
     if (stripeStatus) {
       postOrder();
     }
-  }, [stripeStatus]);
+  }, [payment_intent_client_secret]);
 
   return (
     <UserLayout>

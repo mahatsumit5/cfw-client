@@ -69,7 +69,17 @@ export const DesktopMenu = ({
       <Typography sx={{ minWidth: 10 }}>
         <IconButton
           onClick={() => {
-            setFavDrawer(true);
+            if (user._id) {
+              return setFavDrawer(true);
+            }
+            dispatch(
+              setSnackbar({
+                open: true,
+                severity: "error",
+                message: "please login first",
+                name: "loginInfo",
+              })
+            );
           }}
         >
           <Badge badgeContent={user?.favouriteItem?.length} color="info">
@@ -79,9 +89,8 @@ export const DesktopMenu = ({
       </Typography>
       <Typography sx={{ minWidth: 10 }}>
         <IconButton
-          onClick={(e) => {
-            if (user._id) return toggleDrawer(true);
-            dispatch(setSnackbar({ open: true }));
+          onClick={() => {
+            toggleDrawer(true);
           }}
         >
           <Badge badgeContent={totalItems} color="error">

@@ -8,9 +8,8 @@ import { CustomModal } from "../../components/modal/CustomModal";
 const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
-export const StripeCheckout = ({ setStripeStatus, clientSecret }) => {
+export const StripeCheckout = ({ clientSecret }) => {
   const options = {
-    // passing the client secret obtained in step 3
     clientSecret,
     appearance: {
       theme: "stripe",

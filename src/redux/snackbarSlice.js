@@ -3,6 +3,7 @@ const initialState = {
   open: false,
   severity: "",
   message: "",
+  name: "",
 };
 
 const snackBarSlice = createSlice({
@@ -13,6 +14,7 @@ const snackBarSlice = createSlice({
       state.open = payload.open;
       state.severity = payload.severity;
       state.message = payload.message;
+      state.name = payload.name;
     },
   },
 });

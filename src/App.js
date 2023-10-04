@@ -19,7 +19,6 @@ import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
 import { ResetPassword } from "./pages/signin-singup/ResetPassword";
-import { StripeCheckout } from "./pages/checkout/StripeCheckout";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();

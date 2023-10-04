@@ -40,6 +40,7 @@ export default function CustomProductCard({ products }) {
         open: true,
         severity: status,
         message: message.toUpperCase(),
+        name: "favouriteNotification",
       })
     );
   };

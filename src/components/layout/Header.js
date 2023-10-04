@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { CustomMobileMenu } from "../menu/MobileMenu";
 import { ProfileMenu } from "../menu/ProfileMenu";
 import { DesktopMenu } from "../menu/DesktopMenu";
 import { Typography } from "@mui/material";
