@@ -20,17 +20,18 @@ import { useNavigate } from "react-router-dom";
 import { StripeCheckout } from "./StripeCheckout";
 import { setModal } from "../../redux/modalSlice";
 import { postPaymentIntent } from "../../axios/stripeAxios";
+import { Stripe } from "@stripe/stripe-js";
+import { useStripe } from "@stripe/react-stripe-js";
 export const Checkout = () => {
+  const stripe = useStripe();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.cart);
   const { payment, user, orderItems } = useSelector((store) => store.orderInfo);
-  const stripeStatus = new URLSearchParams(window.location.search).get(
-    "redirect_status"
+
+  const client_secret = new URLSearchParams(window.location.search).get(
+    "payment_intent_client_secret"
   );
-  const payment_intent_client_secret = new URLSearchParams(
-    window.location.search
-  ).get("payment_intent_client_secret");
   const [open, setopen] = useState(false);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
@@ -67,12 +68,12 @@ export const Checkout = () => {
     }
     getClientSecret();
   };
-  // call stripe api to request client secret
+  // async function retrivePaymentIntent() {
+  //   return await stripe.retrievePaymentIntent(client_secret);
+  // }
   useEffect(() => {
-    if (stripeStatus) {
-      postOrder();
-    }
-  }, [payment_intent_client_secret]);
+    // retrivePaymentIntent();
+  }, [client_secret]);
 
   return (
     <UserLayout>

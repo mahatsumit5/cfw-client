@@ -22,8 +22,8 @@ const CheckoutForm = ({ clientSecret }) => {
       return;
     }
     if (payment.method === "afterpay_clearpay") {
-      stripe
-        .confirmAfterpayClearpayPayment(`${clientSecret}`, {
+      const { error, paymentIntent } =
+        await stripe.confirmAfterpayClearpayPayment(`${clientSecret}`, {
           payment_method: {
             billing_details: {
               name: user.fName,
@@ -43,14 +43,6 @@ const CheckoutForm = ({ clientSecret }) => {
           },
 
           return_url: "http://localhost:3000/checkout",
-        })
-        .then((response) => {
-          if (response.paymentIntent) {
-            dispatch(postOrderAction({ payment, user, orderItems }));
-          }
-          if (response.error) {
-            setError(error);
-          }
         });
     }
     if (payment.method === "zip") {
@@ -59,22 +51,13 @@ const CheckoutForm = ({ clientSecret }) => {
       });
     }
     if (payment.method === "card") {
-      stripe
-        .confirmPayment({
-          elements,
-          confirmParams: {
-            // Make sure to change this to your payment completion page
-            return_url: "http://localhost:3000/checkout",
-          },
-        })
-        .then((response) => {
-          if (response.error) {
-            setError(error);
-          }
-          if (response?.paymentIntent.status === "succeeded") {
-            dispatch(postOrderAction({ payment, user, orderItems }));
-          }
-        });
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          return_url: "http://localhost:3000/checkout",
+        },
+      });
     }
   };
   return (

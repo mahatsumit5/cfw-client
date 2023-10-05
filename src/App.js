@@ -19,8 +19,12 @@ import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
 import { ResetPassword } from "./pages/signin-singup/ResetPassword";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe(
+  `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
+);
 function App() {
-  const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCatagoriesAction());
@@ -84,10 +88,12 @@ function App() {
           }
         />
         <Route
-          path="/checkout"
+          path="cart/checkout"
           element={
             <PrivateRoute>
-              <Checkout />
+              <Elements stripe={stripePromise}>
+                <Checkout />
+              </Elements>
             </PrivateRoute>
           }
         />

@@ -75,7 +75,7 @@ export const OrderSummary = () => {
         </Typography>
       </span>
       {user?._id ? (
-        <Link to="/checkout">
+        <Link to="/cart/checkout">
           <Button
             fullWidth
             variant="contained"
