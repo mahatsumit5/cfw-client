@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import {
   AddressElement,
+  AuBankAccountElement,
   PaymentElement,
   useElements,
   useStripe,
@@ -28,7 +29,6 @@ const CheckoutForm = ({ clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
-  const [open, setopen] = useState(false);
   const [client_secret, setClientSecret] = useState(
     new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
@@ -36,31 +36,41 @@ const CheckoutForm = ({ clientSecret }) => {
   );
   const { user, payment, orderItems } = useSelector((store) => store.orderInfo);
   const { modalName } = useSelector((store) => store.modalInfo);
+
+  async function retrivePaymentIntent() {
+    const { paymentIntent, error } = await stripe.retrievePaymentIntent(
+      clientSecret
+    );
+    if (paymentIntent?.status === "succeeded") {
+      const loading = dispatch(postOrderAction({ user, payment, orderItems }));
+      dispatch(setBackdrop(true));
+      const orderNumber = await loading;
+      if (orderNumber) {
+        navigate(`/cart/order/${orderNumber}`);
+      }
+      dispatch(setBackdrop(false));
+    }
+    if (error) {
+      setError("An error occured. Please go back.");
+    }
+    return paymentIntent ? paymentIntent : error;
+  }
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
     }
     if (payment.method === "afterpay_clearpay") {
+      const addressElement = elements.getElement("address");
+      const { value } = await addressElement.getValue();
+
       const { error, paymentIntent } =
         await stripe.confirmAfterpayClearpayPayment(`${clientSecret}`, {
           payment_method: {
-            billing_details: {
-              name: user.fName,
-              email: user.email,
-              address: AddressElement,
-            },
+            billing_details: { ...value, email: user.email },
           },
-          shipping: {
-            name: user.fName,
-            address: {
-              line1: "123 Main Street",
-              city: "San Francisco",
-              state: "CA",
-              country: "US",
-              postal_code: "94321",
-            },
-          },
+          shipping: value,
 
           return_url: webDomain + "cart/checkout/stripe",
         });
@@ -85,6 +95,26 @@ const CheckoutForm = ({ clientSecret }) => {
         setError(error?.message);
       }
     }
+    if (payment.method === "au_becs_debit") {
+      stripe
+        .confirmAuBecsDebitPayment(clientSecret, {
+          payment_method: {
+            au_becs_debit: {
+              bsb_number: "000000",
+              account_number: "000123456",
+            },
+            billing_details: {
+              name: "John Smith",
+              email: "john.smith@example.com",
+            },
+          },
+        })
+        .then(async function (result) {
+          if (result?.paymentIntent) {
+            await retrivePaymentIntent();
+          }
+        });
+    }
   };
 
   // calling retrive payment and postin order based on status
@@ -94,26 +124,6 @@ const CheckoutForm = ({ clientSecret }) => {
       return;
     }
     try {
-      console.log(client_secret, "inside if");
-      async function retrivePaymentIntent() {
-        const { paymentIntent, error } = await stripe.retrievePaymentIntent(
-          clientSecret
-        );
-        if (paymentIntent?.status === "succeeded") {
-          const loading = dispatch(
-            postOrderAction({ user, payment, orderItems })
-          );
-          dispatch(setBackdrop(true));
-          const orderNumber = await loading;
-          if (orderNumber) {
-            navigate(`/cart/order/${orderNumber}`);
-          }
-          dispatch(setBackdrop(false));
-        }
-        if (error) {
-          setError("An error occured. Please go back.");
-        }
-      }
       retrivePaymentIntent();
     } catch (error) {
       // Handle unexpected errors here, e.g., log them

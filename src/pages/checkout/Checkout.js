@@ -46,7 +46,6 @@ export const Checkout = () => {
     if (result.clientSecret) {
       localStorage.setItem("clientSecret", result.clientSecret);
       navigate("/cart/checkout/stripe");
-      // dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
     }
   }
 
