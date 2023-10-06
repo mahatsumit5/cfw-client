@@ -21,17 +21,12 @@ import { StripeCheckout } from "./StripeCheckout";
 import { setModal } from "../../redux/modalSlice";
 import { postPaymentIntent } from "../../axios/stripeAxios";
 import { Stripe } from "@stripe/stripe-js";
-import { useStripe } from "@stripe/react-stripe-js";
 export const Checkout = () => {
-  const stripe = useStripe();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cart } = useSelector((store) => store.cart);
   const { payment, user, orderItems } = useSelector((store) => store.orderInfo);
 
-  const client_secret = new URLSearchParams(window.location.search).get(
-    "payment_intent_client_secret"
-  );
   const [open, setopen] = useState(false);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
@@ -49,7 +44,9 @@ export const Checkout = () => {
     });
     setClientSecret(result.clientSecret);
     if (result.clientSecret) {
-      dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
+      localStorage.setItem("clientSecret", result.clientSecret);
+      navigate("/cart/checkout/stripe");
+      // dispatch(setModal({ isModalOpen: true, modalName: payment.method }));
     }
   }
 
@@ -68,12 +65,6 @@ export const Checkout = () => {
     }
     getClientSecret();
   };
-  // async function retrivePaymentIntent() {
-  //   return await stripe.retrievePaymentIntent(client_secret);
-  // }
-  useEffect(() => {
-    // retrivePaymentIntent();
-  }, [client_secret]);
 
   return (
     <UserLayout>

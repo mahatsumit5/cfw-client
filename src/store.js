@@ -9,6 +9,7 @@ import productReducer from "./redux/productSlice";
 import displayReducer from "./redux/displayDataSlice";
 import cartReducer from "./redux/cartSlice";
 import modalReducer from "./redux/modalSlice";
+import backdropReducer from "./redux/backdropLoader";
 import paymentReducer from "./redux/paymentSlice";
 import orderReducer from "./redux/orderSlice";
 import snackbarReducer from "./redux/snackbarSlice";
@@ -42,6 +43,7 @@ const store = configureStore({
     mainCatalogueInfo: mainCatalogueReducer,
     orderInfo: presistedOrderReducer,
     snackBar: snackbarReducer,
+    backDrop: backdropReducer,
   },
 });
 const persistor = persistStore(store);

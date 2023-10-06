@@ -21,6 +21,8 @@ import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmati
 import { ResetPassword } from "./pages/signin-singup/ResetPassword";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { StripeCheckout } from "./pages/checkout/StripeCheckout";
+import { Loading } from "./pages/loading/Loading";
 const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
@@ -88,12 +90,19 @@ function App() {
           }
         />
         <Route
-          path="cart/checkout"
+          path="/loading"
           element={
             <PrivateRoute>
-              <Elements stripe={stripePromise}>
-                <Checkout />
-              </Elements>
+              <Loading />
+            </PrivateRoute>
+          }
+        />
+        <Route path="cart/checkout" element={<Checkout />} />
+        <Route
+          path="cart/checkout/stripe"
+          element={
+            <PrivateRoute>
+              <StripeCheckout />
             </PrivateRoute>
           }
         />
