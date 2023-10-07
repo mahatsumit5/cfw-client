@@ -6,32 +6,27 @@ import React, { useEffect, useState } from "react";
 export const LandingPageImage = ({ product }) => {
   const [currentImage, setCurrentImge] = useState({
     index: 0,
-    thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
-    // thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+    thumbnail: product.images[0],
   });
   useEffect(() => {
     setCurrentImge({
       index: 0,
-      thumnail: product.thumbnail,
-      // thumnail: process.env.REACT_APP_ROOTSERVER + product?.images[0]?.slice(6),
+      thumbnail: product.thumbnail,
     });
   }, [product]);
   return (
-    <Box sx={{ flexGrow: 2 }}>
+    <Box sx={{ flexGrow: 3 }}>
       <Box
         sx={{
-          // border: 1,
-          width: "100%",
-          height: 400,
-          // backgroundColor: "primary.dark",
+          width: { md: "50vw", xs: "85vw" },
+          height: 500,
           "&:hover": {
-            // backgroundColor: "primary.main",
             opacity: [0.9, 0.8, 0.7],
           },
         }}
       >
         <img
-          src={currentImage.thumnail}
+          src={currentImage.thumbnail}
           style={{
             width: "100%",
             height: "100%",
@@ -51,9 +46,7 @@ export const LandingPageImage = ({ product }) => {
             if (currentImage.index > 0) {
               setCurrentImge({
                 index: currentImage.index - 1,
-                thumnail:
-                  process.env.REACT_APP_ROOTSERVER +
-                  product.images[currentImage.index - 1].slice(6),
+                thumbnail: product.images[currentImage.index - 1],
               });
             }
           }}
@@ -64,7 +57,8 @@ export const LandingPageImage = ({ product }) => {
         <div>
           {product.images?.map((item, key) => (
             <img
-              src={process.env.REACT_APP_ROOTSERVER + "/" + item.slice(6)}
+              key={key}
+              src={item}
               style={{
                 width: "80px",
                 height: "80px",
@@ -74,7 +68,7 @@ export const LandingPageImage = ({ product }) => {
               onClick={() => {
                 setCurrentImge({
                   index: key,
-                  thumnail: process.env.REACT_APP_ROOTSERVER + item.slice(6),
+                  thumbnail: item,
                 });
               }}
             />
@@ -85,9 +79,7 @@ export const LandingPageImage = ({ product }) => {
             if (currentImage.index + 1 < product.images?.length) {
               setCurrentImge({
                 index: currentImage.index + 1,
-                thumnail:
-                  process.env.REACT_APP_ROOTSERVER +
-                  product.images[currentImage.index + 1]?.slice(6),
+                thumbnail: product.images[currentImage.index + 1],
               });
             }
           }}

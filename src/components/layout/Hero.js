@@ -8,11 +8,16 @@ export const Hero = () => {
   return (
     <Box
       sx={{
+        p: 2,
         display: "flex",
-        gap: 2,
+        gap: 3,
         margin: 2,
-        flexWrap: "wrap",
-        justifyContent: "space-around",
+        flexWrap: "nowrap",
+
+        overflowX: "auto",
+        overflowY: "hidden",
+        justifyContent: "flex-start",
+        height: "100%",
       }}
     >
       <Paper
@@ -21,6 +26,7 @@ export const Hero = () => {
           height: 250,
           width: 200,
           display: "flex",
+          flexWrap: "nowrap",
 
           justifyContent: "center",
           flexDirection: "column",
@@ -46,6 +52,15 @@ export const Hero = () => {
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
         <img className="image" src={jacket} alt="" height={250} width={200} />
+      </Paper>
+      <Paper sx={{ height: 250, width: 200 }}>
+        <img className="image" src={sweater} alt="" height={250} width={200} />
+      </Paper>
+      <Paper sx={{ height: 250, width: 200 }}>
+        <img className="image" src={sweater} alt="" height={250} width={200} />
+      </Paper>
+      <Paper sx={{ height: 250, width: 200 }}>
+        <img className="image" src={sweater} alt="" height={250} width={200} />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
         <img className="image" src={sweater} alt="" height={250} width={200} />

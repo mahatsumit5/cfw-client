@@ -3,6 +3,7 @@ import {
   Button,
   Divider,
   Grid,
+  Input,
   Stack,
   TextField,
   Typography,
@@ -91,30 +92,28 @@ export const CartTable = () => {
                 minWidth: "200px",
               }}
             >
-              <Box sx={{ display: "flex" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  border: 2,
+                  justifyContent: "space-between",
+                  borderRadius: "12px",
+                  borderColor: "skyblue",
+                }}
+              >
                 <Button
-                  variant="outlined"
+                  variant="text"
                   onClick={() => {
                     handleOnReduce(item);
                   }}
                 >
                   -
                 </Button>
-                <TextField
-                  size="small"
-                  value={item.orderQty}
-                  sx={{
-                    backgroundColor: "#fafafa",
-                    borderRadius: "12px",
 
-                    width: "50px",
-                  }}
-                >
-                  {item.orderQty}
-                </TextField>
+                <Button>{item.orderQty}</Button>
 
                 <Button
-                  variant="outlined"
+                  variant="text"
                   onClick={() => {
                     handleOnAdd(item);
                   }}

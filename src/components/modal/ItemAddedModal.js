@@ -9,7 +9,7 @@ export const ItemAddedModal = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
-    <CustomModal>
+    <CustomModal title="Item Added">
       <Typography variant="h5">Success</Typography>
       <Typography variant="body">
         Your product has been added to the cart.

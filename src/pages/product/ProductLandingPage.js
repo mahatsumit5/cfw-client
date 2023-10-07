@@ -17,12 +17,9 @@ import { AddToCart } from "../../components/products/AddToCart";
 import { AddToFav } from "../../components/products/AddToFav";
 import { YouMayLike } from "../../components/products/YouMayLike";
 import { LandingPageImage } from "../../components/products/LandingPageImage";
-import { CustomBackDrop } from "../../components/backDrop/BackDrop";
-import { AddReview } from "../../components/products/AddReview";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../action/productAction";
 import { StarRating } from "../../components/products/StarRating";
-import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 
 export const ProductLandingPage = () => {
   const dispatch = useDispatch();
@@ -62,10 +59,11 @@ export const ProductLandingPage = () => {
                 gap: 2,
                 p: 2,
                 boxShadow: 6,
+
                 flexDirection: { xs: "column", md: "row" },
               }}
             >
-              <LandingPageImage product={product} />
+              <LandingPageImage product={product} key={product._id} />
               <Box
                 sx={{
                   gap: 5,

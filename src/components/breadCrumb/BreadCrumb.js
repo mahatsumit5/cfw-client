@@ -2,7 +2,7 @@ import * as React from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CustomBreadCrumb() {
@@ -15,7 +15,7 @@ export default function CustomBreadCrumb() {
   const pathname = location.pathname.split("/").filter((x) => x);
 
   return (
-    <Box sx={{ width: "80%", p: 2 }}>
+    <Container sx={{ p: 2 }}>
       <Breadcrumbs
         maxItems={3}
         separator={<NavigateNextIcon fontSize="medium" />}
@@ -46,6 +46,6 @@ export default function CustomBreadCrumb() {
           );
         })}
       </Breadcrumbs>
-    </Box>
+    </Container>
   );
 }

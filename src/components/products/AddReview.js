@@ -11,8 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
 import { useNavigate } from "react-router-dom";
 import { postReviewAction } from "../../action/productAction";
+
 export const AddReview = ({ slug, product }) => {
   const { user } = useSelector((store) => store.userInfo);
+  const initialState = {
+    slug,
+    rating: 1,
+    user: user._id,
+    title: "",
+    description: "",
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOnReview = () => {
@@ -22,13 +30,7 @@ export const AddReview = ({ slug, product }) => {
     }
     dispatch(setModal({ isModalOpen: true, modalName: "review" }));
   };
-  const [reviews, setReview] = useState({
-    slug,
-    rating: 1,
-    user: user._id,
-    title: "",
-    description: "",
-  });
+  const [reviews, setReview] = useState(initialState);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setReview({ ...reviews, [name]: value });
@@ -36,6 +38,7 @@ export const AddReview = ({ slug, product }) => {
   function handleOnSubmit() {
     dispatch(postReviewAction(reviews));
     dispatch(setModal({ isModalOpen: false, modalName: "review" }));
+    setReview(initialState);
   }
   return (
     <>

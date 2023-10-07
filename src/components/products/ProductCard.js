@@ -47,16 +47,6 @@ export default function CustomProductCard({ products }) {
 
   return (
     <>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={() => {
-          dispatch(setSnackbar({ open: false }));
-        }}
-        width={"100%"}
-      >
-        <Alert severity={severity}>{message}</Alert>
-      </Snackbar>
       {products?.map((item) => (
         <Card
           key={item._id}
@@ -74,10 +64,7 @@ export default function CustomProductCard({ products }) {
             className="nav-link"
             key={item._id}
           >
-            <CardHeader
-              title={item.title}
-              //   subheader="September 14, 2016"
-            />
+            <CardHeader title={item.title} sx={{ height: 60 }} />
 
             <div style={{ width: "280px", height: "180px" }}>
               <CardMedia

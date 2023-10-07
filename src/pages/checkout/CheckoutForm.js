@@ -36,7 +36,6 @@ const CheckoutForm = ({ clientSecret }) => {
   );
   const { user, payment, orderItems } = useSelector((store) => store.orderInfo);
   const { modalName } = useSelector((store) => store.modalInfo);
-
   async function retrivePaymentIntent() {
     const { paymentIntent, error } = await stripe.retrievePaymentIntent(
       clientSecret
@@ -57,7 +56,8 @@ const CheckoutForm = ({ clientSecret }) => {
       dispatch(setBackdrop(false));
     }
     if (error) {
-      setError("An error occured. Please go back.");
+      dispatch(setModal({ isModalOpen: true, modalName: "errorMessage" }));
+      setError(error);
     }
     return paymentIntent ? paymentIntent : error;
   }
@@ -102,8 +102,9 @@ const CheckoutForm = ({ clientSecret }) => {
       }
     }
     if (payment.method === "au_becs_debit") {
-      stripe
-        .confirmAuBecsDebitPayment(clientSecret, {
+      const { paymentIntent, error } = await stripe.confirmAuBecsDebitPayment(
+        clientSecret,
+        {
           payment_method: {
             au_becs_debit: {
               bsb_number: "000000",
@@ -114,52 +115,54 @@ const CheckoutForm = ({ clientSecret }) => {
               email: "john.smith@example.com",
             },
           },
-        })
-        .then(async function (result) {
-          if (result?.paymentIntent?.status === "processing") {
-            await retrivePaymentIntent();
-          }
-          if (result.error) {
-            dispatch(
-              setModal({ isModalOpen: true, modalName: "errorMessage" })
-            );
-            setError("Unexpected error occured");
-          }
-        });
+        }
+      );
+
+      if (paymentIntent) {
+        await retrivePaymentIntent();
+      }
+      if (error) {
+        console.log(error);
+        dispatch(setModal({ isModalOpen: true, modalName: "errorMessage" }));
+        setError(error);
+      }
     }
   };
 
   // calling retrive payment and postin order based on status
 
   useEffect(() => {
-    if (!client_secret && !stripe) {
+    if (!client_secret || !stripe) {
       return;
     }
     try {
       retrivePaymentIntent();
     } catch (error) {
-      // Handle unexpected errors here, e.g., log them
-      console.error("Unexpected error:", error);
-      setError("An unexpected error occurred. Please try again.");
+      setError({ message: "An unexpected error occurred. Please try again." });
     }
   }, [client_secret, stripe]);
 
   return (
-    <Box sx={{ width: 300 }}>
+    <Box
+      sx={{
+        p: 2,
+        width: { xs: 320, sm: 450, md: 400 },
+        overflowY: "auto",
+        overflowX: "hidden",
+      }}
+    >
       {modalName === "errorMessage" && (
-        <CustomModal>
+        <CustomModal title="Error">
           <Typography variant="body" color={"error"}>
-            {error}
+            {error?.message}
           </Typography>
         </CustomModal>
       )}
       <BackdropLoader />
       <form
         style={{
-          width: "300px",
+          width: { xs: 300, sm: 430, md: 380 },
           height: "550px",
-          overflowY: "auto",
-          overflowX: "hidden",
         }}
       >
         <h1>Billing Details</h1>
@@ -175,9 +178,6 @@ const CheckoutForm = ({ clientSecret }) => {
         >
           Pay Now
         </Button>
-        <Typography variant="body" color={"error"}>
-          {error}
-        </Typography>
       </form>
     </Box>
   );
