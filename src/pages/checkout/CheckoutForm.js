@@ -43,7 +43,11 @@ const CheckoutForm = ({ clientSecret }) => {
     );
     if (paymentIntent?.status === "succeeded") {
       const loading = dispatch(
-        postOrderAction({ user, payment: { isPaid: true }, orderItems })
+        postOrderAction({
+          user,
+          payment: { ...payment, isPaid: true },
+          orderItems,
+        })
       );
       dispatch(setBackdrop(true));
       const orderNumber = await loading;
