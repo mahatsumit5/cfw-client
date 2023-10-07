@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Drawer, Paper } from "@mui/material";
+import { Box, Button, Drawer, Paper, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { Link } from "react-router-dom";
@@ -43,9 +43,12 @@ export const CartDrawer = ({ toggleDrawer, totalItems, isOpen }) => {
             <OrderSummary />{" "}
           </>
         ) : (
-          <Button variant="contained" color="info">
-            Come Back later
-          </Button>
+          <>
+            <Typography variant="h6">Your cart is empty.</Typography>
+            <Button variant="contained" color="info">
+              Continue Shopping
+            </Button>
+          </>
         )}
       </Box>
     </Drawer>

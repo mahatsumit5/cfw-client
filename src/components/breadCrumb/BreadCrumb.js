@@ -13,32 +13,11 @@ export default function CustomBreadCrumb() {
   }
   const location = useLocation();
   const pathname = location.pathname.split("/").filter((x) => x);
-  console.log(pathname);
-  const breadcrumbs = [
-    ,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
-      Product
-    </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
-      Shoes
-    </Link>,
-  ];
 
   return (
     <Box sx={{ width: "80%", p: 2 }}>
       <Breadcrumbs
+        maxItems={3}
         separator={<NavigateNextIcon fontSize="medium" />}
         aria-label="breadcrumb"
       >

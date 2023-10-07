@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { useParams } from "react-router-dom";
+
 import {
-  getProducts,
-  getProductsByCat,
-} from "../../axios/categoryAndProductAxios";
-import {
-  Backdrop,
   Box,
-  Button,
-  CircularProgress,
   Container,
   FormControl,
   InputLabel,
   MenuItem,
-  Rating,
   Select,
   Stack,
   Typography,
@@ -26,13 +19,15 @@ import { YouMayLike } from "../../components/products/YouMayLike";
 import { LandingPageImage } from "../../components/products/LandingPageImage";
 import { CustomBackDrop } from "../../components/backDrop/BackDrop";
 import { AddReview } from "../../components/products/AddReview";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleProduct } from "../../action/productAction";
+import { StarRating } from "../../components/products/StarRating";
+import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 
 export const ProductLandingPage = () => {
+  const dispatch = useDispatch();
   const { slug } = useParams();
-  const [product, setproduct] = useState({});
-  const [reviews, setReview] = useState([]);
-  const [similarProduct, setSimilarproduct] = useState([]);
-  const [open, setOpen] = useState(false);
+  const { product } = useSelector((store) => store.singleProduct);
   const [orderQty, setOrderQty] = useState(1);
   const [selectedItem, setSelectedItem] = useState({ ...product, orderQty });
   const handleOnQty = (e) => {
@@ -40,40 +35,17 @@ export const ProductLandingPage = () => {
     setOrderQty(value);
   };
   useEffect(() => {
-    async function getdata() {
-      const pendingResult = getProducts({ slug });
-      setOpen(true);
-      const { data } = await pendingResult;
-      setSelectedItem({ ...data, orderQty });
+    dispatch(getSingleProduct({ slug: slug }));
+    setSelectedItem({ ...product, orderQty });
+  }, [slug, dispatch]);
 
-      setproduct(data);
-      setReview(data.reviews);
-      const obj = {
-        _id: data?.parentCat,
-        slug: data.slug,
-      };
-      const { result } = data?._id && (await getProductsByCat(obj));
-      if (result) {
-        setSimilarproduct(result);
-        // location.reload();
-      }
-      setOpen(false);
-    }
-    getdata();
-  }, [slug]);
   useEffect(() => {
     setSelectedItem({ ...product, orderQty });
   }, [orderQty]);
-  let numberOfStars = 0;
-  reviews?.map((item) => {
-    console.log(item);
-    return (numberOfStars += item?.rating / 5);
-  });
 
   return (
     <div>
       <UserLayout>
-        <CustomBackDrop open={open} />
         {product?._id ? (
           <Container
             maxWidth="xl"
@@ -105,12 +77,7 @@ export const ProductLandingPage = () => {
                   <Typography variant="h4">
                     {product.title.toUpperCase()}
                   </Typography>
-                  <span style={{ display: "flex", gap: 5 }}>
-                    <Rating name="read-only" value={numberOfStars} readOnly />
-                    <Typography variant="subtitle1" color={"grey"}>
-                      {product.reviews?.length} reviews
-                    </Typography>
-                  </span>
+                  <StarRating />
                 </Stack>
                 <span className="d-flex justify-content-between">
                   <Typography sx={{ textAlign: "justify" }}>
@@ -205,7 +172,6 @@ export const ProductLandingPage = () => {
                         <MenuItem value={4}>4</MenuItem>
                       </Select>
                     </FormControl>
-                    <AddReview slug={slug} product={product._id} />
                   </Box>
                 </Stack>
                 <span className="d-flex gap-2">
@@ -218,7 +184,7 @@ export const ProductLandingPage = () => {
               </Box>
             </Box>
 
-            <YouMayLike similarProduct={similarProduct} />
+            <YouMayLike />
           </Container>
         ) : (
           <h1>No products found</h1>

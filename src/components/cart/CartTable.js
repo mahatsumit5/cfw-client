@@ -3,7 +3,6 @@ import {
   Button,
   Divider,
   Grid,
-  Paper,
   Stack,
   TextField,
   Typography,
@@ -11,7 +10,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Favorite from "@mui/icons-material/Favorite";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
@@ -64,14 +62,13 @@ export const CartTable = () => {
               <Typography></Typography>
               <Stack spacing={2} direction={"row"}>
                 <Button
-                  fullWidth
                   variant="contained"
                   color="error"
                   onClick={() => {
                     dispatch(removeItemFromCart(item._id));
                   }}
                 >
-                  <DeleteIcon />
+                  <DeleteIcon /> Delete
                 </Button>
                 <Button
                   variant="contained"
@@ -80,7 +77,7 @@ export const CartTable = () => {
                     navigate(`/product/${item.slug}`);
                   }}
                 >
-                  <EditIcon />
+                  Edit <EditIcon />
                 </Button>
               </Stack>
             </Grid>

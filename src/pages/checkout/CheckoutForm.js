@@ -42,7 +42,9 @@ const CheckoutForm = ({ clientSecret }) => {
       clientSecret
     );
     if (paymentIntent?.status === "succeeded") {
-      const loading = dispatch(postOrderAction({ user, payment, orderItems }));
+      const loading = dispatch(
+        postOrderAction({ user, payment: { isPaid: true }, orderItems })
+      );
       dispatch(setBackdrop(true));
       const orderNumber = await loading;
       if (orderNumber) {
@@ -110,8 +112,14 @@ const CheckoutForm = ({ clientSecret }) => {
           },
         })
         .then(async function (result) {
-          if (result?.paymentIntent) {
+          if (result?.paymentIntent?.status === "processing") {
             await retrivePaymentIntent();
+          }
+          if (result.error) {
+            dispatch(
+              setModal({ isModalOpen: true, modalName: "errorMessage" })
+            );
+            setError("Unexpected error occured");
           }
         });
     }

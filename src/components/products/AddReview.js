@@ -1,11 +1,16 @@
-import { Button, FormControl, Rating, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Rating,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { CustomModal } from "../modal/CustomModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
-import { getReviewAction, postReviewActoin } from "../../action/reviewAction";
 import { useNavigate } from "react-router-dom";
-
+import { postReviewAction } from "../../action/productAction";
 export const AddReview = ({ slug, product }) => {
   const { user } = useSelector((store) => store.userInfo);
   const navigate = useNavigate();
@@ -29,26 +34,32 @@ export const AddReview = ({ slug, product }) => {
     setReview({ ...reviews, [name]: value });
   };
   function handleOnSubmit() {
-    dispatch(postReviewActoin(reviews));
+    dispatch(postReviewAction(reviews));
     dispatch(setModal({ isModalOpen: false, modalName: "review" }));
-    // window.location.reload(true);
-    dispatch(getReviewAction({ slug }));
   }
   return (
     <>
-      <Button fullWidth variant="contained" onClick={handleOnReview}>
-        {user._id ? "Review" : "Login to review"}
+      <Button variant="text" onClick={handleOnReview}>
+        {user._id ? "Write a review" : "Login to review"}
       </Button>
-      <CustomModal>
-        <FormControl>
+      <CustomModal title={"Provide us a feedback"}>
+        <FormControl sx={{ gap: 2 }}>
           <Rating
             name="rating"
             value={reviews.rating}
             onChange={handleOnChange}
           />
-          <TextField name="title" onChange={handleOnChange} />
-          <TextField name="description" onChange={handleOnChange} />
-          <Button variant="contained" onClick={handleOnSubmit}>
+          <TextField name="title" label="Title" onChange={handleOnChange} />
+          <TextField
+            name="description"
+            label="Description"
+            onChange={handleOnChange}
+          />
+          <Button
+            variant="contained"
+            onClick={handleOnSubmit}
+            disabled={reviews.title === "" || reviews.description === ""}
+          >
             Submit
           </Button>
         </FormControl>

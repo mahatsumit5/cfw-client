@@ -24,3 +24,11 @@ export const getProductsByCat = async (object) => {
   };
   return axiosProcessor(obj);
 };
+export const postReview = async (object) => {
+  const obj = {
+    method: "put",
+    url: `${productApi}/post-review`,
+    obj: object,
+  };
+  return axiosProcessor(obj);
+};

@@ -23,6 +23,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { StripeCheckout } from "./pages/checkout/StripeCheckout";
 import { Loading } from "./pages/loading/Loading";
+import { BackdropLoader } from "./components/backdropLoader/BackdropLoader";
 const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
@@ -117,6 +118,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <ToastContainer />
+      <BackdropLoader />
     </div>
   );
 }

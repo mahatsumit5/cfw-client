@@ -13,6 +13,7 @@ import jacket from "../../assests/jacket.avif";
 import { CartDrawer } from "../cart/CartDrawer";
 import { FavouriteDrawer } from "../favourite/FavouriteDrawer";
 import { setSnackbar } from "../../redux/snackbarSlice";
+import PersonIcon from "@mui/icons-material/Person";
 export const DesktopMenu = ({
   open,
   handleProfileMenuOpen,
@@ -59,13 +60,13 @@ export const DesktopMenu = ({
           <SearchIcon color="primary" />
         </Typography>
       </IconButton>
-      <IconButton size="large" aria-label="search" color="inherit">
+      {/* <IconButton size="large" aria-label="search" color="inherit">
         <Typography sx={{ minWidth: 10 }}>
           <Badge badgeContent={6} color="error">
             <NotificationsIcon color="primary" />
           </Badge>
         </Typography>
-      </IconButton>
+      </IconButton> */}
       <Typography sx={{ minWidth: 10 }}>
         <IconButton
           onClick={() => {
@@ -107,11 +108,15 @@ export const DesktopMenu = ({
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar
-            sx={{ width: 32, height: 32 }}
-            alt="image"
-            src={jacket}
-          ></Avatar>
+          {user._id ? (
+            <Avatar
+              sx={{ width: 32, height: 32 }}
+              alt="image"
+              src={jacket}
+            ></Avatar>
+          ) : (
+            <PersonIcon color="primary" />
+          )}
         </IconButton>
       </Tooltip>{" "}
     </Box>

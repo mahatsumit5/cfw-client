@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../redux/modalSlice";
 import CloseIcon from "@mui/icons-material/Close";
-import { Button, Paper } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 const style = {
   display: "flex",
   flexWrap: "wrap",
@@ -19,7 +19,7 @@ const style = {
   borderRadius: "10px",
   padding: "20px",
 };
-export const CustomModal = ({ children }) => {
+export const CustomModal = ({ title, children }) => {
   const { isModalOpen, modalName } = useSelector((store) => store.modalInfo);
   const dispatch = useDispatch();
   const handleClose = () => {
@@ -36,8 +36,11 @@ export const CustomModal = ({ children }) => {
       <Box sx={style}>
         <Paper
           elevation={0}
-          sx={{ display: "flex", justifyContent: "flex-end" }}
+          sx={{ display: "flex", justifyContent: "space-between" }}
         >
+          <Button variant="text" color="primary">
+            {title}
+          </Button>
           <Button variant="text" color="error" onClick={handleClose}>
             <CloseIcon />
           </Button>

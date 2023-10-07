@@ -13,6 +13,7 @@ import backdropReducer from "./redux/backdropLoader";
 import paymentReducer from "./redux/paymentSlice";
 import orderReducer from "./redux/orderSlice";
 import snackbarReducer from "./redux/snackbarSlice";
+import singleProductReducer from "./redux/singleProductSlice";
 const userPresistConfig = {
   //this is a configurations
   key: "userInfo",
@@ -44,6 +45,7 @@ const store = configureStore({
     orderInfo: presistedOrderReducer,
     snackBar: snackbarReducer,
     backDrop: backdropReducer,
+    singleProduct: singleProductReducer,
   },
 });
 const persistor = persistStore(store);
