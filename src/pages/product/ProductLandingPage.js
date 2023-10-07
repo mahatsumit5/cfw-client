@@ -25,20 +25,22 @@ export const ProductLandingPage = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
   const { product } = useSelector((store) => store.singleProduct);
-  const [orderQty, setOrderQty] = useState(1);
-  const [selectedItem, setSelectedItem] = useState({ ...product, orderQty });
+  const [selectedItem, setSelectedItem] = useState({ ...product, orderQty: 1 });
   const handleOnQty = (e) => {
     const { value } = e.target;
-    setOrderQty(value);
+    setSelectedItem({ ...product, orderQty: value });
   };
   useEffect(() => {
     dispatch(getSingleProduct({ slug: slug }));
-    setSelectedItem({ ...product, orderQty });
-  }, [slug, dispatch]);
-
+  }, [slug]);
   useEffect(() => {
-    setSelectedItem({ ...product, orderQty });
-  }, [orderQty]);
+    setSelectedItem({ ...product, orderQty: 1 });
+  }, [product]);
+  let array = [];
+
+  for (let i = 1; i <= 6; i++) {
+    array.push(i);
+  }
 
   return (
     <div>
@@ -122,29 +124,6 @@ export const ProductLandingPage = () => {
                   </Stack>
                 </span>
                 <Stack direction="row" spacing={1}>
-                  {/* <Typography variant="subtitle1" color={"grey"}>
-                    Size
-                  </Typography>
-                  <Box sx={{ minWidth: 80 }}>
-                    <FormControl fullWidth size="small">
-                      <InputLabel id="demo-simple-select-label">
-                        Size
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        name="size"
-                        value={size}
-                        label="Size"
-                        onChange={() => {}}
-                      >
-                        <MenuItem value={"sm"}>SM</MenuItem>
-                        <MenuItem value={"md"}>MD</MenuItem>
-                        <MenuItem value={"lg"}>LG</MenuItem>
-                        <MenuItem value={"xl"}>XL</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box> */}
                   <Typography variant="subtitle1" color={"grey"}>
                     Qty
                   </Typography>
@@ -159,15 +138,15 @@ export const ProductLandingPage = () => {
                     <FormControl fullWidth size="small">
                       <InputLabel id="demo-simple-select-label">Qty</InputLabel>
                       <Select
-                        value={orderQty}
+                        size="small"
+                        value={selectedItem.orderQty}
                         name="qty"
                         label="Qty"
                         onChange={handleOnQty}
                       >
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
+                        {array.map((qty) => {
+                          return <MenuItem value={qty}>{qty}</MenuItem>;
+                        })}
                       </Select>
                     </FormControl>
                   </Box>

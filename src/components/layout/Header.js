@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ProfileMenu } from "../menu/ProfileMenu";
 import { DesktopMenu } from "../menu/DesktopMenu";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { BootStrapNavBar } from "../menu/BootStrapNavBar";
 import { useSelector } from "react-redux";
 export const Header = () => {
@@ -28,16 +28,16 @@ export const Header = () => {
         justifyContent: "space-between",
         flexDirection: { md: "row-reverse", xs: "row-reverse", lg: "column" },
         alignItems: "center",
+        p: 2,
       }}
       className="header shadow"
     >
-      <Box
+      <Container
+        maxWidth="xl"
         sx={{
           display: "flex",
 
-          p: 1,
           justifyContent: "space-between",
-          width: { sm: "100%", md: "80%" },
         }}
       >
         <Box
@@ -72,10 +72,7 @@ export const Header = () => {
 
           <ProfileMenu anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </Box>
-      </Box>
-      <Box>
-        <BootStrapNavBar />
-      </Box>
+      </Container>
     </Box>
   );
 };

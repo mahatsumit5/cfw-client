@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDisplayData } from "../../redux/displayDataSlice";
 import { Container } from "@mui/material";
 import { Hero } from "../../components/layout/Hero";
+import { ProductCatagories } from "../../components/Home/ProductCatagories";
 export const Home = () => {
   const { products } = useSelector((store) => store.productInfo);
   const dispatch = useDispatch();
@@ -22,17 +23,16 @@ export const Home = () => {
   const data = products.slice(firstIndex, lastIndex);
   dispatch(setDisplayData(data));
   return (
-    <div className="landingPage">
-      <UserLayout>
-        <CustomeCarousel />
-        <Hero />
-        <HomePageProductListing products={data} />
-        <BasicPagination
-          numberOfRequiredPagination={numberOfRequiredPagination}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-        />
-      </UserLayout>
-    </div>
+    <UserLayout>
+      <CustomeCarousel />
+      <Hero />
+      <ProductCatagories />
+      {/* <HomePageProductListing products={data} /> */}
+      {/* <BasicPagination
+        numberOfRequiredPagination={numberOfRequiredPagination}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
+      /> */}
+    </UserLayout>
   );
 };

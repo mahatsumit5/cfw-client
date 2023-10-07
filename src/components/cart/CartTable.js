@@ -14,6 +14,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
+import { setModal } from "../../redux/modalSlice";
+import { CustomModal } from "../modal/CustomModal";
+import { setSnackbar } from "../../redux/snackbarSlice";
 export const CartTable = () => {
   const navigate = useNavigate();
   const { cart } = useSelector((store) => store.cart);
@@ -27,6 +30,17 @@ export const CartTable = () => {
     setNeworder({ ...item, orderQty: item.orderQty - 1 });
   };
   const handleOnAdd = (item) => {
+    if (item.orderQty === item.qty) {
+      dispatch(
+        setSnackbar({
+          open: true,
+          severity: "error",
+          message: "Maximum limit reached",
+          name: "alert",
+        })
+      );
+      return;
+    }
     setNeworder({ ...item, orderQty: item.orderQty + 1 });
   };
   useEffect(() => {

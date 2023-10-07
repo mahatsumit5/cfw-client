@@ -21,8 +21,7 @@ const images = [
 
 export const CustomeCarousel = () => {
   return (
-    <Container
-      maxWidth="lg"
+    <Box
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -41,6 +40,6 @@ export const CustomeCarousel = () => {
           </CarouselItem>
         ))}
       </Carousel>
-    </Container>
+    </Box>
   );
 };

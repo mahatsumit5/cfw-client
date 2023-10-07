@@ -8,12 +8,10 @@ export const Hero = () => {
   return (
     <Box
       sx={{
-        p: 2,
         display: "flex",
-        gap: 3,
+        gap: 5,
         margin: 2,
         flexWrap: "nowrap",
-
         overflowX: "auto",
         overflowY: "hidden",
         justifyContent: "flex-start",

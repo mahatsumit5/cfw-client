@@ -8,8 +8,7 @@ export const HomePageProductListing = () => {
   const { displayData } = useSelector((store) => store.display);
 
   return (
-    <Container
-      maxWidth="xxl"
+    <Box
       sx={{
         display: "flex",
         gap: 1,
@@ -40,6 +39,6 @@ export const HomePageProductListing = () => {
           <Skeleton variant="rectangular" width={250} height={450} />
         )}
       </Box>
-    </Container>
+    </Box>
   );
 };
