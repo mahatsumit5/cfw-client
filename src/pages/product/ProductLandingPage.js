@@ -46,8 +46,7 @@ export const ProductLandingPage = () => {
     <div>
       <UserLayout>
         {product?._id ? (
-          <Container
-            maxWidth="xl"
+          <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
@@ -60,7 +59,8 @@ export const ProductLandingPage = () => {
                 display: "flex",
                 gap: 2,
                 p: 2,
-                boxShadow: 6,
+                boxShadow: 1,
+                borderRadius: 2,
 
                 flexDirection: { xs: "column", md: "row" },
               }}
@@ -162,7 +162,7 @@ export const ProductLandingPage = () => {
             </Box>
 
             <YouMayLike />
-          </Container>
+          </Box>
         ) : (
           <h1>No products found</h1>
         )}

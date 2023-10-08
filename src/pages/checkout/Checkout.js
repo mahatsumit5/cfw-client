@@ -76,11 +76,9 @@ export const Checkout = () => {
       )}
       <Box
         sx={{
-          p: 5,
           display: "flex",
           gap: 2,
           flexDirection: { xs: "column", md: "row" },
-          backgroundColor: "#e0f2f1",
         }}
       >
         <Box

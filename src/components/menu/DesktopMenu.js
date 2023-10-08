@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import jacket from "../../assests/jacket.avif";
 import { CartDrawer } from "../cart/CartDrawer";
 import { FavouriteDrawer } from "../favourite/FavouriteDrawer";
-import { setSnackbar } from "../../redux/snackbarSlice";
 import PersonIcon from "@mui/icons-material/Person";
 export const DesktopMenu = ({
   open,
@@ -73,14 +72,6 @@ export const DesktopMenu = ({
             if (user._id) {
               return setFavDrawer(true);
             }
-            dispatch(
-              setSnackbar({
-                open: true,
-                severity: "error",
-                message: "please login first",
-                name: "loginInfo",
-              })
-            );
           }}
         >
           <Badge badgeContent={user?.favouriteItem?.length} color="info">

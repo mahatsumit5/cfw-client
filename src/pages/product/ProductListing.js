@@ -7,7 +7,6 @@ import CustomProductCard from "../../components/products/ProductCard";
 
 export const ProductListing = () => {
   const { _id, slug } = useParams();
-  console.log(_id, slug);
   const [products, setProducts] = useState([]);
   useEffect(() => {
     async function getdata() {

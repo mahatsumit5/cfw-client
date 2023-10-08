@@ -5,7 +5,6 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ProfileMenu } from "../menu/ProfileMenu";
 import { DesktopMenu } from "../menu/DesktopMenu";
 import { Container, Typography } from "@mui/material";
-import { BootStrapNavBar } from "../menu/BootStrapNavBar";
 import { useSelector } from "react-redux";
 export const Header = () => {
   const { user } = useSelector((store) => store.userInfo);

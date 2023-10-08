@@ -14,12 +14,11 @@ export const ProductCatagories = () => {
       <Box
         sx={{
           display: "flex",
-          gap: 9,
+          gap: 5,
           margin: 2,
           flexWrap: "wrap",
 
           justifyContent: { xs: "space-between", sm: "space-between" },
-          height: "100%",
         }}
       >
         {catagories?.map((cat) => (
@@ -30,12 +29,12 @@ export const ProductCatagories = () => {
           >
             <Paper
               elevation={0}
-              sx={{ height: { xs: 100, sm: 300 }, width: { xs: 100, sm: 300 } }}
+              sx={{ height: { xs: 120, sm: 300 }, width: { xs: 120, sm: 300 } }}
             >
               <Box
                 sx={{
-                  height: { xs: 100, sm: 300 },
-                  width: { xs: 100, sm: 300 },
+                  height: { xs: 120, sm: 300 },
+                  width: { xs: 120, sm: 300 },
                 }}
                 className="catagory-image-box"
               >
