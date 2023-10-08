@@ -1,6 +1,5 @@
 import { Button, Form } from "react-bootstrap";
 import { CustomeInput } from "../customeInput/CustomeInput";
-import { BiSolidUserDetail } from "react-icons/bi";
 import { useState } from "react";
 import { postUserAction } from "../../action/userAction";
 import { CustomToggleButton } from "../Toggle/ToggleButton";
@@ -82,7 +81,7 @@ export const SingUpForm = () => {
         onSubmit={handleOnSubmit}
       >
         <h1>
-          <BiSolidUserDetail />
+          {/* <BiSolidUserDetail /> */}
           Create New Account
         </h1>
         {inputs.map((item, index) => (
