@@ -60,7 +60,7 @@ export const ProductLandingPage = () => {
             <Box
               sx={{
                 display: "flex",
-                gap: 2,
+                gap: 10,
                 p: 2,
                 boxShadow: 1,
                 borderRadius: 2,

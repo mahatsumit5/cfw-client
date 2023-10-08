@@ -62,19 +62,13 @@ export const Hero = () => {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 40,
           },
           1024: {
             slidesPerView: 3,
             spaceBetween: 50,
           },
-        }}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 60,
-          modifier: 2.5,
         }}
       >
         <SwiperSlide>
