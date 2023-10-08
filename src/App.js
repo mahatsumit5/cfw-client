@@ -19,15 +19,11 @@ import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
 import { ResetPassword } from "./pages/signin-singup/ResetPassword";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import { StripeCheckout } from "./pages/checkout/StripeCheckout";
 import { Loading } from "./pages/loading/Loading";
 import { BackdropLoader } from "./components/backdropLoader/BackdropLoader";
 import { SnackBar } from "./components/SnackBar";
-const stripePromise = loadStripe(
-  `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
-);
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -58,7 +54,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
         <Route
-          path={"product/:slug/"}
+          path={"/:slug/:productSlug/"}
           element={
             <AutoRedirect>
               <ProductLandingPage />
@@ -66,7 +62,7 @@ function App() {
           }
         />
         <Route
-          path={"items/:slug/:_id"}
+          path={"/:slug"}
           element={
             <AutoRedirect>
               <ProductListing />

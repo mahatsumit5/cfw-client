@@ -10,18 +10,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Delete from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Alert, CardHeader, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import { addTofavAction } from "../../action/userAction";
 import { motion } from "framer-motion";
-import { store } from "../../store";
 import { setSnackbar } from "../../redux/snackbarSlice";
 export default function CustomProductCard({ products }) {
+  const { slug } = useParams();
   const { user } = useSelector((store) => store.userInfo);
   const { cart } = useSelector((store) => store.cart);
-  const { open, severity, message } = useSelector((store) => store.snackBar);
   const dispatch = useDispatch();
   const favIcons = {
     redHeart: <FavoriteIcon color="error" />,
@@ -60,7 +59,7 @@ export default function CustomProductCard({ products }) {
           }}
         >
           <Link
-            to={`/product/${item.slug}`}
+            to={`/${slug}/${item.slug}`}
             className="nav-link"
             key={item._id}
           >

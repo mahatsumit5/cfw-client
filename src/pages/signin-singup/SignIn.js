@@ -17,8 +17,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Visibility } from "@mui/icons-material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { UserLayout } from "../../components/layout/UserLayout";
+import { LoginButton } from "../../components/google/LoginButton";
 export const SignIn = ({ lastLocation }) => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -101,6 +101,9 @@ export const SignIn = ({ lastLocation }) => {
           <div className="d-grid m-2">
             <Button type="submit">Sign in</Button>
           </div>
+          {/* <div className="d-grid m-2">
+            <LoginButton />
+          </div> */}
 
           <div className="d-flex gap-5 p-2 ">
             <p className="signup-link">

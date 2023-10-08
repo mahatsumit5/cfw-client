@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import CustomProductCard from "./ProductCard";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 
@@ -9,12 +9,9 @@ export const YouMayLike = () => {
   const [similarProduct, setSimilarProduct] = useState([]);
   const { product } = useSelector((store) => store.singleProduct);
   const { slug } = useParams();
-  const obj = {
-    _id: product?.parentCat,
-    slug: product.slug,
-  };
+
   async function getSimilarProduct() {
-    const { result } = await getProductsByCat(obj);
+    const { result } = await getProductsByCat({ slug });
 
     setSimilarProduct(result);
   }

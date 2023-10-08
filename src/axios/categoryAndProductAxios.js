@@ -20,7 +20,7 @@ export const getProducts = async (object) => {
 export const getProductsByCat = async (object) => {
   const obj = {
     method: "get",
-    url: productApi + `/catagories` + `/${object._id}`,
+    url: productApi + `/catagories` + `/${object.slug}`,
   };
   return axiosProcessor(obj);
 };

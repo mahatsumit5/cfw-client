@@ -7,6 +7,7 @@ export const postOrderAction = (object) => async (dispatch) => {
   if (status === "success") {
     dispatch(resetCart());
     dispatch(resetOrder());
+    localStorage.removeItem("clientSecret");
     return orderNumber;
   }
 };

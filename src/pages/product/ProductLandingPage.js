@@ -23,7 +23,7 @@ import { StarRating } from "../../components/products/StarRating";
 
 export const ProductLandingPage = () => {
   const dispatch = useDispatch();
-  const { slug } = useParams();
+  const { productSlug } = useParams();
   const { product } = useSelector((store) => store.singleProduct);
   const [selectedItem, setSelectedItem] = useState({ ...product, orderQty: 1 });
   const handleOnQty = (e) => {
@@ -31,8 +31,8 @@ export const ProductLandingPage = () => {
     setSelectedItem({ ...product, orderQty: value });
   };
   useEffect(() => {
-    dispatch(getSingleProduct({ slug: slug }));
-  }, [slug]);
+    dispatch(getSingleProduct({ slug: productSlug }));
+  }, [productSlug]);
   useEffect(() => {
     setSelectedItem({ ...product, orderQty: 1 });
   }, [product]);
@@ -79,8 +79,15 @@ export const ProductLandingPage = () => {
                   </Typography>
                   <StarRating />
                 </Stack>
-                <span className="d-flex justify-content-between">
-                  <Typography sx={{ textAlign: "justify" }}>
+                <span className="d-flex justify-content-between flex-column gap-2">
+                  <Typography
+                    sx={{ textAlign: "justify" }}
+                    variant="subtitle2"
+                    color={"grey"}
+                  >
+                    Description
+                  </Typography>
+                  <Typography sx={{ textAlign: "justify" }} variant="info">
                     {product.description}
                   </Typography>
                 </span>
@@ -164,7 +171,7 @@ export const ProductLandingPage = () => {
             <YouMayLike />
           </Box>
         ) : (
-          <h1>No products found</h1>
+          <h1>No products in product landingfound</h1>
         )}
       </UserLayout>
     </div>

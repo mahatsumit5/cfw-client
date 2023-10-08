@@ -40,6 +40,7 @@ export const Hero = () => {
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
         <img
+          loading="lazy"
           className="image"
           src={pants}
           alt=""
@@ -49,19 +50,54 @@ export const Hero = () => {
         />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
-        <img className="image" src={jacket} alt="" height={250} width={200} />
+        <img
+          loading="lazy"
+          className="image"
+          src={jacket}
+          alt=""
+          height={250}
+          width={200}
+        />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
-        <img className="image" src={sweater} alt="" height={250} width={200} />
+        <img
+          loading="lazy"
+          className="image"
+          src={sweater}
+          alt=""
+          height={250}
+          width={200}
+        />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
-        <img className="image" src={sweater} alt="" height={250} width={200} />
+        <img
+          loading="lazy"
+          className="image"
+          src={sweater}
+          alt=""
+          height={250}
+          width={200}
+        />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
-        <img className="image" src={sweater} alt="" height={250} width={200} />
+        <img
+          loading="lazy"
+          className="image"
+          src={sweater}
+          alt=""
+          height={250}
+          width={200}
+        />
       </Paper>
       <Paper sx={{ height: 250, width: 200 }}>
-        <img className="image" src={sweater} alt="" height={250} width={200} />
+        <img
+          loading="lazy"
+          className="image"
+          src={sweater}
+          alt=""
+          height={250}
+          width={200}
+        />
       </Paper>
     </Box>
   );

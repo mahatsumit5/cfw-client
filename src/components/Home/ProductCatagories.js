@@ -1,6 +1,5 @@
 import { Box, Paper, Typography } from "@mui/material";
 import React from "react";
-import pants from "../../assests/pants.avif";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -22,11 +21,7 @@ export const ProductCatagories = () => {
         }}
       >
         {catagories?.map((cat) => (
-          <Link
-            to={`items/${cat.slug}/${cat._id}`}
-            key={cat._id}
-            className="nav-link"
-          >
+          <Link to={`/${cat.slug}`} key={cat._id} className="nav-link">
             <Paper
               elevation={0}
               sx={{ height: { xs: 120, sm: 300 }, width: { xs: 120, sm: 300 } }}

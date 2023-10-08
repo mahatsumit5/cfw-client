@@ -29,6 +29,7 @@ const CheckoutForm = ({ clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState("");
+  const [paymentIntent, setPaymentIntent] = useState({});
   const [client_secret, setClientSecret] = useState(
     new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
@@ -59,7 +60,6 @@ const CheckoutForm = ({ clientSecret }) => {
       dispatch(setModal({ isModalOpen: true, modalName: "errorMessage" }));
       setError(error);
     }
-    return paymentIntent ? paymentIntent : error;
   }
 
   const handleOnSubmit = async (e) => {
@@ -86,7 +86,14 @@ const CheckoutForm = ({ clientSecret }) => {
       }
     }
     if (payment.method === "zip") {
-      await stripe.confirm(`${clientSecret}`);
+      const { paymentIntent, error } = await stripe.confirmZipPayment(
+        `${clientSecret}`
+      );
+      if (error) {
+        console.log(error);
+        dispatch(setModal({ isModalOpen: true, modalName: "errorMessage" }));
+        setError(error);
+      }
     }
     if (payment.method === "card") {
       const { error, paymentIntent } = await stripe.confirmPayment({
@@ -119,7 +126,20 @@ const CheckoutForm = ({ clientSecret }) => {
       );
 
       if (paymentIntent) {
-        await retrivePaymentIntent();
+        setPaymentIntent(paymentIntent);
+        const loading = dispatch(
+          postOrderAction({
+            user,
+            payment: { ...payment, isPaid: true },
+            orderItems,
+          })
+        );
+        dispatch(setBackdrop(true));
+        const orderNumber = await loading;
+        if (orderNumber) {
+          navigate(`/cart/order/${orderNumber}`);
+        }
+        dispatch(setBackdrop(false));
       }
       if (error) {
         console.log(error);
@@ -128,9 +148,13 @@ const CheckoutForm = ({ clientSecret }) => {
       }
     }
   };
+  useEffect(() => {
+    if (!paymentIntent.id) {
+      return;
+    }
 
-  // calling retrive payment and postin order based on status
-
+    retrivePaymentIntent();
+  }, [paymentIntent]);
   useEffect(() => {
     if (!client_secret || !stripe) {
       return;
