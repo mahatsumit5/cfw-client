@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { UserLayout } from "../../components/layout/UserLayout";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Skeleton, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 import CustomProductCard from "../../components/products/ProductCard";
 
 export const ProductListing = () => {
   const { slug } = useParams();
-  console.log(slug);
   const [products, setProducts] = useState([]);
+  const [skeleton, setSkeleton] = useState(false);
   useEffect(() => {
     async function getdata() {
-      const { result } = await getProductsByCat({ slug });
+      const pending = getProductsByCat({ slug });
+      setSkeleton(true);
+      const { result } = await pending;
+      setSkeleton(false);
       setProducts(result);
     }
     getdata();
@@ -30,7 +33,12 @@ export const ProductListing = () => {
           {products?.length ? (
             <CustomProductCard products={products} />
           ) : (
-            <h1>No products found</h1>
+            <>
+              {skeleton && (
+                <Skeleton variant="rectangle" height={350} width={250} />
+              )}
+              <Typography>No Products found</Typography>
+            </>
           )}
         </Box>
       </Container>

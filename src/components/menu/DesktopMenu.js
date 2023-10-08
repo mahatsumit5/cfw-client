@@ -53,7 +53,7 @@ export const DesktopMenu = ({
         onClick={() => {
           setSearchBar(!searchBar);
         }}
-        sx={{ display: { xs: "none", sm: "block" } }}
+        // sx={{ display: { xs: "none", sm: "block" } }}
       >
         <Typography sx={{ minWidth: 10 }}>
           <SearchIcon color="primary" />

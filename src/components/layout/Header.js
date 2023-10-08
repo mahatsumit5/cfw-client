@@ -43,7 +43,7 @@ export const Header = () => {
           sx={{
             flexGrow: 3,
             textAlign: "left",
-            display: { xs: "none", sm: "none", md: "none", lg: "block" },
+            display: { xs: "none", sm: "block", md: "block", lg: "block" },
           }}
         >
           <Link className="nav-link" to="/">
@@ -54,8 +54,20 @@ export const Header = () => {
         </Box>
         <Box
           sx={{
+            flexGrow: 3,
+            textAlign: "left",
+            display: { xs: "block", sm: "none", md: "none", lg: "none" },
+          }}
+        >
+          <Link className="nav-link" to="/">
+            <Typography variant="h6" mt={1}>
+              CFW
+            </Typography>
+          </Link>
+        </Box>
+        <Box
+          sx={{
             flexGrow: 2,
-
             display: "flex",
             justifyContent: "end",
           }}

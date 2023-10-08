@@ -11,6 +11,7 @@ import { Hero } from "../../components/layout/Hero";
 import { ProductCatagories } from "../../components/Home/ProductCatagories";
 export const Home = () => {
   const { products } = useSelector((store) => store.productInfo);
+  const { catagories } = useSelector((store) => store.catagoryInfo);
   const dispatch = useDispatch();
   const totalNumberOfCards = products.length;
   const cardsToShowOnOnePage = 4;
@@ -21,18 +22,18 @@ export const Home = () => {
   const lastIndex = pageNumber * cardsToShowOnOnePage;
   const firstIndex = lastIndex - cardsToShowOnOnePage;
   const data = products.slice(firstIndex, lastIndex);
-  dispatch(setDisplayData(data));
+  dispatch(setDisplayData(catagories));
   return (
     <UserLayout>
       <CustomeCarousel />
       <Hero />
       <ProductCatagories />
       {/* <HomePageProductListing products={data} /> */}
-      {/* <BasicPagination
+      <BasicPagination
         numberOfRequiredPagination={numberOfRequiredPagination}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
-      /> */}
+      />
     </UserLayout>
   );
 };

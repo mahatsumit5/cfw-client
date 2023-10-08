@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export const ProductCatagories = () => {
-  const { catagories } = useSelector((store) => store.catagoryInfo);
+  const { displayData } = useSelector((store) => store.display);
 
   return (
     <Box sx={{ p: 2, display: "flex", flexDirection: "column", gap: 2 }}>
@@ -20,16 +20,16 @@ export const ProductCatagories = () => {
           justifyContent: { xs: "space-between", sm: "space-between" },
         }}
       >
-        {catagories?.map((cat) => (
+        {displayData?.map((cat) => (
           <Link to={`/${cat.slug}`} key={cat._id} className="nav-link">
             <Paper
               elevation={0}
-              sx={{ height: { xs: 120, sm: 300 }, width: { xs: 120, sm: 300 } }}
+              sx={{ height: { xs: 120, sm: 200 }, width: { xs: 120, sm: 200 } }}
             >
               <Box
                 sx={{
-                  height: { xs: 120, sm: 300 },
-                  width: { xs: 120, sm: 300 },
+                  height: { xs: 120, sm: 200 },
+                  width: { xs: 120, sm: 200 },
                 }}
                 className="catagory-image-box"
               >

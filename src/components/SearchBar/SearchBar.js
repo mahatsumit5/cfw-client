@@ -7,12 +7,12 @@ import { setDisplayData } from "../../redux/displayDataSlice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 export const SearchBar = () => {
-  const { products } = useSelector((store) => store.productInfo);
+  const { catagories } = useSelector((store) => store.catagoryInfo);
   const dispatch = useDispatch();
-  const data = [...(products || [])];
+  const data = [...(catagories || [])];
   function handleOnChange(e) {
     const { value } = e.target;
-    const filteredItems = products.filter((item) =>
+    const filteredItems = catagories.filter((item) =>
       item?.title.toLowerCase().includes(value.toLowerCase())
     );
     dispatch(setDisplayData(filteredItems));
@@ -32,18 +32,20 @@ export const SearchBar = () => {
             disableClearable
             options={data.map((item) => item.title)}
             renderInput={(params) => (
-              <TextField
-                sx={{ height: "20px" }}
-                size="small"
-                {...params}
-                variant="outlined"
-                label="Search "
-                InputProps={{
-                  ...params.InputProps,
-                  type: "search",
-                }}
-                onChange={handleOnChange}
-              />
+              <Link>
+                <TextField
+                  sx={{ height: "20px" }}
+                  size="small"
+                  {...params}
+                  variant="outlined"
+                  label="Search "
+                  InputProps={{
+                    ...params.InputProps,
+                    type: "search",
+                  }}
+                  onChange={handleOnChange}
+                />
+              </Link>
             )}
           />
         </Stack>

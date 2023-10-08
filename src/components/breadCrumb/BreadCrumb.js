@@ -2,11 +2,13 @@ import * as React from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Box } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Divider } from "@mui/material";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function CustomBreadCrumb() {
   const navigate = useNavigate();
+  const { slug, productSlug } = useParams();
+  console.log(productSlug, slug);
   function handleClick(event) {
     event.preventDefault();
     navigate("/");
@@ -36,7 +38,7 @@ export default function CustomBreadCrumb() {
               key={index}
               underline="hover"
               color="inherit"
-              href={"/"}
+              href={`/${path}`}
               onClick={() => {
                 navigate(path);
               }}
@@ -46,6 +48,7 @@ export default function CustomBreadCrumb() {
           );
         })}
       </Breadcrumbs>
+      <Divider />
     </Box>
   );
 }

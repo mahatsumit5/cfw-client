@@ -11,7 +11,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Delete from "@mui/icons-material/Delete";
 import { Link, useParams } from "react-router-dom";
-import { Alert, CardHeader, Snackbar } from "@mui/material";
+import { Alert, CardHeader, Divider, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCart, setCart } from "../../redux/cartSlice";
 import { addTofavAction } from "../../action/userAction";
@@ -50,8 +50,7 @@ export default function CustomProductCard({ products }) {
         <Card
           key={item._id}
           sx={{
-            width: 250,
-            maxWidth: { xs: 250, sm: 350, md: 350 },
+            maxWidth: { xs: 250, sm: 250, md: 250 },
             maxHeight: 450,
             display: "flex",
             flexDirection: "column",
@@ -63,34 +62,39 @@ export default function CustomProductCard({ products }) {
             className="nav-link"
             key={item._id}
           >
-            <CardHeader title={item.title} sx={{ height: 60 }} />
+            <CardMedia
+              sx={{
+                width: 250,
+                height: 150,
+                objectFit: "cover",
+              }}
+              component="img"
+              image={item.thumbnail}
+              alt={item.title}
+            />
 
-            <div style={{ width: "280px", height: "180px" }}>
-              <CardMedia
-                sx={{
-                  width: 280,
-                  height: 180,
-                  objectFit: "cover",
-                }}
-                component="img"
-                image={item.thumbnail}
-                alt={item.title}
-              />
-            </div>
+            <CardContent
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
 
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h5" color="text.primary">
-                {item.slug}
+                gap: 1,
+              }}
+            >
+              <Typography variant="subtitle 2" color="text.primary">
+                {item.title}
               </Typography>
               <Typography variant="caption" color="text.primary">
                 {item.sku}
               </Typography>
-              <br></br>
-              <Typography variant="subtitle2 h5" color="text.secondary">
-                {"$" + item.price}
+
+              <Typography variant="subtitle2 h6 " color="text.secondary">
+                Price: {"$" + item.price}
               </Typography>
             </CardContent>
           </Link>
+          <Divider />
           <CardActions sx={{ position: "relative" }}>
             <IconButton
               aria-label="add to favorites"

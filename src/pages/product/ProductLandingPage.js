@@ -3,12 +3,14 @@ import { UserLayout } from "../../components/layout/UserLayout";
 import { useParams } from "react-router-dom";
 
 import {
+  Backdrop,
   Box,
   Container,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -20,6 +22,7 @@ import { LandingPageImage } from "../../components/products/LandingPageImage";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../action/productAction";
 import { StarRating } from "../../components/products/StarRating";
+import { Spinner } from "react-bootstrap";
 
 export const ProductLandingPage = () => {
   const dispatch = useDispatch();
@@ -171,7 +174,7 @@ export const ProductLandingPage = () => {
             <YouMayLike />
           </Box>
         ) : (
-          <h1>No products in product landingfound</h1>
+          <Backdrop open={true}></Backdrop>
         )}
       </UserLayout>
     </div>
