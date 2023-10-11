@@ -1,7 +1,13 @@
-import { getProducts, postReview } from "../axios/categoryAndProductAxios";
+import { toast } from "react-toastify";
+import {
+  deleteReview,
+  getProducts,
+  postReview,
+} from "../axios/categoryAndProductAxios";
 import { setBackdrop } from "../redux/backdropLoader";
 import { setProducts } from "../redux/productSlice";
 import { setProduct } from "../redux/singleProductSlice";
+import { m } from "framer-motion";
 
 export const getProductsAction = () => async (dispatch) => {
   const { data } = await getProducts();
@@ -28,5 +34,16 @@ export const postReviewAction = (obj) => async (dispatch) => {
 
   if (status === "success") {
     dispatch(getSingleProduct({ slug: obj.slug }));
+  }
+};
+export const deleteReviewAction = (obj) => async (dispatch) => {
+  const pending = await deleteReview(obj);
+  dispatch(setBackdrop(true));
+  const { status, message } = pending;
+  toast[status](message);
+  dispatch(setBackdrop(false));
+
+  if (status === "success") {
+    dispatch(getSingleProduct({ slug: obj.productSlug }));
   }
 };

@@ -6,11 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { CustomModal } from "../modal/CustomModal";
+import { CustomModal } from "../../modal/CustomModal";
 import { useDispatch, useSelector } from "react-redux";
-import { setModal } from "../../redux/modalSlice";
+import { setModal } from "../../../redux/modalSlice";
 import { useNavigate } from "react-router-dom";
-import { postReviewAction } from "../../action/productAction";
+import { postReviewAction } from "../../../action/productAction";
 
 export const AddReview = ({ slug, product }) => {
   const { user } = useSelector((store) => store.userInfo);
@@ -42,7 +42,7 @@ export const AddReview = ({ slug, product }) => {
   }
   return (
     <>
-      <Button variant="text" onClick={handleOnReview}>
+      <Button variant="text" onClick={handleOnReview} fullWidth>
         {user._id ? "Write a review" : "Login to review"}
       </Button>
       <CustomModal title={"Provide us a feedback"}>

@@ -8,7 +8,7 @@ export const UserLayout = ({ children }) => {
   return (
     <>
       <Header />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <CustomBreadCrumb />
 
         <main className="main ">{children}</main>

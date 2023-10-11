@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import { subscribe } from "../../axios/subscribeAxios";
 const Item = styled(Paper)(({ theme }) => {
   return {
     backgroundColor: "#fff",
@@ -16,6 +17,8 @@ const Item = styled(Paper)(({ theme }) => {
 });
 
 export const Footer = () => {
+  const [email, setEmail] = useState("email");
+
   const date = new Date().getFullYear();
   return (
     <Box
@@ -82,7 +85,14 @@ export const Footer = () => {
       >
         <Typography variant="h6">Subscribe to our newsletter</Typography>
         <TextField label="Email" />
-        <Button variant="outlined">Subscribe</Button>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            subscribe({ email: email });
+          }}
+        >
+          Subscribe
+        </Button>
         <Typography variant="body2">
           Get regular updates on our product with our newsletter.
         </Typography>

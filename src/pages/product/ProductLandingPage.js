@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../action/productAction";
 import { StarRating } from "../../components/products/StarRating";
 import { Spinner } from "react-bootstrap";
+import { ReviewAccordian } from "../../components/products/ReviewAccordian";
 
 export const ProductLandingPage = () => {
   const dispatch = useDispatch();
@@ -60,9 +61,9 @@ export const ProductLandingPage = () => {
             <Box
               sx={{
                 display: "flex",
-                gap: 10,
+                gap: 2,
                 p: 2,
-                boxShadow: 1,
+                // boxShadow: 1,
                 borderRadius: 2,
 
                 flexDirection: { xs: "column", md: "row" },
@@ -71,9 +72,10 @@ export const ProductLandingPage = () => {
               <LandingPageImage product={product} key={product._id} />
               <Box
                 sx={{
-                  gap: 5,
+                  gap: 2,
                   display: "flex",
                   flexDirection: "column",
+                  flexGrow: 2,
                 }}
               >
                 <Stack direction="column" gap={1}>
@@ -93,6 +95,9 @@ export const ProductLandingPage = () => {
                   <Typography sx={{ textAlign: "justify" }} variant="info">
                     {product.description}
                   </Typography>
+                </span>
+                <span>
+                  <ReviewAccordian />
                 </span>
                 <span style={{ display: "flex", gap: "20px" }}>
                   <Typography variant="subtitle1" color={"grey"}>

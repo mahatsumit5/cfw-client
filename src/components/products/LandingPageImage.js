@@ -5,7 +5,7 @@ export const LandingPageImage = ({ product }) => {
     <Box sx={{ flexGrow: 2 }}>
       <Box
         sx={{
-          width: { md: "50vw", xs: "85vw" },
+          width: { md: "40vw", xs: "85vw" },
           height: 550,
           gap: 1,
           display: "flex",

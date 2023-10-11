@@ -2,7 +2,7 @@ import { Box, Paper, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { motion } from "framer-motion";
 export const ProductCatagories = () => {
   const { displayData } = useSelector((store) => store.display);
 
@@ -30,18 +30,22 @@ export const ProductCatagories = () => {
                 sx={{
                   height: { xs: 120, sm: 200 },
                   width: { xs: 120, sm: 200 },
+                  overflow: "hidden",
                 }}
                 className="catagory-image-box"
               >
-                <img
+                <motion.img
                   className="catagory-image"
                   src={cat.image}
                   alt={cat}
                   height="100%"
                   width="100%"
+                  whileHover={{ scale: 1.2 }}
                 />
               </Box>
-              <Typography variant="h6">{cat.title}</Typography>
+              <Typography variant="overline" mt={1}>
+                {cat.title}
+              </Typography>
             </Paper>
           </Link>
         ))}

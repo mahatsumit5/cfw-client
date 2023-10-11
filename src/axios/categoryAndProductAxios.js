@@ -32,3 +32,11 @@ export const postReview = async (object) => {
   };
   return axiosProcessor(obj);
 };
+export const deleteReview = async (object) => {
+  const obj = {
+    method: "put",
+    url: `${productApi}/delete-review`,
+    obj: object,
+  };
+  return axiosProcessor(obj);
+};
