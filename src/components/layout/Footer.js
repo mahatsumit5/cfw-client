@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, FormControl, TextField, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { subscribe } from "../../axios/subscribeAxios";
+import { subscribeAction } from "../../action/subscribeAction";
+import { RiVisaFill } from "react-icons/ri";
+import { BsCash } from "react-icons/bs";
+import { AiFillApple, AiFillBank } from "react-icons/ai";
+import { BiLogoMastercard } from "react-icons/bi";
 const Item = styled(Paper)(({ theme }) => {
   return {
     backgroundColor: "#fff",
@@ -17,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => {
 });
 
 export const Footer = () => {
-  const [email, setEmail] = useState("email");
+  const [email, setEmail] = useState("");
 
   const date = new Date().getFullYear();
   return (
@@ -64,14 +68,24 @@ export const Footer = () => {
 
           <Stack
             direction="row"
-            spacing={2}
-            sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}
+            spacing={1}
+            sx={{ display: "flex", flexWrap: "wrap" }}
           >
-            <Item>Visa</Item>
-            <Item>Cash</Item>
-            <Item>Apple Pay</Item>
-            <Item>AfterPay</Item>
-            <Item>Bank Debit</Item>
+            <Item>
+              <RiVisaFill />
+            </Item>
+            <Item>
+              <AiFillApple />
+            </Item>
+            <Item>
+              <BsCash />
+            </Item>
+            <Item>
+              <BiLogoMastercard />
+            </Item>
+            <Item>
+              <AiFillBank />
+            </Item>
           </Stack>
         </div>
       </Box>
@@ -84,15 +98,24 @@ export const Footer = () => {
         }}
       >
         <Typography variant="h6">Subscribe to our newsletter</Typography>
-        <TextField label="Email" />
+        <FormControl></FormControl>
+        <TextField
+          label="Email"
+          name="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          placeholder="jonsmith@gmail.com"
+        ></TextField>
         <Button
           variant="outlined"
           onClick={() => {
-            subscribe({ email: email });
+            subscribeAction({ email: email });
           }}
         >
           Subscribe
         </Button>
+
         <Typography variant="body2">
           Get regular updates on our product with our newsletter.
         </Typography>

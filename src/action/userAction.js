@@ -7,6 +7,7 @@ import {
 } from "../axios/userAxios";
 import { toast } from "react-toastify";
 import { setUser } from "../redux/userSlice";
+
 export const postUserAction = async (userData) => {
   const pending = postUser(userData);
   toast.promise(pending, { pending: "Please Wait" });
@@ -31,7 +32,9 @@ export const loginAction = (loginDetails) => async (dispatch) => {
 
 export const getUserAction = () => async (dispatch) => {
   const { status, user } = await getUser();
-  if (status === "success") dispatch(setUser(user));
+  if (status === "success") {
+    dispatch(setUser(user));
+  }
 };
 
 export const verifyAccountAction = async (obj) => {

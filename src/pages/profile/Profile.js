@@ -1,15 +1,8 @@
 import React from "react";
 import { Header } from "../../components/layout/Header";
 import { Footer } from "../../components/layout/Footer";
+import { UserLayout } from "../../components/layout/UserLayout";
 
 export const Profile = () => {
-  return (
-    <div>
-      <Header />
-
-      <main className="main p-2">This is my profile page</main>
-
-      <Footer />
-    </div>
-  );
+  return <UserLayout>profile</UserLayout>;
 };

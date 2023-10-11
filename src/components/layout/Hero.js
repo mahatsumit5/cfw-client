@@ -73,7 +73,7 @@ export const Hero = () => {
       >
         <SwiperSlide>
           <Paper
-            elevation={0}
+            elevation={1}
             sx={{
               height: 250,
               width: 200,

@@ -31,48 +31,10 @@ import {
   Parallax,
 } from "swiper/modules";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const images = [
-  {
-    label: "San Francisco  Oakland Bay Bridge, United States",
-    imgPath: image1,
-  },
-  {
-    label: "Bird",
-    imgPath: image2,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-  {
-    label: "Bali, Indonesia",
-    imgPath: image3,
-  },
-];
 export const CustomeCarousel = () => {
   const { products } = useSelector((state) => state.productInfo);
-  const productImages = products.map((prdt) => prdt.thumbnail);
 
   return (
     <Swiper
@@ -111,17 +73,19 @@ export const CustomeCarousel = () => {
         },
       }}
     >
-      {productImages.map((image) => (
-        <SwiperSlide key={image}>
-          <div>
-            {" "}
-            <img
-              src={image}
-              height={300}
-              width={"100%"}
-              style={{ objectFit: "cover" }}
-            />
-          </div>
+      {products.map((product) => (
+        <SwiperSlide key={product._id}>
+          <Link to={`/product/${product.slug}`}>
+            <div>
+              {" "}
+              <img
+                src={product.thumbnail}
+                height={300}
+                width={"100%"}
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

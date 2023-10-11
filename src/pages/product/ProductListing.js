@@ -4,11 +4,17 @@ import { Box, Container, Skeleton, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { getProductsByCat } from "../../axios/categoryAndProductAxios";
 import CustomProductCard from "../../components/products/ProductCard";
+import BasicPagination from "../../components/pagination/MuiPagination";
+import { useDispatch, useSelector } from "react-redux";
+import { setDisplayData } from "../../redux/displayDataSlice";
+import { setProductsByCat } from "../../redux/productsByCatagory";
 
 export const ProductListing = () => {
   const { slug } = useParams();
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [skeleton, setSkeleton] = useState(false);
+  const { displayData } = useSelector((store) => store.display);
   useEffect(() => {
     async function getdata() {
       const pending = getProductsByCat({ slug });
@@ -16,6 +22,8 @@ export const ProductListing = () => {
       const { result } = await pending;
       setSkeleton(false);
       setProducts(result);
+      dispatch(setProductsByCat(result));
+      dispatch(setDisplayData(result));
     }
     getdata();
   }, [slug]);
@@ -30,8 +38,8 @@ export const ProductListing = () => {
             flexWrap: "wrap",
           }}
         >
-          {products?.length ? (
-            <CustomProductCard products={products} />
+          {displayData?.length ? (
+            <CustomProductCard products={displayData} />
           ) : (
             <>
               {skeleton && (
@@ -41,6 +49,7 @@ export const ProductListing = () => {
             </>
           )}
         </Box>
+        <BasicPagination data={products} />
       </Container>
     </UserLayout>
   );

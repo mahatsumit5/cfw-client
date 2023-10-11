@@ -23,6 +23,7 @@ import { StripeCheckout } from "./pages/checkout/StripeCheckout";
 import { Loading } from "./pages/loading/Loading";
 import { BackdropLoader } from "./components/backdropLoader/BackdropLoader";
 import { SnackBar } from "./components/SnackBar";
+import { Wishlist } from "./pages/wishlist/Wishlist";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
             </PrivateRoute>
           }
         />

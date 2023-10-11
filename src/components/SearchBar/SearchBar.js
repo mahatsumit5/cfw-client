@@ -5,14 +5,25 @@ import { TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setDisplayData } from "../../redux/displayDataSlice";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export const SearchBar = () => {
+  const { pathname } = useLocation();
+  console.log(pathname);
   const { catagories } = useSelector((store) => store.catagoryInfo);
+  const { products } = useSelector((store) => store.productByCat);
   const dispatch = useDispatch();
   const data = [...(catagories || [])];
   function handleOnChange(e) {
     const { value } = e.target;
-    const filteredItems = catagories.filter((item) =>
+    if (pathname === "/") {
+      const filteredItems = catagories.filter((item) =>
+        item?.title.toLowerCase().includes(value.toLowerCase())
+      );
+      dispatch(setDisplayData(filteredItems));
+      return;
+    }
+
+    const filteredItems = products.filter((item) =>
       item?.title.toLowerCase().includes(value.toLowerCase())
     );
     dispatch(setDisplayData(filteredItems));

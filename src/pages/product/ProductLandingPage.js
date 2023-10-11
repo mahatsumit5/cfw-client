@@ -96,9 +96,7 @@ export const ProductLandingPage = () => {
                     {product.description}
                   </Typography>
                 </span>
-                <span>
-                  <ReviewAccordian />
-                </span>
+
                 <span style={{ display: "flex", gap: "20px" }}>
                   <Typography variant="subtitle1" color={"grey"}>
                     Color
@@ -137,6 +135,9 @@ export const ProductLandingPage = () => {
                       }}
                     />
                   </Stack>
+                </span>
+                <span>
+                  <ReviewAccordian />
                 </span>
                 <Stack direction="row" spacing={1}>
                   <Typography variant="subtitle1" color={"grey"}>

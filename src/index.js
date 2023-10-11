@@ -12,6 +12,7 @@ import { Provider } from "react-redux"; //for redux-toolkot
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./store";
+import { ScrollToTop } from "./components/scrollToTop/ScrollToTop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +21,7 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />
+          <ScrollToTop />
         </PersistGate>
       </Provider>
     </BrowserRouter>

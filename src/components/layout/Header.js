@@ -28,6 +28,7 @@ export const Header = () => {
         flexDirection: { md: "row-reverse", xs: "row-reverse", lg: "column" },
         alignItems: "center",
         p: 2,
+        // backgroundColor: "aliceblue",
       }}
       className="header shadow"
     >

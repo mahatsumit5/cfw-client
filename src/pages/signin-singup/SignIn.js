@@ -35,7 +35,7 @@ export const SignIn = ({ lastLocation }) => {
     if (form?.email && form?.password) {
       const user = await dispatch(loginAction(form));
       if (user) {
-        navigate(lastLocation);
+        navigate("/");
       }
 
       return user;

@@ -11,7 +11,6 @@ import { ReviewDetails } from "./Review/ReviewDetails";
 export const ReviewAccordian = () => {
   const { product } = useSelector((store) => store.singleProduct);
   const reviews = product.reviews;
-  console.log(reviews);
   return (
     <Accordion>
       <AccordionSummary

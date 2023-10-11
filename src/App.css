@@ -20,7 +20,7 @@
   top: 0;
   z-index: 10;
   backdrop-filter: blur(10px);
-  background-color: rgba(240, 241, 229, 0.595);
+  background-color: rgba(191, 217, 240, 0.36);
 }
 /* .nav-link {
   margin-right: 5px;

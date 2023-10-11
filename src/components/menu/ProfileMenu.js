@@ -62,20 +62,24 @@ export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-          <Avatar fontSize="small" alt="profile" src={jacket} />
-        </ListItemIcon>
-        {user?.fName?.toUpperCase()}
-      </MenuItem>
+      <Link className="nav-link" to="/profile">
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <Avatar fontSize="small" alt="profile" src={jacket} />
+          </ListItemIcon>
+          {user?.fName?.toUpperCase()}
+        </MenuItem>
+      </Link>
       <Divider />
+      <Link className="nav-link" to="/wishlist">
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <FavoriteIcon fontSize="small" color="error" />
+          </ListItemIcon>
+          Wishlist
+        </MenuItem>
+      </Link>
 
-      <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-          <FavoriteIcon fontSize="small" color="error" />
-        </ListItemIcon>
-        Wishlist
-      </MenuItem>
       <MenuItem onClick={handleClose}>
         <ListItemIcon>
           <Settings fontSize="small" />

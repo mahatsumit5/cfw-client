@@ -6,6 +6,7 @@ import userReducer from "./redux/userSlice";
 import catReducer from "./redux/catagorySlice";
 import mainCatalogueReducer from "./redux/mainCatalogueSlice";
 import productReducer from "./redux/productSlice";
+import productByCatagoryReducer from "./redux/productsByCatagory";
 import displayReducer from "./redux/displayDataSlice";
 import cartReducer from "./redux/cartSlice";
 import modalReducer from "./redux/modalSlice";
@@ -30,13 +31,13 @@ const orderPresistConfig = {
 
 const presistedUserReducer = persistReducer(userPresistConfig, userReducer);
 const presistedCartReducer = persistReducer(cartPresistConfig, cartReducer);
-const presistedOrderReducer = persistReducer(cartPresistConfig, orderReducer);
+const presistedOrderReducer = persistReducer(orderPresistConfig, orderReducer);
 const store = configureStore({
   reducer: {
     userInfo: presistedUserReducer, //this is for the user data stored in the local storage
-    testUser: userReducer, //this data is removed every time browser reloads
     catagoryInfo: catReducer,
     productInfo: productReducer,
+    productByCat: productByCatagoryReducer,
     paymentInfo: paymentReducer,
     display: displayReducer,
     cart: presistedCartReducer,
