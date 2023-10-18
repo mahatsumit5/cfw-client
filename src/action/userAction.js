@@ -3,6 +3,7 @@ import {
   getUser,
   logInUser,
   postUser,
+  updateUser,
   verifyAccount,
 } from "../axios/userAxios";
 import { toast } from "react-toastify";
@@ -53,4 +54,10 @@ export const addTofavAction = (obj) => async (dispatch) => {
     dispatch(getUserAction());
   }
   return result;
+};
+export const updateUserAction = (obj) => async (dispatch) => {
+  const { status, message } = await updateUser(obj);
+  if (status === "success") {
+    dispatch(getUserAction());
+  }
 };

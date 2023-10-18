@@ -85,3 +85,13 @@ export const resetPassword = async ({ email, code, password }) => {
   };
   return axiosProcessor(obj);
 };
+
+export const updateUser = async (userData) => {
+  const obj = {
+    method: "put",
+    url: userApi,
+    obj: userData,
+    isPrivate: true,
+  };
+  return axiosProcessor(obj);
+};
