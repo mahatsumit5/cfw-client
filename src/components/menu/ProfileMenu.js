@@ -12,6 +12,7 @@ import { logOutUser } from "../../axios/userAxios";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Avatar, Divider } from "@mui/material";
 import jacket from "../../assests/jacket.avif";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
   const { user } = useSelector((store) => store.userInfo);
@@ -77,6 +78,14 @@ export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
             <FavoriteIcon fontSize="small" color="error" />
           </ListItemIcon>
           Wishlist
+        </MenuItem>
+      </Link>
+      <Link className="nav-link" to={`/order/${user.email}`}>
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <LocalShippingIcon fontSize="small" />
+          </ListItemIcon>
+          Orders
         </MenuItem>
       </Link>
 

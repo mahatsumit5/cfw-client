@@ -1,12 +1,11 @@
 import "./App.css";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { SignIn } from "./pages/signin-singup/SignIn";
 import { SignUp } from "./pages/signin-singup/SignUp";
 import { Home } from "./pages/home/Home";
 import { VerifyEmail } from "./pages/verifyEmail/verifyEmail";
 import { Profile } from "./pages/profile/Profile";
-import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
 import { Cart } from "./pages/cart/Cart";
 import { useEffect } from "react";
 import { getCatagoriesAction } from "./action/catagoryAction";
@@ -14,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { getProductsAction } from "./action/productAction";
 import { ProductLandingPage } from "./pages/product/ProductLandingPage";
 import { ProductListing } from "./pages/product/ProductListing";
-import { AutoRedirect } from "./components/autoRedirect/AutoRedirect";
 import { Checkout } from "./pages/checkout/Checkout";
 import { getPaymentMethodAction } from "./action/paymentMethodAction";
 import { OrderConfirmationPage } from "./pages/orderConfirmation/OrderConfirmationPage";
@@ -24,7 +22,8 @@ import { Loading } from "./pages/loading/Loading";
 import { BackdropLoader } from "./components/backdropLoader/BackdropLoader";
 import { SnackBar } from "./components/SnackBar";
 import { Wishlist } from "./pages/wishlist/Wishlist";
-
+import { PrivateRoute } from "./components/privateRoute/PrivateRoute";
+import Order from "./pages/myOrder/Order";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,40 +35,12 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <AutoRedirect>
-              <Home />
-            </AutoRedirect>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <AutoRedirect>
-              <SignIn />
-            </AutoRedirect>
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/user-verification" element={<VerifyEmail />} />
-        <Route
-          path={"/:slug/:productSlug/"}
-          element={
-            <AutoRedirect>
-              <ProductLandingPage />
-            </AutoRedirect>
-          }
-        />
-        <Route
-          path={"/:slug"}
-          element={
-            <AutoRedirect>
-              <ProductListing />
-            </AutoRedirect>
-          }
-        />
+        <Route path={"/:slug/:productSlug/"} element={<ProductLandingPage />} />
+        <Route path={"/:slug"} element={<ProductListing />} />
 
         <Route
           path="/profile"
@@ -87,6 +58,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/order/:user"
+          element={
+            <PrivateRoute>
+              <Order />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path={"/cart/order/:_id"}
@@ -96,14 +75,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/loading"
-          element={
-            <PrivateRoute>
-              <Loading />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/loading" element={<Loading />} />
         <Route path="cart/checkout" element={<Checkout />} />
         <Route
           path="cart/checkout/stripe"
@@ -113,14 +85,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/cart"
-          element={
-            <AutoRedirect>
-              <Cart />
-            </AutoRedirect>
-          }
-        />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <ToastContainer />

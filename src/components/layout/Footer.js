@@ -35,6 +35,7 @@ export const Footer = () => {
         minHeight: "10vh",
         backgroundColor: "aliceblue",
         flexDirection: { xs: "column-reverse", md: "row" },
+        marginTop: 5,
       }}
     >
       <Box

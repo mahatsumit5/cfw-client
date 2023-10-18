@@ -27,3 +27,11 @@ export const getOrder = async (_id) => {
   };
   return axiosProcessor(obj);
 };
+export const getOrderByUser = async (user) => {
+  console.log(user);
+  const obj = {
+    method: "get",
+    url: `${orderApi}/order/${user._id}/${user.fName}/${user.lName}/${user.phone}/${user.email}/${user.address}`,
+  };
+  return axiosProcessor(obj);
+};
