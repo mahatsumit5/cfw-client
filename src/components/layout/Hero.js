@@ -42,7 +42,7 @@ import {
 import { useSelector } from "react-redux";
 export const Hero = () => {
   return (
-    <div className="mt-5">
+    <div className="">
       <Swiper
         modules={[Pagination, Autoplay]}
         effect={"fade"}

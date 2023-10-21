@@ -33,7 +33,7 @@ export const Header = () => {
       className="header shadow"
     >
       <Container
-        maxWidth="lg"
+        maxWidth="xl"
         sx={{
           display: "flex",
 

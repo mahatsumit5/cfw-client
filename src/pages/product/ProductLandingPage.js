@@ -102,70 +102,82 @@ export const ProductLandingPage = () => {
                     Color
                   </Typography>
                   <Stack direction="row" spacing={1}>
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: "50%",
-                        backgroundColor: "red",
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: "50%",
-                        backgroundColor: "Green",
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: "50%",
-                        backgroundColor: "blue",
-                      }}
-                    />
-                    <Box
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: "50%",
-                        backgroundColor: "black",
-                      }}
-                    />
+                    {product.color.map((color) => (
+                      <Box
+                        sx={{
+                          width: 30,
+                          height: 30,
+                          borderRadius: "50%",
+                          backgroundColor: `${color}`,
+                        }}
+                      />
+                    ))}
                   </Stack>
                 </span>
                 <span>
                   <ReviewAccordian />
                 </span>
                 <Stack direction="row" spacing={1}>
-                  <Typography variant="subtitle1" color={"grey"}>
-                    Qty
-                  </Typography>
-                  <Box
-                    sx={{
-                      minWidth: 80,
-                      display: "flex",
-                      gap: 2,
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <FormControl fullWidth size="small">
-                      <InputLabel id="demo-simple-select-label">Qty</InputLabel>
-                      <Select
-                        size="small"
-                        value={selectedItem.orderQty}
-                        name="qty"
-                        label="Qty"
-                        onChange={handleOnQty}
-                      >
-                        {array.map((qty) => {
-                          return <MenuItem value={qty}>{qty}</MenuItem>;
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Box>
+                  <div>
+                    <Typography variant="subtitle1" color={"grey"}>
+                      Qty
+                    </Typography>
+                    <Box
+                      sx={{
+                        minWidth: 80,
+                        display: "flex",
+                        gap: 2,
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <FormControl fullWidth size="small">
+                        <InputLabel id="demo-simple-select-label">
+                          Qty
+                        </InputLabel>
+                        <Select
+                          size="small"
+                          value={selectedItem.orderQty}
+                          name="qty"
+                          label="Qty"
+                          onChange={handleOnQty}
+                        >
+                          {array.map((qty) => {
+                            return <MenuItem value={qty}>{qty}</MenuItem>;
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                  <div>
+                    <Typography variant="subtitle1" color={"grey"}>
+                      Size
+                    </Typography>
+                    <Box
+                      sx={{
+                        minWidth: 80,
+                        display: "flex",
+                        gap: 2,
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <FormControl fullWidth size="small">
+                        <InputLabel id="demo-simple-select-label">
+                          Size
+                        </InputLabel>
+                        <Select
+                          size="small"
+                          value={selectedItem.orderQty}
+                          name="size"
+                          label="Size"
+                          onChange={handleOnQty}
+                        >
+                          {product.size.map((qty) => {
+                            return <MenuItem value={qty}>{qty}</MenuItem>;
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
                 </Stack>
                 <span className="d-flex gap-2">
                   <Typography variant="h6">${product.price}</Typography>

@@ -18,9 +18,6 @@ export const Home = () => {
   return (
     <UserLayout>
       <Box>
-        <Typography variant="h6" mb={3}>
-          Recently released
-        </Typography>
         <CustomeCarousel />
       </Box>
       <Hero />
