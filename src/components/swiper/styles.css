@@ -8,7 +8,7 @@
 
 .swiper {
   width: 100%;
-  height: 80vh;
+  height: 50vh;
   margin-left: auto;
   margin-right: auto;
 }
@@ -18,11 +18,6 @@
   background-position: center;
 }
 
-/* .mySwiper2 {
-  height: 70%;
-  width: 100%;
-} */
-
 .mySwiper {
   height: 30%;
   box-sizing: border-box;
@@ -30,9 +25,9 @@
 }
 
 .mySwiper .swiper-slide {
-  width: 35%;
+  width: 65%;
   height: 100%;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .mySwiper .swiper-slide-thumb-active {

@@ -17,13 +17,12 @@ import "swiper/css/parallax";
 
 import { Navigation } from "swiper/modules";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 export const CustomeCarousel = () => {
   const { products } = useSelector((state) => state.productInfo);
 
   return (
-    <Swiper modules={[Navigation]} navigation={true}>
+    <Swiper modules={[Navigation]} style={{ height: "80vh" }}>
       <SwiperSlide>
         <img src={image1} />
       </SwiperSlide>

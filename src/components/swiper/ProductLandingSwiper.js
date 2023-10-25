@@ -8,6 +8,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "swiper/css/effect-flip";
+import "swiper/css/effect-creative";
 import "./styles.css";
 
 // import required modules
@@ -40,9 +41,9 @@ export const ProductLandingSwiper = ({ images }) => {
         navigation={true}
         swiper={{ thumbsSwiper }}
         thumbs={{ Swiper: thumbsSwiper }}
-        modules={[FreeMode, Navigation, Thumbs, Zoom, EffectFlip, Keyboard]}
-        effect="flip"
+        modules={[FreeMode, Navigation, Thumbs, Zoom, Keyboard]}
         enabled={true}
+        keyboard={{ enabled: true }}
         className="mySwiper2"
       >
         {images?.map((i) => {

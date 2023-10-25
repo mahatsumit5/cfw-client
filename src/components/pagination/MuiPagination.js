@@ -16,7 +16,7 @@ export default function BasicPagination({ data }) {
   const lastIndex = pageNumber * cardsToShowOnOnePage;
   const firstIndex = lastIndex - cardsToShowOnOnePage;
   React.useEffect(() => {
-    const x = data.slice(firstIndex, lastIndex);
+    const x = data?.slice(firstIndex, lastIndex);
     dispatch(setDisplayData(x));
   }, [pageNumber]);
   const handleChange = (event, value) => {

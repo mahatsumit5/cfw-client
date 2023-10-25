@@ -14,6 +14,8 @@ import { postReviewAction } from "../../../action/productAction";
 
 export const AddReview = ({ slug, product }) => {
   const { user } = useSelector((store) => store.userInfo);
+  const { modalName } = useSelector((store) => store.modalInfo);
+
   const initialState = {
     slug,
     rating: 1,
@@ -45,28 +47,30 @@ export const AddReview = ({ slug, product }) => {
       <Button variant="text" onClick={handleOnReview} fullWidth>
         {user._id ? "Write a review" : "Login to review"}
       </Button>
-      <CustomModal title={"Provide us a feedback"}>
-        <FormControl sx={{ gap: 2 }}>
-          <Rating
-            name="rating"
-            value={reviews.rating}
-            onChange={handleOnChange}
-          />
-          <TextField name="title" label="Title" onChange={handleOnChange} />
-          <TextField
-            name="description"
-            label="Description"
-            onChange={handleOnChange}
-          />
-          <Button
-            variant="contained"
-            onClick={handleOnSubmit}
-            disabled={reviews.title === "" || reviews.description === ""}
-          >
-            Submit
-          </Button>
-        </FormControl>
-      </CustomModal>
+      {modalName === "review" && (
+        <CustomModal title={"Provide us a feedback"}>
+          <FormControl sx={{ gap: 2 }}>
+            <Rating
+              name="rating"
+              value={reviews.rating}
+              onChange={handleOnChange}
+            />
+            <TextField name="title" label="Title" onChange={handleOnChange} />
+            <TextField
+              name="description"
+              label="Description"
+              onChange={handleOnChange}
+            />
+            <Button
+              variant="contained"
+              onClick={handleOnSubmit}
+              disabled={reviews.title === "" || reviews.description === ""}
+            >
+              Submit
+            </Button>
+          </FormControl>
+        </CustomModal>
+      )}
     </>
   );
 };
