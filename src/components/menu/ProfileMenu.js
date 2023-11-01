@@ -89,12 +89,12 @@ export const ProfileMenu = ({ anchorEl, setAnchorEl }) => {
         </MenuItem>
       </Link>
 
-      <MenuItem onClick={handleClose}>
+      {/* <MenuItem onClick={handleClose}>
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>
         Settings
-      </MenuItem>
+      </MenuItem> */}
 
       <MenuItem
         onClick={() => {

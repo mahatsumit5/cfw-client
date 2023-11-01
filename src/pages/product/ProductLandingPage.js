@@ -188,9 +188,9 @@ export const ProductLandingPage = () => {
                     <AddToFav item={product} />
                   </div>
                 </span>
-                <ReviewAccordian />
               </Box>
             </Box>
+            <ReviewAccordian />
 
             <YouMayLike />
           </Box>

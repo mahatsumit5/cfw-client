@@ -20,7 +20,6 @@ export const OrderConfirmationPage = () => {
   useEffect(() => {
     async function getData() {
       const { result } = await getOrder(_id);
-      console.log(result);
       setOrder(result);
     }
     getData();
@@ -28,14 +27,22 @@ export const OrderConfirmationPage = () => {
   return (
     <UserLayout>
       <Container
+        maxWidth="sm"
         sx={{
           display: "flex",
-          flexDirection: { xs: "column-reverse", sm: "row" },
+          flexDirection: { xs: "column-reverse", sm: "column" },
           justifyContent: "center",
-          gap: 1,
+          alignItems: "flex-start",
+          gap: 2,
           flexWrap: wrap,
         }}
       >
+        <Box sx={{ display: "grid", gap: 2 }} width={"40%"}>
+          <Typography variant="h5">Order Summary</Typography>
+          <Typography variant="h5">
+            Your order number is: {order._id}
+          </Typography>
+        </Box>
         <Box sx={{ display: "grid", gap: 2 }} width={"60%"}>
           <Typography variant="h5">Thank you for your purchase!</Typography>
           <Typography variant="body2">
@@ -65,12 +72,6 @@ export const OrderConfirmationPage = () => {
           <Button fullWidth variant="contained">
             Track{" "}
           </Button>
-        </Box>
-        <Box sx={{ display: "grid", gap: 2 }} width={"40%"}>
-          <Typography variant="h5">Order Summary</Typography>
-          <Typography variant="h5">
-            Your order number is: {order._id}
-          </Typography>
         </Box>
       </Container>
     </UserLayout>

@@ -28,9 +28,10 @@ const CheckoutForm = ({ clientSecret }) => {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
+
   const [error, setError] = useState("");
   const [paymentIntent, setPaymentIntent] = useState({});
-  const [client_secret, setClientSecret] = useState(
+  const [client_secret] = useState(
     new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
     )
