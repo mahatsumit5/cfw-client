@@ -22,7 +22,7 @@ import { LandingPageImage } from "../../components/products/LandingPageImage";
 import { useDispatch, useSelector } from "react-redux";
 import { getSingleProduct } from "../../action/productAction";
 import { StarRating } from "../../components/products/StarRating";
-import { Spinner } from "react-bootstrap";
+
 import { ReviewAccordian } from "../../components/products/ReviewAccordian";
 
 export const ProductLandingPage = () => {
@@ -32,23 +32,24 @@ export const ProductLandingPage = () => {
   const [selectedItem, setSelectedItem] = useState({
     ...product,
     orderQty: 1,
-    size: "sm",
+    orderSize: "sm",
   });
   // handle item to cart quantity
   const handleOnQty = (e) => {
     const { value } = e.target;
     setSelectedItem({ ...product, orderQty: value });
   };
-  // handle selected size
-  // const handleOnSize = (e) => {
-  //   const { value } = e.target;
-  //   setSelectedItem({ ...selectedItem, size: value });
-  // };
+  //handle selected size
+  const handleOnSize = (e) => {
+    const { value } = e.target;
+    setSelectedItem({ ...selectedItem, orderSize: value });
+  };
   useEffect(() => {
     dispatch(getSingleProduct({ slug: productSlug }));
   }, [productSlug]);
+
   useEffect(() => {
-    setSelectedItem({ ...product, orderQty: 1 });
+    setSelectedItem({ ...product, orderQty: 1, orderSize: "sm" });
   }, [product]);
   let array = [];
 
@@ -171,9 +172,9 @@ export const ProductLandingPage = () => {
                       <InputLabel>Size</InputLabel>
                       <Select
                         size="small"
-                        value={selectedItem.size}
+                        value={selectedItem.orderSize}
                         name="size"
-                        // onChange={handleOnSize}
+                        onChange={handleOnSize}
                       >
                         {product.size.map((size) => {
                           return <MenuItem value={size}>{size}</MenuItem>;

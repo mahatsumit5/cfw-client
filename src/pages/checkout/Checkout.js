@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Backdrop,
   Box,
@@ -18,9 +18,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { postOrderAction } from "../../action/orderAction";
 import { useNavigate } from "react-router-dom";
 import { StripeCheckout } from "./StripeCheckout";
-import { setModal } from "../../redux/modalSlice";
 import { postPaymentIntent } from "../../axios/stripeAxios";
-import { Stripe } from "@stripe/stripe-js";
 export const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -150,6 +148,7 @@ export const Checkout = () => {
                   ${item.price}
                 </Typography>
                 <Typography variant="h6"> Qty:{item.orderQty}</Typography>
+                <Typography variant="h6"> Size:{item.orderSize}</Typography>
               </Box>
             </Paper>
           ))}

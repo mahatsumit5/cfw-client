@@ -2,11 +2,12 @@ import React from "react";
 import { Box, Button, Drawer, Paper, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartTable } from "../cart/CartTable";
 
 import { OrderSummary } from "./OrderSummary";
 export const CartDrawer = ({ toggleDrawer, totalItems, isOpen }) => {
+  const navigate = useNavigate();
   return (
     <Drawer
       anchor="right"
@@ -45,7 +46,14 @@ export const CartDrawer = ({ toggleDrawer, totalItems, isOpen }) => {
         ) : (
           <>
             <Typography variant="h6">Your cart is empty.</Typography>
-            <Button variant="contained" color="info">
+            <Button
+              variant="contained"
+              color="info"
+              onClick={() => {
+                navigate("/");
+                toggleDrawer(false);
+              }}
+            >
               Continue Shopping
             </Button>
           </>
