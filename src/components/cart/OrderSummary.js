@@ -14,7 +14,6 @@ import LoginIcon from "@mui/icons-material/Login";
 import { useSelector } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 export const OrderSummary = () => {
-  const location = useLocation();
   const { cart } = useSelector((store) => store.cart);
   const [shippingCost, setShippingCost] = useState(9.99);
   const [discount, setDiscount] = useState(19.99);
@@ -71,7 +70,7 @@ export const OrderSummary = () => {
           Estimated Total
         </Typography>
         <Typography variant="body2" sx={{ fontSize: 16, fontWeight: "medium" }}>
-          ${totalAmount}
+          ${Math.round(totalAmount)}
         </Typography>
       </span>
       {user?._id ? (
